@@ -1,0 +1,9 @@
+{
+
+  "system": {
+          "db_address": "127.0.0.1",
+          "db_dbname": "malware_collector"
+  }
+
+
+}
