@@ -1,7 +1,7 @@
 var scraper = require('scraper');
 var geoip = require('geoip-lite');  
 var _savethreats = require('../commons/save_threats');
-
+var _linkToReport = "http://urlquery.net/";
 
 //TODO Adding report links
 //URLQUERY
@@ -13,8 +13,8 @@ exports.goScraper = function(){
       jQuery('.test tr').each(function() {
         var content = jQuery(this);
 
-        //var linkToReport = jQuery(this).find("a").attr("href").text();
-        //console.log("[+] Link To Report found: " + linkToReport);
+        var linkToReport = _linkToReport +  jQuery(this).find('a[href*="report"]').attr("href");
+        console.log("[+] Link To Report found: " + linkToReport);
 
         var timestamp  = content.find("td").eq(0).text();
         console.log("[+] <urlquery.net> Time Stamp found: " + timestamp);
