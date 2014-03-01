@@ -16,7 +16,7 @@ exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositsco
     }
   }
   var tm = new malwareMODEL({
-    _id: new _malware.mongoose.Types.ObjectId,
+    //_id: new _malware.mongoose.Types.ObjectId,
       timestamp: ptimestamp,
       ip: pip,
       linkToReport: plinkToReport,
