@@ -8,11 +8,11 @@ var _local_cache = {};
 //TODO Adding report links
 //URLQUERY
 exports.goScraper = function(){
-  scraper('https://malwr.com/analysis/', function(err, jQuery) {
+  return scraper('https://malwr.com/analysis/', function(err, jQuery) {
       if (err) {console.log("[-] Error happening in malwr: " + err);}
       console.log("[+] Querying malwr");
 
-      jQuery('tr').each(function() {
+      return jQuery('tr').each(function() {
         var content = jQuery(this);
         if (undefined != content && null != content){
 
@@ -47,7 +47,7 @@ exports.goScraper = function(){
           if (undefined != linkToReport && null != linkToReport){
             //scraping the report to extract locations
             scraper(linkToReport, function(err, jQ){
-              if (err) {console.log("[-] Error happening in malwr: " + err);}
+              //if (err) {console.log("[-] Error happening in malwr: " + err);}
               var hosts = new Array();
               var country = new Array();
               var city = new Array();

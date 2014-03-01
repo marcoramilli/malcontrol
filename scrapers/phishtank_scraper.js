@@ -7,10 +7,10 @@ var basic_url_report = "http://www.phishtank.com/phish_detail.php?phish_id=";
 //TODO Adding report links
 exports.goScraper = function(){
   console.log("[+] Scraping PhishTank !"); 
-  scraper('http://www.phishtank.com/phish_archive.php', function(err, jQuery) {
+  return scraper('http://www.phishtank.com/phish_archive.php', function(err, jQuery) {
       if (err) {console.log("[-] Error happening in phishtank: " + err);}
 
-      jQuery('.data tr').each(function() {
+      return jQuery('.data tr').each(function() {
         var content = jQuery(this);
         var linkToReport = basic_url_report + content.find("td").eq(0).text();
         console.log("[+] Link To Report found: " + linkToReport);
@@ -35,7 +35,7 @@ exports.goScraper = function(){
               var city = geo['city'];
               var ll = geo['ll'];
               var desc = geo['desc'];
-              _savethreats.saveThreatToDB(linkToReport,url, timestamp, ip, compositscore, "phishtank", country, city, region, ll, desc);
+              return _savethreats.saveThreatToDB(linkToReport,url, timestamp, ip, compositscore, "phishtank", country, city, region, ll, desc);
             }
           }
         });//dnsresolve

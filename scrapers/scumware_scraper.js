@@ -7,12 +7,12 @@ var _base_report_url = "http://www.scumware.org/report/";
 //TODO Adding report links
 //URLQUERY
 exports.goScraper = function(){
-  scraper('http://www.scumware.org', function(err, jQuery) {
+  return scraper('http://www.scumware.org', function(err, jQuery) {
       if (err) {console.log("[-] Error happening in scumware: " + err);}
       console.log("[+] Querying scumware");
 
       console.log(jQuery);
-      jQuery('tr').each(function() {
+      return jQuery('tr').each(function() {
         var content = jQuery(this);
         console.log(content);
 

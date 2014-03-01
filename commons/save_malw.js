@@ -32,7 +32,7 @@ exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositsco
       name: pname,
       modified: new Date()
   });//tm
-  malwareMODEL.findOneAndUpdate({md5: pmd5},tm.toObject(),{upsert: true},function(err){
+  return malwareMODEL.findOneAndUpdate({linkToReport: plinkToReport},tm.toObject(),{upsert: true},function(err){
     if(err) console.log("[-] Error in saving on DB: " + err);
   });
 }//savemalwaretodb

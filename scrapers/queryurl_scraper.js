@@ -6,11 +6,11 @@ var _linkToReport = "http://urlquery.net/";
 //TODO Adding report links
 //URLQUERY
 exports.goScraper = function(){
-  scraper('http://urlquery.net/', function(err, jQuery) {
+  return scraper('http://urlquery.net/', function(err, jQuery) {
       if (err) {console.log("[-] Error happening in scumware: " + err);}
       console.log("[+] Querying urlquery");
 
-      jQuery('.test tr').each(function() {
+      return jQuery('.test tr').each(function() {
         var content = jQuery(this);
 
         var linkToReport = _linkToReport +  jQuery(this).find('a[href*="report"]').attr("href");
@@ -37,7 +37,7 @@ exports.goScraper = function(){
           var desc = geo['desc'];
         }
         if (undefined != url && null != url){
-          _savethreats.saveThreatToDB(undefined, url, timestamp, ip, compositscore, "urlquery", country, city, region, ll, desc);
+          return _savethreats.saveThreatToDB(undefined, url, timestamp, ip, compositscore, "urlquery", country, city, region, ll, desc);
         }
       });//foreach element in the table of the scraped source
 });//scraper
