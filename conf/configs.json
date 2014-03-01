@@ -3,6 +3,13 @@
   "system": {
           "db_address": "127.0.0.1",
           "db_dbname": "malware_collector"
+  },
+  "scrapers":{
+          "phishtank_timer" : 30000,
+          "urlquery_timer": 15000,
+          "webinspector_timer" : 45000,
+          "virusscanner_timer": 20000,
+          "malwr_timer" : 60000          
   }
 
 
