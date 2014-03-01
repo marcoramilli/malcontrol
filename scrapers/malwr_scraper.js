@@ -3,6 +3,7 @@ var geoip = require('geoip-lite');
 var _savemalware = require('../commons/save_malw');
 var _baseLink = "https://malwr.com";
 
+var _local_cache = {};
 
 //TODO Adding report links
 //URLQUERY
@@ -16,10 +17,16 @@ exports.goScraper = function(){
         if (undefined != content && null != content){
 
           var linkToReport = undefined;
-          var link = jQuery(this).find('a[href*="analysis"]').attr('href');
+          var link = content.find('a[href*="analysis"]').attr('href');
           if(undefined != link && null != link){
             linkToReport = _baseLink + link; 
             console.log("[+] Link To Report found: " + linkToReport);
+            if (_local_cache[link] ){
+              console.log("[-] Already Analyed !");
+              return;
+            } else {
+              _local_cache[link] = true;
+            }
           }
 
           var timestamp  = content.find("td").eq(0).text();
@@ -38,6 +45,7 @@ exports.goScraper = function(){
           console.log("[+] <malwr.net> Desc found: " + dsc);
 
           if (undefined != linkToReport && null != linkToReport){
+            //scraping the report to extract locations
             scraper(linkToReport, function(err, jQ){
               if (err) {console.log("[-] Error happening in malwr: " + err);}
               var hosts = new Array();
@@ -45,35 +53,31 @@ exports.goScraper = function(){
               var city = new Array();
               var region = new Array();
               var ll = new Array();
-
               try{
-                var counter = 0;
-                var jq = jQ('#hosts tr');
-                jq.each(function(){
-                  console.log("[+] Doing the hard job....");
-                  counter++;
+                jQ('#hosts tr').each(function(){
                   var c = jQ(this);
-                  if (undefined != c && null != c)
-                  var ip = c.find('td').eq(0).text();
-                if (null != ip && undefined != ip){
-                  host.push(ip);
-                  var geo = geoip.lookup(ip);
-                  if (undefined != geo && null != geo){
-                    country.push(geo['country']);
-                    region.push(geo['region']);
-                    city.push(geo['city']);
-                    ll.push(geo['ll']);
-                  }
-                }
-                if (counter >= jq.length){
-                  console.log(linkToReport + " " +  timestamp + " " + md5 + " " + name + " " + hosts + " " + city);
-                  _savemalware.saveMalwareToDB(linkToReport, timestamp, ip.toString(), compositscore, "malwr.com", country.toString(), city.toString(), region.toString(), ll.toString(), dsc, md5);
-                }
-
+                  console.log("[+] ("+ c.length + ") Doing the hard job...." + linkToReport );
+                  if (undefined != c && null != c){
+                    var ip = c.find('td').eq(0).text().trim();
+                    if (ip != "IP" && ip != "" && null != ip && undefined != ip){
+                      console.log("[+]ip: "+ ip);
+                      host.push(ip);
+                      var geo = geoip.lookup(ip);
+                      console.log("[+] Geolocalized: " + ip );
+                      if (undefined != geo && null != geo){
+                        country.push(geo['country']);
+                        region.push(geo['region']);
+                        city.push(geo['city']);
+                        ll.push(geo['ll']);
+                      }//if geo exists
+                    }//if ip exists
+                  }//if context exists
+                  console.log("!!!!!!!!!!!"+linkToReport + " " +  timestamp + " " + md5 + " " + name + " " + hosts + " " + city);
+                  //return _savemalware.saveMalwareToDB(linkToReport, timestamp, ip.toString(), compositscore, "malwr.com", country.toString(), city.toString(), region.toString(), ll.toString(), dsc, md5, name);
                 });//eachhosts
               } catch(e) {
                 console.log("[-] No Hosts Found, saving what we have found");
-                _savemalware.saveMalwareToDB(linkToReport, timestamp, null, compositscore, "malwr.com", null, null, null, null, dsc, md5); 
+                //return _savemalware.saveMalwareToDB(linkToReport, timestamp, null, compositscore, "malwr.com", null, null, null, null, dsc, md5, name); 
               }
             });//scraping a little of reports
           }

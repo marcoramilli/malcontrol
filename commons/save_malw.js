@@ -3,7 +3,7 @@ var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 
 
 
-exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositscore, pscraped_source, pcountry, pcity, pregion, pll, pdesc, pmd5){
+exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositscore, pscraped_source, pcountry, pcity, pregion, pll, pdesc, pmd5, pname){
   malwareMODEL.find({linkToReport: plinkToReport}, function(err, t){
     if(t.length == 0 || err){
       //no malware into DB 
@@ -31,6 +31,7 @@ exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositsco
           ll: pll,
           desc: pdesc,
           md5: pmd5,
+          name: pname,
           modified: new Date()
       });//tm
       tm.save(function(err){
