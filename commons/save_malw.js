@@ -26,7 +26,7 @@ exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositsco
   }
   var tm = new malwareMODEL({
     //_id: new _malware.mongoose.Types.ObjectId,
-      timestamp: ptimestamp,
+    timestamp: ptimestamp,
       ip: pip,
       linkToReport: plinkToReport,
       alerts: alerts, 
@@ -48,19 +48,20 @@ exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositsco
 }//savemalwaretodb
 
 exports.geoLocMalwr = function(){
- return malwareMODEL.find({geoLoc: false, scraped_source: "malwr.com"},function(err, malwrs){
-  if(err){return console.log("[-] Error in saving geolocalization on Malware");}
+  return malwareMODEL.find({geoLoc: false, scraped_source: "malwr.com"},function(err, malwrs){
+    if(err){return console.log("[-] Error in saving geolocalization on Malware");}
     if (malwrs.length > 0){
       malwrs.forEach(function(malw){
-       var linkToReport = malw.linkToReport;  
-       var timestamp = malw.timestamp;
-       var ip = malw.ip;
-       var alerts = malw.alerts;
-       var ids = malw.ids;
-       var scraped_source = malw.scraped_source;
-       var md5 = malw.md5;
-       var dsc = malw.dsc;
-       var name = malw.name;
+        var linkToReport = malw.linkToReport;  
+        var timestamp = malw.timestamp;
+        var ip = malw.ip;
+        var alerts = malw.alerts;
+        var ids = malw.ids;
+        var scraped_source = malw.scraped_source;
+        var md5 = malw.md5;
+        var dsc = malw.dsc;
+        var name = malw.name;
+        console.log("[+] Trying to geolocalize: " + name);
         if (undefined != linkToReport && null != linkToReport){
           //scraping the report to extract locations
           scraper(linkToReport, function(err, jQ){
@@ -93,11 +94,11 @@ exports.geoLocMalwr = function(){
               });//eachhosts
             } catch(e) {
               //TODO: the geolocalization process follows on time. fix the geoLoc flag to stop it
-             return  console.log("[-] No Hosts Found, saving what we have found");
+              return  console.log("[-] No Hosts Found, saving what we have found");
             }
           });//scraping a little of reports
         }
       });//forEachMalware
     }//malwrs.length
- });//malwareFind 
+  });//malwareFind 
 }//geolocmalwr
