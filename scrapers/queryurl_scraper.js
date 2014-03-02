@@ -40,6 +40,6 @@ exports.goScraper = function(){
             return _savethreats.saveThreatToDB(undefined, url, timestamp, ip, compositscore, "urlquery", country, city, region, ll, desc);
           }
         });//foreach element in the table of the scraped source
-      });//scraper
-}catch(e){return console.log("[-] Errors in urlquery");}
+      }catch(e){return console.log("[-] Errors in urlquery");}
+});//scraper
 }//goScraper

@@ -41,12 +41,12 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
       setInterval(function(){_commonGeoMalw.geoLocMalwr()}, _config.system.background_geoloc_service);
       } 
       else {
-        //setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
+        setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
         setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
-        //setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
-        //setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
+        setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
+        setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
         ////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
-        //setInterval(function(){_malwr_scraper.goScraper()}, _config.scrapers.malwr_timer);
+        setInterval(function(){_malwr_scraper.goScraper()}, _config.scrapers.malwr_timer);
 
         process.on('uncaughtException', function globalErrorCatch(error, p){
           console.error(error);
