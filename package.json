@@ -1,0 +1,37 @@
+{
+  "name": "malwareControlCenter",
+  "version": "0.0.1",
+  "description": "Malware Contron Monitor, scrapes and visualize statistics on open data malware",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "path": "~0.4.9",
+    "mongoose": "~3.8.8",
+    "geoip-lite": "~1.1.3",
+    "scraper": "~0.0.9",
+    "wait.for": "~0.6.3",
+    "fibers": "~1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marcoramilli/malcontrol.git"
+  },
+  "keywords": [
+    "malware",
+    "scraper",
+    "visualization",
+    "open",
+    "data"
+  ],
+  "author": "Marco Ramilli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcoramilli/malcontrol/issues"
+  },
+  "homepage": "https://github.com/marcoramilli/malcontrol"
+}
