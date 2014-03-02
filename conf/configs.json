@@ -2,7 +2,8 @@
 
   "system": {
           "db_address": "127.0.0.1",
-          "db_dbname": "malware_collector"
+          "db_dbname": "malware_collector",
+          "background_geoloc_service" : 30000
   },
   "scrapers":{
           "phishtank_timer" : 30000,

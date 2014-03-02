@@ -8,7 +8,7 @@ var basic_url_report = "http://app.webinspector.com/public/reports/show_website?
 exports.goScraper = function(){
   console.log("[+] Scraping WebInspector!"); 
   return scraper('http://app.webinspector.com/recent_detections', function(err, jQuery) {
-      if (err) {console.log("[-] Error happening in phishtank: " + err);}
+      if (err) {console.log("[-] Error happening in webinspector: " + err);}
 
       return jQuery('.sites-list tr').each(function() {
         var content = jQuery(this);
@@ -36,7 +36,7 @@ exports.goScraper = function(){
               var city = geo['city'];
               var ll = geo['ll'];
               var desc = geo['desc'];
-              return _savethreats.saveThreatToDB(linkToReport,url, timestamp, ip, compositscore, "phishtank", country, city, region, ll, desc);
+              return _savethreats.saveThreatToDB(linkToReport,url, timestamp, ip, compositscore, "webinspector", country, city, region, ll, desc);
             }
           }
         });//dnsresolve

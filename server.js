@@ -38,22 +38,21 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         });
 
       //lets separate geo localization for performance purposes
-      _commonGeoMalw.geoLocMalwr();
+      setInterval(function(){_commonGeoMalw.geoLocMalwr()}, _config.system.background_geoloc_service);
       } 
       else {
         //setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
-        //setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
+        setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
         //setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
         //setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
-        //////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
+        ////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
         //setInterval(function(){_malwr_scraper.goScraper()}, _config.scrapers.malwr_timer);
-
-        _malwr_scraper.goScraper();
 
         process.on('uncaughtException', function globalErrorCatch(error, p){
           console.error(error);
           console.error(error.stack);
         });
+
         //You though I was an hero ? Nope, I do use Express too.
         var express = require('express');
         ////TODO: needs authentication to be in production

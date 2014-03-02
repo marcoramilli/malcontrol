@@ -51,7 +51,13 @@ exports.geoLocMalwr = function(){
   return malwareMODEL.find({geoLoc: false, scraped_source: "malwr.com"},function(err, malwrs){
     if(err){return console.log("[-] Error in saving geolocalization on Malware");}
     if (malwrs.length > 0){
+      var maxconnection = 30;
       malwrs.forEach(function(malw){
+        maxconnection --;
+        if (maxconnection <=0){
+          console.log("[+] Max Connection Reached");
+          return 0;
+        }
         var linkToReport = malw.linkToReport;  
         var timestamp = malw.timestamp;
         var ip = malw.ip;
