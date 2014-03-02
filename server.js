@@ -11,18 +11,13 @@ var _webinspector_scraper = require('./scrapers/webinspector_scraper');
 var _scumware_scraper = require('./scrapers/scumware_scraper');
 var _malwr_scraper = require('./scrapers/malwr_scraper');
 var _virusscan_scraper = require('./scrapers/virusscan_scraper');
+var _commonGeoMalw = require('./commons/save_malw');
 
 mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_dbname, function(err){                          
   if(err){
     Console.log("[-] DB Connection FAILED !" + err);
     process.exit(0);
   }
-  setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
-  setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
-  setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
-  setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
-  ////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
-  setInterval(function(){_malwr_scraper.goScraper()}, _config.scrapers.malwr_timer);
 });
 
   if (cluster.isMaster){
@@ -41,8 +36,20 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
       console.log('Worker ' + worker.id + ' died :(');
         cluster.fork();
         });
+
+      //lets separate geo localization for performance purposes
+      _commonGeoMalw.geoLocMalwr();
       } 
       else {
+        //setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
+        //setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
+        //setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
+        //setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
+        //////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
+        //setInterval(function(){_malwr_scraper.goScraper()}, _config.scrapers.malwr_timer);
+
+        _malwr_scraper.goScraper();
+
         process.on('uncaughtException', function globalErrorCatch(error, p){
           console.error(error);
           console.error(error.stack);
