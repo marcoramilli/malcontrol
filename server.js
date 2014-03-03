@@ -12,14 +12,16 @@
 //      Everything you read is under developmento monde.
 
 
-
+//General Imports
 var mongoose = require('mongoose');
 var _config = require('./conf/configs');
 var cluster = require('cluster');
 var application_root = __dirname;
 var http = require('http');
 var path = require('path');
+//-----------------------------------------------------------------
 
+//Parser Imports
 var _urlquery_scraper = require('./scrapers/queryurl_scraper');
 var _phishtank_scraper = require('./scrapers/phishtank_scraper');
 var _webinspector_scraper = require('./scrapers/webinspector_scraper');
@@ -27,13 +29,16 @@ var _scumware_scraper = require('./scrapers/scumware_scraper');
 var _malwr_scraper = require('./scrapers/malwr_scraper');
 var _virusscan_scraper = require('./scrapers/virusscan_scraper');
 var _commonGeoMalw = require('./commons/save_malw');
+//-----------------------------------------------------------------
 
+//DB Connections
 mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_dbname, function(err){                          
   if(err){
     Console.log("[-] DB Connection FAILED !" + err);
     process.exit(0);
   }
 });
+//-----------------------------------------------------------------
 
   if (cluster.isMaster){
 
@@ -70,11 +75,11 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
           console.error(error.stack);
         });
 
-        //You though I was an hero ? Nope, I do use Express too.
         var express = require('express');
-        ////TODO: needs authentication to be in production
+        var basicRoutes = require('./routes/basic');
         var app = express();
 
+        //-----------------------------------------------------------------
         app.configure(function () {
           app.use(express.logger( 'dev')); /* 'default', 'short', 'tiny', 'dev' */
           app.use(express.bodyParser());
@@ -88,7 +93,7 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
             res.status(400);
             res.send("404. Page Not Found");
           });
-          //************************************
+          //-----------------------------------------------------------------
         });
 
         //Here the interesting part: the ROUTES !
@@ -99,8 +104,9 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         //app.get('/api/file/:username/:password/:fromdate', getdata.respondAjaxGetFilesInfo);// fromdate: 2014-01-01 01:40:02 
         // **
         // **
+
         //Server Creation 
         http.createServer(app).listen(80); //DEPRECATED 
         console.log('[+] HTTP: Listening on port 80...'); 
-        // **
-      }
+        //-----------------------------------------------------------------
+      }//Slave

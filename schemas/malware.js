@@ -1,8 +1,3 @@
-
-/**
-* @api_controller Schema Traffic 
-* @summary It represents the traffic
-*/
 exports.mongoose = require('mongoose');
 exports.Schema = this.mongoose.Schema;  
 

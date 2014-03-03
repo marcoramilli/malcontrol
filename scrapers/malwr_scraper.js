@@ -6,7 +6,6 @@ var _base_searching_url = "https://malwr.com/analysis/?page=";
 
 var _local_cache = {};
 
-//TODO Adding report links
 //URLQUERY
 exports.goScraper = function(){
 
