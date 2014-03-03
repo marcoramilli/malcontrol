@@ -1,3 +1,18 @@
+/*   __  __       _                           ____            _             _   __  __             _ _             
+*   |  \/  | __ _| |_      ____ _ _ __ ___   / ___|___  _ __ | |_ _ __ ___ | | |  \/  | ___  _ __ (_) |_ ___  _ __ 
+*   | |\/| |/ _` | \ \ /\ / / _` | '__/ _ \ | |   / _ \| '_ \| __| '__/ _ \| | | |\/| |/ _ \| '_ \| | __/ _ \| '__|
+*   | |  | | (_| | |\ V  V / (_| | | |  __/ | |__| (_) | | | | |_| | | (_) | | | |  | | (_) | | | | | || (_) | |   
+*   |_|  |_|\__,_|_| \_/\_/ \__,_|_|  \___|  \____\___/|_| |_|\__|_|  \___/|_| |_|  |_|\___/|_| |_|_|\__\___/|_|   
+*/
+
+//Author: Marco Ramilli
+//website: marcoramilli.com
+//Version: pre alpha
+//Note: Don't even think to use this code in production environment
+//      Everything you read is under developmento monde.
+
+
+
 var mongoose = require('mongoose');
 var _config = require('./conf/configs');
 var cluster = require('cluster');
@@ -38,13 +53,15 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         });
 
       //lets separate geo localization for performance purposes
-      setInterval(function(){_commonGeoMalw.geoLocMalwr()}, _config.system.background_geoloc_service);
+      //TODO: release the background_geoloc_service as soon as possible!
+      //setInterval(function(){_commonGeoMalw.geoLocMalwr()}, _config.system.background_geoloc_service);
       } 
       else {
         setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
         setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
         setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
         setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
+        //TOFIX: fix the following scraper !
         ////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
         setInterval(function(){_malwr_scraper.goScraper()}, _config.scrapers.malwr_timer);
 
@@ -77,11 +94,8 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         //Here the interesting part: the ROUTES !
         // **
         // **
+        // TODO: Routest and public API
         //app.post('/api/putip/', getdata.putipPOST); DEPRECATED !
-        //app.get('/api/whatosay/:username/:password', getdata.responAjaxToSay);
-        //app.get('/api/newdata/:username/:password/:fromdate/:maxnumber', getdata.respondAjaxDetails); //fromdate  2014-01-01 01:40:02  
-        //app.get('/api/topcountries/:username/:password', getdata.respondAjaxTopCountries); 
-        //app.get('/api/traffic/:username/:password/:fromdate', getdata.respondAjaxTraffic);// fromdate: 2014-01-01 01:40:02 
         //app.get('/api/file/:username/:password/:fromdate', getdata.respondAjaxGetFilesInfo);// fromdate: 2014-01-01 01:40:02 
         // **
         // **
