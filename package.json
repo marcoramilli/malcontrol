@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "make test",
+    "test": "mocha",
     "start": "node server.js"
   },
   "repository": {
