@@ -1,12 +1,11 @@
+var moment = require('moment');
 var _threat = require('../schemas/threat');
 var threatMODEL = _threat.mongoose.model('threat', _threat.Threat); 
 var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 
 
-//TODO: total threats, total malwares
 //TODO: give threats geolocalized from date
 //TODO: give malware geolocalized from data
-//
 
 /**
  * @api {get} /api/topcountriesphishers Request to obtain the top countries phishers list 
