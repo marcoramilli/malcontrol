@@ -34,7 +34,7 @@ var _commonGeoMalw = require('./commons/save_malw');
 //DB Connections
 mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_dbname, function(err){                          
   if(err){
-    Console.log("[-] DB Connection FAILED !" + err);
+    console.log("[-] DB Connection FAILED !" + err);
     process.exit(0);
   }
 });

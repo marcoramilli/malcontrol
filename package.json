@@ -10,7 +10,9 @@
     "geoip-lite": "~1.1.3",
     "scraper": "~0.0.9",
     "wait.for": "~0.6.3",
-    "fibers": "~1.0.1"
+    "fibers": "~1.0.1",
+    "moment": "^2.5.1",
+    "supertest": "^0.9.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -26,7 +28,6 @@
     "scraper",
     "visualization",
     "open",
-    "moment",
     "data"
   ],
   "author": "Marco Ramilli",
