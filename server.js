@@ -100,7 +100,11 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         // **
         // **
         // TODO: Routest and public API
-        //app.post('/api/putip/', getdata.putipPOST); DEPRECATED !
+        app.get('/api/topcountriesphishers', basicRoutes.GETtopCountriesPhishers);
+        app.get('/api/topcountriesmalware', basicRoutes.GETtopCountriesMalwares);
+        app.get('/api/topcountriesthreats', basicRoutes.GETtopCountriesThreats);
+        app.get('/api/totalmalware', basicRoutes.GETtotalMalware);
+        app.get('/api/totalthreats', basicRoutes.GETtotalThreats);
         //app.get('/api/file/:username/:password/:fromdate', getdata.respondAjaxGetFilesInfo);// fromdate: 2014-01-01 01:40:02 
         // **
         // **

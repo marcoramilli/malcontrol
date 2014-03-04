@@ -3,6 +3,11 @@ var threatMODEL = _threat.mongoose.model('threat', _threat.Threat);
 var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 
 
+//TODO: total threats, total malwares
+//TODO: give threats geolocalized from date
+//TODO: give malware geolocalized from data
+//
+
 /**
  * @api {get} /api/topcountriesphishers Request to obtain the top countries phishers list 
  * @apiName TopCountries 
@@ -178,3 +183,69 @@ exports.GETtopCountriesMalwares = function(req, res){
     });//for malware model
   });//malwareMODEL getting everything
 };//GETTOPCOUNTRIESMALWARES
+
+/**
+ * @api {get} /api/totalthreats Request to obtain total number threats 
+ * @apiName TotalThreats 
+ * @apiVersion 0.2.0
+ * @apiGroup basicstats
+ *
+ * @apiSuccess {String} Totals 
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "totals": "3000"
+ *     }
+ *
+ * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status" : "error",
+ *       "message": "Internal Error"
+ *     }
+ */
+exports.GETtotalThreats = function(req, res){
+  return threatMODEL.count({}, function(err,number){
+    if (err){ 
+      console.log("Error in TotalThreats: " + err); 
+      return res.send('{ "status" : "error", "message":"Internal Error" }');
+    }
+    return res.send('{"totals" :"' + number.toString() + '"}');
+  });//count
+};//totalThreats
+
+/**
+ * @api {get} /api/totalmalware Request to obtain total number of malwar
+ * @apiName TotalMalware 
+ * @apiVersion 0.2.0
+ * @apiGroup basicstats
+ *
+ * @apiSuccess {String} Totals 
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "totals": "3000"
+ *     }
+ *
+ * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status" : "error",
+ *       "message": "Internal Error"
+ *     }
+ */
+exports.GETtotalMalware = function(req, res){
+  return malwareMODEL.count({}, function(err,number){
+    if (err){ 
+      console.log("Error in TotalThreats: " + err); 
+      return res.send('{ "status" : "error", "message":"Internal Error" }');
+    }
+    return res.send('{"totals" :"' + number.toString() + '"}');
+  });//count
+};//totalThreats
