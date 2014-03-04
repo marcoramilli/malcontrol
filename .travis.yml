@@ -1,6 +1,7 @@
 language: node_js
 services:
   - mongodb
+  - node server.js
 branches:
   only:
     - master
