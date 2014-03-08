@@ -5,7 +5,7 @@ services:
 
 before_script:
   - mongorestore ./mockdata/dump
-  - node server.js
+  - /usr/bin/node server.js
 
 branches:
   only:
