@@ -40,7 +40,7 @@ exports.saveMalwareToDB  = function(plinkToReport, ptimestamp, pip, pcompositsco
       md5: pmd5,
       name: pname,
       geoLoc: null == pcountry ? false : true,
-      modified: new Date()
+      modified: new Date() 
   });//tm
   return malwareMODEL.findOneAndUpdate({linkToReport: plinkToReport},tm.toObject(),{upsert: true},function(err){
     if(err) console.log("[-] Error in saving on DB: " + err);

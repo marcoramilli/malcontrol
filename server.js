@@ -105,6 +105,10 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         app.get('/api/topcountriesthreats', basicRoutes.GETtopCountriesThreats);
         app.get('/api/totalmalware', basicRoutes.GETtotalMalware);
         app.get('/api/totalthreats', basicRoutes.GETtotalThreats);
+        app.get('/api/numberofmalware/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETNumberMalwareBetweenDates);
+        app.get('/api/numberofthreats/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETNumberThreatsBetweenDates);
+        app.get('/api/threats/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETThreatsBetweenDates);
+        app.get('/api/malware/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETMalwareBetweenDates);
         //app.get('/api/file/:username/:password/:fromdate', getdata.respondAjaxGetFilesInfo);// fromdate: 2014-01-01 01:40:02 
         // **
         // **
