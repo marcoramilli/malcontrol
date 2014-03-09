@@ -9,7 +9,7 @@ var systemMODEL = _system.mongoose.model('system', _system.System);
 /**
  * @api {get} /api/malwareh returns the number of malwares per hour 
  * @apiName Malware per H
- * @apiVersion 0.1.0 --Beta--
+ * @apiVersion 0.1.0 
  * @apiGroup advanceStats
  *
  * @apiSuccess {JSON} String representing json object 
@@ -73,7 +73,7 @@ exports.GETNumberMalwarePerHour = function(req, res){
 /**
  * @api {get} /api/threath returns the number of threats per hour 
  * @apiName Threats per H
- * @apiVersion 0.1.0 --Beta--
+ * @apiVersion 0.1.0 
  * @apiGroup advanceStats
  *
  * @apiSuccess {JSON} String representing json object 
