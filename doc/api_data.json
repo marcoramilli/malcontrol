@@ -1,6 +1,98 @@
 [
   {
     "type": "get",
+    "url": "/api/malwareh",
+    "title": "returns the number of malwares per hour",
+    "name": "Malware_per_H",
+    "version": "0.1.0",
+    "group": "advanceStats",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JSON",
+            "field": "String",
+            "optional": false,
+            "description": "representing json object"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n   {\n    \"status\": \"ok\", \n    \"current\":33.75, \n    \"max\":35.291666666666664\n   }\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Internal Error\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/advances.js"
+  },
+  {
+    "type": "get",
+    "url": "/api/threath",
+    "title": "returns the number of threats per hour",
+    "name": "Threats_per_H",
+    "version": "0.1.0",
+    "group": "advanceStats",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JSON",
+            "field": "String",
+            "optional": false,
+            "description": "representing json object"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n   {\n    \"status\": \"ok\", \n    \"current\":33.75, \n    \"max\":35.291666666666664\n   }\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Internal Error\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/advances.js"
+  },
+  {
+    "type": "get",
     "url": "/api/malware",
     "title": "returns the malwares between specific dates",
     "name": "Malware",
@@ -44,7 +136,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -103,7 +195,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -162,7 +254,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -220,7 +312,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -273,7 +365,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -326,7 +418,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -379,7 +471,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -425,7 +517,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -471,7 +563,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
@@ -517,7 +609,7 @@
             "group": "Error 4xx",
             "field": "InternalError",
             "optional": false,
-            "description": "The Servers had some serious problems, contact marco.ramilli@iprel.it"
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
           }
         ]
       },
