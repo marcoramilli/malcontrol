@@ -77,6 +77,7 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
 
         var express = require('express');
         var basicRoutes = require('./routes/basic');
+        var advancedRoutes = require('./routes/advances');
         var app = express();
 
         //-----------------------------------------------------------------
@@ -109,6 +110,8 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         app.get('/api/numberofthreats/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETNumberThreatsBetweenDates);
         app.get('/api/threats/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETThreatsBetweenDates);
         app.get('/api/malware/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETMalwareBetweenDates);
+        app.get('/api/malwareh', advancedRoutes.GETNumberMalwarePerHour);
+        app.get('/api/threatsh', advancedRoutes.GETNumberThraeatsPerHour);
         //app.get('/api/file/:username/:password/:fromdate', getdata.respondAjaxGetFilesInfo);// fromdate: 2014-01-01 01:40:02 
         // **
         // **

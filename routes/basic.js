@@ -4,9 +4,6 @@ var threatMODEL = _threat.mongoose.model('threat', _threat.Threat);
 var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 
 
-//TODO: give threats geolocalized from date
-//TODO: give malware geolocalized from data
-
 /**
  * @api {get} /api/numberofthreats returns the number of threats between specific dates
  * @apiName NumberOfThreat
@@ -29,7 +26,7 @@ var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware);
  *       "numberofthreat": "20"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -39,22 +36,22 @@ var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware);
  *     }
  */
 exports.GETNumberThreatsBetweenDates = function(req, res){
- var fyear = req.params.fyear;
- var fmonth = req.params.fmonth;
- var fday = req.params.fday;
+  var fyear = req.params.fyear;
+  var fmonth = req.params.fmonth;
+  var fday = req.params.fday;
 
- var tyear = req.params.tyear;
- var tmonth = req.params.tmonth;
- var tday = req.params.tday;
+  var tyear = req.params.tyear;
+  var tmonth = req.params.tmonth;
+  var tday = req.params.tday;
 
- if (fyear && fmonth && fday && tyear && tmonth && tday){
-   return threatMODEL.count({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
+  if (fyear && fmonth && fday && tyear && tmonth && tday){
+    return threatMODEL.count({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) {return console.log("[-] Error in GETNumberThreatsBetweenDates " + err);}  
       return res.send("{ numberofthreats:" +  objs + "}");
-   });//find
- } else {
-   res.send("{status: error, message: missing parameters}");
- }
+    });//find
+  } else {
+    res.send("{status: error, message: missing parameters}");
+  }
 }//numberofthreats
 
 /**
@@ -79,7 +76,7 @@ exports.GETNumberThreatsBetweenDates = function(req, res){
  *       "numberofmalware": "20"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -89,22 +86,22 @@ exports.GETNumberThreatsBetweenDates = function(req, res){
  *     }
  */
 exports.GETNumberMalwareBetweenDates = function(req, res){
- var fyear = req.params.fyear;
- var fmonth = req.params.fmonth;
- var fday = req.params.fday;
+  var fyear = req.params.fyear;
+  var fmonth = req.params.fmonth;
+  var fday = req.params.fday;
 
- var tyear = req.params.tyear;
- var tmonth = req.params.tmonth;
- var tday = req.params.tday;
+  var tyear = req.params.tyear;
+  var tmonth = req.params.tmonth;
+  var tday = req.params.tday;
 
- if (fyear && fmonth && fday && tyear && tmonth && tday){
-   return malwareMODEL.count({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
+  if (fyear && fmonth && fday && tyear && tmonth && tday){
+    return malwareMODEL.count({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) {return console.log("[-] Error in GETNumberMalwareBetweenDates " + err);}  
       return res.send("{ numberofmalware:" +  objs + "}");
-   });//find
- } else {
-   res.send("{status: error, message: missing parameters}");
- }
+    });//find
+  } else {
+    res.send("{status: error, message: missing parameters}");
+  }
 }//numberofMalwarebetweendates
 
 /**
@@ -123,7 +120,7 @@ exports.GETNumberMalwareBetweenDates = function(req, res){
  *       "score": "20"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -181,7 +178,7 @@ exports.GETtopCountriesPhishers = function(req, res){
  *       "score": "20"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -240,7 +237,7 @@ exports.GETtopCountriesThreats = function(req, res){
  *       "score": "20"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -297,7 +294,7 @@ exports.GETtopCountriesMalwares = function(req, res){
  *       "totals": "3000"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -330,7 +327,7 @@ exports.GETtotalThreats = function(req, res){
  *       "totals": "3000"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -363,7 +360,7 @@ exports.GETtotalMalware = function(req, res){
  *       "totals": "3000"
  *     }
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -418,7 +415,7 @@ exports.GETtotalPhishers = function(req, res){
  * "modified": "2014-03-08T15:56:42.941Z"
  *}
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -428,22 +425,22 @@ exports.GETtotalPhishers = function(req, res){
  *     }
  */
 exports.GETThreatsBetweenDates = function(req, res){
- var fyear = req.params.fyear;
- var fmonth = req.params.fmonth;
- var fday = req.params.fday;
+  var fyear = req.params.fyear;
+  var fmonth = req.params.fmonth;
+  var fday = req.params.fday;
 
- var tyear = req.params.tyear;
- var tmonth = req.params.tmonth;
- var tday = req.params.tday;
+  var tyear = req.params.tyear;
+  var tmonth = req.params.tmonth;
+  var tday = req.params.tday;
 
- if (fyear && fmonth && fday && tyear && tmonth && tday){
-   return threatMODEL.find({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
+  if (fyear && fmonth && fday && tyear && tmonth && tday){
+    return threatMODEL.find({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) {return console.log("[-] Error in GEThreatsBetweenDates " + err);}  
       return res.send( objs );
-   });//find
- } else {
-   res.send("{status: error, message: missing parameters}");
- }
+    });//find
+  } else {
+    res.send("{status: error, message: missing parameters}");
+  }
 }//Threat
 
 /**
@@ -483,7 +480,7 @@ exports.GETThreatsBetweenDates = function(req, res){
  *   "geoLoc": false
  *}
  *
- * @apiError InternalError The Servers had some serious problems, contact marco.ramilli@iprel.it 
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
@@ -493,20 +490,20 @@ exports.GETThreatsBetweenDates = function(req, res){
  *     }
  */
 exports.GETMalwareBetweenDates = function(req, res){
- var fyear = req.params.fyear;
- var fmonth = req.params.fmonth;
- var fday = req.params.fday;
+  var fyear = req.params.fyear;
+  var fmonth = req.params.fmonth;
+  var fday = req.params.fday;
 
- var tyear = req.params.tyear;
- var tmonth = req.params.tmonth;
- var tday = req.params.tday;
+  var tyear = req.params.tyear;
+  var tmonth = req.params.tmonth;
+  var tday = req.params.tday;
 
- if (fyear && fmonth && fday && tyear && tmonth && tday){
-   return malwareMODEL.find({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
+  if (fyear && fmonth && fday && tyear && tmonth && tday){
+    return malwareMODEL.find({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) {return console.log("[-] Error in GETMalwareBetweenDates " + err);}  
       return res.send( objs);
-   });//find
- } else {
-   res.send("{status: error, message: missing parameters}");
- }
+    });//find
+  } else {
+    res.send("{status: error, message: missing parameters}");
+  }
 }//Malwarebetweendates
