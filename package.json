@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "server.js",
+    "start": "make run",
     "test": "make test"
   },
   "repository": {
