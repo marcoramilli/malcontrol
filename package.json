@@ -18,7 +18,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "server.js",
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
