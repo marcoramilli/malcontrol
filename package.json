@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "sudo node server.js",
+    "start": "node server.js",
     "test": "make test"
   },
   "repository": {
