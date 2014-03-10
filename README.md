@@ -4,9 +4,10 @@ Gathering open data from malware analysis websites is the main target of Malware
 Visualize such a data by synthesize statistics highlighting where threats happen and what their impact is, could be useful to identify malware propagations 
 
 ## Badg Mania
-[![lib status](https://david-dm.org/marcoramilli/malcontrol.png)](https://david-dm.org/marcoramilli/malcontrol)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marcoramilli/malcontrol/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-[![Support Marco via Gittip](http://img.shields.io/gittip/marco.svg)](https://www.gittip.com/marco/)
+[![lib status](https://david-dm.org/marcoramilli/malcontrol.png)](https://david-dm.org/marcoramilli/malcontrol)]
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marcoramilli/malcontrol/trend.png)](https://bitdeli.com/free "Bitdeli Badge")]
+[![Support Marco via Gittip](http://img.shields.io/gittip/marco.svg)](https://www.gittip.com/marco/)]
+[![Code ship](https://www.codeship.io/projects/b4cc96a0-8a8c-0131-3e1f-5a175932ae46/status)]
 
 ## Open Data
 
