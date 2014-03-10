@@ -1,7 +1,7 @@
 REPORTER = dot
 
 run:
-	@NODE_ENV=run node server.js
+	@NODE_ENV=run sudo node server.js
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \
