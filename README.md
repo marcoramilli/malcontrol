@@ -6,7 +6,7 @@ Visualize such a data by synthesize statistics highlighting where threats happen
 ## Badg Mania
 [![lib status](https://david-dm.org/marcoramilli/malcontrol.png)](https://david-dm.org/marcoramilli/malcontrol)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marcoramilli/malcontrol/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/marco/)
+[![Support Marco via Gittip](http://img.shields.io/gittip/marco.svg)](https://www.gittip.com/marco/)
 
 ## Open Data
 
