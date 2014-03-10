@@ -5,6 +5,7 @@ services:
 
 before_script:
   - mongorestore ./mockdata/dump
+  - npm start
 
 branches:
   only:
