@@ -1,4 +1,3 @@
-var moment = require('moment');
 var _threat = require('../schemas/threat');
 var threatMODEL = _threat.mongoose.model('threat', _threat.Threat); 
 var _malware = require('../schemas/malware');
@@ -52,7 +51,7 @@ exports.GETNumberThreatsBetweenDates = function(req, res){
   } else {
     res.send("{status: error, message: missing parameters}");
   }
-}//numberofthreats
+};//numberofthreats
 
 /**
  * @api {get} /api/numberofmalware returns the number of malwares between specific dates
@@ -102,7 +101,7 @@ exports.GETNumberMalwareBetweenDates = function(req, res){
   } else {
     res.send("{status: error, message: missing parameters}");
   }
-}//numberofMalwarebetweendates
+};//numberofMalwarebetweendates
 
 /**
  * @api {get} /api/topcountriesphishers Request to obtain the top countries phishers list 
@@ -441,7 +440,7 @@ exports.GETThreatsBetweenDates = function(req, res){
   } else {
     res.send("{status: error, message: missing parameters}");
   }
-}//Threat
+};//Threat
 
 /**
  * @api {get} /api/malware returns the malwares between specific dates
@@ -506,4 +505,4 @@ exports.GETMalwareBetweenDates = function(req, res){
   } else {
     res.send("{status: error, message: missing parameters}");
   }
-}//Malwarebetweendates
+};//Malwarebetweendates

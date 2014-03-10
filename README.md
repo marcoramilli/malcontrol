@@ -5,7 +5,7 @@ Visualize such a data by synthesize statistics highlighting where threats happen
 
 ## Badg Mania
 ![lib status](https://david-dm.org/marcoramilli/malcontrol.png)
-
+![code climate] ()
 
 ## Open Data
 
@@ -27,3 +27,5 @@ Working in progress ..
 ## Open API 
 
 Please refer to doc section for a fully documented Public API
+
+![under construction](http://www.dmcc.it/chris/matchable/data/images/under_construction.jpeg)

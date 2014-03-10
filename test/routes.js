@@ -2,6 +2,7 @@
  * Simple testing, must be enpowered.
  *
  */
+var server = require('../server');
 var assert = require('assert');
 var request = require('supertest');  
 

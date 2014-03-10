@@ -68,7 +68,7 @@ exports.GETNumberMalwarePerHour = function(req, res){
       return res.send("{status: error, message: empty db}");
     }
   });//countr
-}//GETNUMBERMALWAREPERHOUR
+};//GETNUMBERMALWAREPERHOUR
 
 /**
  * @api {get} /api/threath returns the number of threats per hour 
@@ -132,5 +132,5 @@ exports.GETNumberThraeatsPerHour = function(req, res){
       return res.send("{status: error, message: empty db}");
     }
   });//countr
-}//GETNUMBERTHREATSPERHOUR
+};//GETNUMBERTHREATSPERHOUR
 
