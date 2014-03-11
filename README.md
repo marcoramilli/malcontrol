@@ -9,24 +9,26 @@ Visualize such a data by synthesize statistics highlighting where threats happen
 [![Support Marco via Gittip](http://img.shields.io/gittip/marco.svg)](https://www.gittip.com/marco/)
 
 ## Open Data
-
 We actually scrape the following services:
 
-1. malwr
-2. phishtank
-3. queryurl
-4. viruscan
-5. webinspector
+1. [malwr](http://malwr.com)
+2. [phishtank](http://www.phishtank.com/)
+3. [urlquery](http://urlquery.net/)
+4. [virscan](http://www.virscan.org/)
+5. [webinspector](http://app.webinspector.com/recent_detections)
 
-If you are a malware scan provider and you would like to actively  partecipate to the project by giving some of your data, please contact us, we'll be glad to add your service to our project.
+If **you are a malware scan provider and you would like to actively  partecipate to the project by giving some of your data, please contact us, we'll be glad to add your service to our project**.
 Each visualized threat comes with the original and 'clickable' URL pointing to the original report. The original report owns all the specific information to the threat.
 
 ## Visualization
 
 Working in progress ..
 
-## Open API 
+## Screenshots
+Screenshots talk laudly :)
 
+## Open API 
 Please refer to doc section for a fully documented Public API
 
 ![under construction](http://www.dmcc.it/chris/matchable/data/images/under_construction.jpeg)
+
