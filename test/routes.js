@@ -4,9 +4,10 @@
  */
 var assert = require('assert');
 var request = require('supertest');  
+var _config = require('../conf/configs.json');
 
 describe('Routing', function() {
-  var url = "http://localhost";
+  var url = "http://localhost:"+ _config.system.listening_port;
 
   //before(function(done) {
   //console.log("Preparing Tests ... ");

@@ -117,7 +117,7 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         // **
 
         //Server Creation 
-        http.createServer(app).listen(80); //DEPRECATED 
-        console.log('[+] HTTP: Listening on port 80...'); 
+        http.createServer(app).listen(_config.system.listening_port);
+        console.log('[+] HTTP: Listening on port: ' + _config.system.listening_port); 
         //-----------------------------------------------------------------
       }//Slave
