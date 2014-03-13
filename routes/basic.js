@@ -46,10 +46,10 @@ exports.GETNumberThreatsBetweenDates = function(req, res){
   if (fyear && fmonth && fday && tyear && tmonth && tday){
     return threatMODEL.count({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) {return console.log("[-] Error in GETNumberThreatsBetweenDates " + err);}  
-      return res.send("{ numberofthreats:" +  objs + "}");
+      return res.send("{ \"numberofthreats\":\"" +  objs + "\"}");
     });//find
   } else {
-    res.send("{status: error, message: missing parameters}");
+    res.send("{\"status\":\"error\", \"message\": \"missing parameters\"}");
   }
 };//numberofthreats
 
@@ -96,10 +96,10 @@ exports.GETNumberMalwareBetweenDates = function(req, res){
   if (fyear && fmonth && fday && tyear && tmonth && tday){
     return malwareMODEL.count({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) {return console.log("[-] Error in GETNumberMalwareBetweenDates " + err);}  
-      return res.send("{ numberofmalware:" +  objs + "}");
+      return res.send("{ \"numberofmalware\":\"" +  objs + "\"}");
     });//find
   } else {
-    res.send("{status: error, message: missing parameters}");
+    res.send("{\"status\": \"error\", \"message\":\"missing parameters\"}");
   }
 };//numberofMalwarebetweendates
 
@@ -134,7 +134,7 @@ exports.GETtopCountriesPhishers = function(req, res){
   return threatMODEL.find({"scraped_source":"phishtank"}, {}, {}, function (err, ips) {
     if (err){
       console.log("[-] Error in topCountries phishtank: " +err);
-      return res.send("{status: error, message: Internal Error}");
+      return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
     }
     if (ips.length == 0){
       return res.send(" ");
@@ -192,7 +192,7 @@ exports.GETtopCountriesThreats = function(req, res){
   return threatMODEL.find({}, {}, {}, function (err, ips) {
     if (err){
       console.log("[-] Error in topCountries threats: " +err);
-      return res.send("{status: error, message: Internal Error}");
+      return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
     }
     if (ips.length == 0){
       return res.send(" ");
@@ -251,7 +251,7 @@ exports.GETtopCountriesMalwares = function(req, res){
   return malwareMODEL.find({}, {}, {}, function (err, ips) {
     if (err){
       console.log("[-] Error in topCountries malware: " +err);
-      return res.send("{status: error, message: Internal Error}");
+      return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
     }
     if (ips.length == 0){
       return res.send(" ");
@@ -306,9 +306,9 @@ exports.GETtotalThreats = function(req, res){
   return threatMODEL.count({}, function(err,number){
     if (err){ 
       console.log("Error in TotalThreats: " + err); 
-      return res.send('{ "status" : "error", "message":"Internal Error" }');
+      return res.send("{ \"status\" : \"error\", \"message\":\"Internal Error\" }");
     }
-    return res.send('{"totals" :"' + number.toString() + '"}');
+    return res.send("{\"totals\" :\"" + number.toString() + "\"}");
   });//count
 };//totalThreats
 
@@ -339,9 +339,9 @@ exports.GETtotalMalware = function(req, res){
   return malwareMODEL.count({}, function(err,number){
     if (err){ 
       console.log("Error in TotalThreats: " + err); 
-      return res.send('{ "status" : "error", "message":"Internal Error" }');
+      return res.send("{ \"status\" : \"error\", \"message\":\"Internal Error\" }");
     }
-    return res.send('{"totals" :"' + number.toString() + '"}');
+    return res.send("{\"totals\" :\"" + number.toString() + "\"}");
   });//count
 };//totalThreats
 
@@ -372,9 +372,9 @@ exports.GETtotalPhishers = function(req, res){
   return threatMODEL.count({scraped_source: "phishtank"}, function(err,number){
     if (err){ 
       console.log("Error in Total Phishers: " + err); 
-      return res.send('{ "status" : "error", "message":"Internal Error" }');
+      return res.send("{ \"status\" : \"error\", \"message\":\"Internal Error\" }");
     }
-    return res.send('{"totals" :"' + number.toString() + '"}');
+    return res.send("{\"totals\" :\"" + number.toString() + "\"}");
   });//count
 };//totalThreats
 
@@ -438,7 +438,7 @@ exports.GETThreatsBetweenDates = function(req, res){
       return res.send( objs );
     });//find
   } else {
-    res.send("{status: error, message: missing parameters}");
+    res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
   }
 };//Threat
 
@@ -503,6 +503,6 @@ exports.GETMalwareBetweenDates = function(req, res){
       return res.send( objs);
     });//find
   } else {
-    res.send("{status: error, message: missing parameters}");
+    res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
   }
 };//Malwarebetweendates

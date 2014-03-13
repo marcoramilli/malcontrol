@@ -37,20 +37,20 @@ exports.GETNumberMalwarePerHour = function(req, res){
 
   return malwareMODEL.count({modified: {$gte: oneHbefore.format("YYYY-MM-DD HH:mm Z"), $lt: now.format("YYYY-MM-DD HH:mm Z")}}, function(err, mh){
     if (err) {
-      req.send("{status: error, message: internal error}");
+      req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in malwareMODEL.count " + err);}
     if (undefined != mh && null != mh){
       var curr = mh/24;
       return systemMODEL.findOne({}, function(err, obj){
-        if(err) {return res.send("{status: error, message: Internal Error}");}
+        if(err) {return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");}
         if (undefined != obj && null != obj){
           var max = obj.maxNumberofMalwareh;
           if (max >= curr) {
-            return res.send("{status: ok, current:" + curr +", max:"+max+"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+max+"\"}");
           } else {
             obj.maxNumberofMalwareh = curr;
             obj.save();
-            return res.send("{status: ok, current:" + curr +", max:"+curr+"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+curr+"\"}");
           }  
         }//obj undefined control
         else {
@@ -60,18 +60,18 @@ exports.GETNumberMalwarePerHour = function(req, res){
             modified: new Date()
           });//mmodel 
           s.save();
-          return res.send("{status: ok, current:" + curr +", max:"+curr+"}");
+          return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+curr+"\"}");
         }
       });//systemMODEL
     }//undefined control
     else {
-      return res.send("{status: error, message: empty db}");
+      return res.send("{\"status\": \"error\", \"message\": \"empty db\"}");
     }
   });//countr
 };//GETNUMBERMALWAREPERHOUR
 
 /**
- * @api {get} /api/threath returns the number of threats per hour 
+ * @api {get} /api/threatsh returns the number of threats per hour 
  * @apiName Threats per H
  * @apiVersion 0.1.0 
  * @apiGroup advanceStats
@@ -101,20 +101,20 @@ exports.GETNumberThraeatsPerHour = function(req, res){
 
   return threatMODEL.count({modified: {$gte: oneHbefore.format("YYYY-MM-DD HH:mm Z"), $lt: now.format("YYYY-MM-DD HH:mm Z")}}, function(err, th){
     if (err) {
-      req.send("{status: error, message: Internal Error}");
+      req.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
       return console.log("[-] Error in threatMODEL.count " + err);}
     if (undefined != th && null != th){
       var curr = th/24;
       return systemMODEL.findOne({}, function(err, obj){
-        if(err) {return res.send("{status: error, message: Internal Error}");}
+        if(err) {return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");}
         if (undefined != obj && null != obj){
           var max = obj.maxNumberofThreatsh;
           if (max >= curr) {
-            return res.send("{status: ok, current:" + curr +", max:"+max+"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+max+"\"}");
           } else {
             obj.maxNumberofThreatsh = curr;
             obj.save();
-            return res.send("{status: ok, current:" + curr +", max:"+curr+"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+curr+"\"}");
           }  
         }//obj undefined control
         else {
@@ -124,12 +124,12 @@ exports.GETNumberThraeatsPerHour = function(req, res){
             modified: new Date()
           });//mmodel 
           s.save();
-          return res.send("{status: ok, current:" + curr +", max:"+curr+"}");
+          return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\", \"max\":\""+curr+"\"}");
         }
       });//systemMODEL
     }//undefined control
     else {
-      return res.send("{status: error, message: empty db}");
+      return res.send("{\"status\": \"error\", \"message\": \"empty db\"}");
     }
   });//countr
 };//GETNUMBERTHREATSPERHOUR
