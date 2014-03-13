@@ -47,7 +47,7 @@
   },
   {
     "type": "get",
-    "url": "/api/threath",
+    "url": "/api/threatsh",
     "title": "returns the number of threats per hour",
     "name": "Threats_per_H",
     "version": "0.1.0",
