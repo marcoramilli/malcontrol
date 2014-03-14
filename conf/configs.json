@@ -4,7 +4,7 @@
           "listening_port": "8080",
           "db_address": "127.0.0.1",
           "db_dbname": "malware_collector",
-          "background_geoloc_service" : 30000
+          "background_geoloc_service" : 3000
   },
   "scrapers":{
           "phishtank_timer" : 30000,

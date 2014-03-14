@@ -19,6 +19,7 @@ var cluster = require('cluster');
 var application_root = __dirname;
 var http = require('http');
 var path = require('path');
+var toobusy = require('toobusy'); //thank you guys, you saved me the day !
 //-----------------------------------------------------------------
 
 //Parser Imports
@@ -59,11 +60,11 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
 
       //lets separate geo localization for performance purposes
       //TODO: release the background_geoloc_service as soon as possible!
-      //setInterval(function(){_commonGeoMalw.geoLocMalwr()}, _config.system.background_geoloc_service);
+      setInterval(function(){_commonGeoMalw.geoLocMalwr()}, _config.system.background_geoloc_service);
       } 
       else {
-        setInterval(function(){_phishtank_scraper.goScraper()}, _config.scrapers.phishtank_timer);
-        setInterval(function(){_urlquery_scraper.goScraper()}, _config.scrapers.urlquery_timer);
+        setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}}, _config.scrapers.phishtank_timer);
+        setInterval(function(){ if (!toobusy()) {_urlquery_scraper.goScraper();}}, _config.scrapers.urlquery_timer);
         setInterval(function(){_webinspector_scraper.goScraper()},_config.scrapers.webinspector_timer);
         setInterval(function(){_virusscan_scraper.goScraper()}, _config.scrapers.virusscanner_timer);
         //TOFIX: fix the following scraper !
