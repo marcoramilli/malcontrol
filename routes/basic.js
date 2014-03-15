@@ -256,15 +256,27 @@ exports.GETtopCountriesMalwares = function(req, res){
     if (ips.length == 0){
       return res.send(" ");
     }
+    //fillingUP countries vector
     for ( var c1=0; c1 < ips.length; c1++){
-      if (country.indexOf(ips[c1].country) == -1){
-        //country not in array
-        country.push(ips[c1].country);
-      }	
+      if (null !== ips[c1].country && undefined !== ips[c1].country){
+        if (ips[c1].country.indexOf(',') == -1){
+          //multiple countries
+          var mc = ips[c1].country.split(',');
+          for (var j=0; j < mc.length; j++){
+            if (country.indexOf(mc[j]) == -1){
+              //country not in array
+              country.push(mc[j]);
+            }	
+          }
+        } else if (country.indexOf(ips[c1].country) == -1){
+          //country not in array
+          country.push(ips[c1].country);
+        }	
+      }
     }
-
     var sync = 0;
     country.forEach(function(c){
+      //TOFIX: multiple countries in malware
       return malwareMODEL.count({"country": c}, function(err,number){
         scorearray.push({country: c, score:  number});
         sync ++;
