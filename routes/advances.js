@@ -46,7 +46,7 @@ exports.GETNumberMalwarePerHour = function(req, res){
         if (undefined != obj && null != obj){
           var max = obj.maxNumberofMalwareh;
           if (max >= curr) {
-            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+max+"\"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+max+"\"}");
           } else {
             obj.maxNumberofMalwareh = curr;
             obj.save();
@@ -60,7 +60,7 @@ exports.GETNumberMalwarePerHour = function(req, res){
             modified: new Date()
           });//mmodel 
           s.save();
-          return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+curr+"\"}");
+          return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+curr+"\"}");
         }
       });//systemMODEL
     }//undefined control
@@ -110,11 +110,11 @@ exports.GETNumberThraeatsPerHour = function(req, res){
         if (undefined != obj && null != obj){
           var max = obj.maxNumberofThreatsh;
           if (max >= curr) {
-            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+max+"\"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+max+"\"}");
           } else {
             obj.maxNumberofThreatsh = curr;
             obj.save();
-            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\" max\":\""+curr+"\"}");
+            return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+curr+"\"}");
           }  
         }//obj undefined control
         else {

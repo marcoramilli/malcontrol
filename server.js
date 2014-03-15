@@ -11,6 +11,12 @@
 //Note: Don't even think to use this code in production environment
 //      Everything you read is under developmento monde.
 
+//TODO: building crapers !
+//http://www.malwaredomainlist.com/mdl.php
+//http://www.spywareguide.com/product_list_full.php?pageNum_Rs1=4&totalRows_Rs1=2352
+//http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
+//http://about-threats.trendmicro.com/us/search.aspx?p=Crypted.exe
+//http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
 
 //General Imports
 var mongoose = require('mongoose');
@@ -58,8 +64,6 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         cluster.fork();
         });
 
-      //lets separate geo localization for performance purposes
-      //TODO: release the background_geoloc_service as soon as possible!
       setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
       } 
       else {
@@ -101,7 +105,6 @@ mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_db
         //Here the interesting part: the ROUTES !
         // **
         // **
-        // TODO: Routest and public API
         app.get('/api/topcountriesphishers', basicRoutes.GETtopCountriesPhishers);
         app.get('/api/topcountriesmalware', basicRoutes.GETtopCountriesMalwares);
         app.get('/api/topcountriesthreats', basicRoutes.GETtopCountriesThreats);
