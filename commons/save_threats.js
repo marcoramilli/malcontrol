@@ -1,8 +1,5 @@
-var mongoose = require('mongoose');
-
 var _threat = require('../schemas/threat');
 var threatMODEL = _threat.mongoose.model('threat', _threat.Threat); 
-
 
 exports.saveThreatToDB  = function(plinkToReport, purl, ptimestamp, pip, pcompositscore, pscraped_source, pcountry, pcity, pregion, pll, pdesc){
   return threatMODEL.find({url: purl}, function(err, t){
@@ -42,4 +39,4 @@ exports.saveThreatToDB  = function(plinkToReport, purl, ptimestamp, pip, pcompos
       //console.log("[-] Dup Threat: " + err);
     } 
   });//threatMODEL.find
-}//savethreattodb
+};//savethreattodb

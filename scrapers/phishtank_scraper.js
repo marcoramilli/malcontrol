@@ -4,7 +4,6 @@ var _savethreats = require('../commons/save_threats');
 var dns = require('dns');
 var basic_url_report = "http://www.phishtank.com/phish_detail.php?phish_id=";
 
-//TODO Adding report links
 exports.goScraper = function(){
   console.log("[+] Scraping PhishTank !"); 
   try{
@@ -43,4 +42,4 @@ exports.goScraper = function(){
         });//foreach element in the table of the scraped source
   });//scraper
   }catch(ex){console.log("[-] Error in scraping phishtank: " + ex);}
-}//goScraper
+};//goScraper

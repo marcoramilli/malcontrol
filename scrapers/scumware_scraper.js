@@ -46,4 +46,4 @@ exports.goScraper = function(){
       //}
       });//foreach element in the table of the scraped source
 });//scraper
-}//goScraper
+};//goScraper

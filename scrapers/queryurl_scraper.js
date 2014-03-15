@@ -3,7 +3,6 @@ var geoip = require('geoip-lite');
 var _savethreats = require('../commons/save_threats');
 var _linkToReport = "http://urlquery.net/";
 
-//TODO Adding report links
 //URLQUERY
 exports.goScraper = function(){
   try{
@@ -44,4 +43,4 @@ exports.goScraper = function(){
         }catch(e){return console.log("[-] Errors in urlquery");}
   });//scraper
   }catch(ex){console.log("[-] Error in scraping urlquery: " + ex);}
-}//goScraper
+};//goScraper

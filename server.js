@@ -5,12 +5,12 @@
  *   |_|  |_|\__,_|_| \_/\_/ \__,_|_|  \___|  \____\___/|_| |_|\__|_|  \___/|_| |_|  |_|\___/|_| |_|_|\__\___/|_|   
  */
 
-//Author: Marco Ramilli
-//website: marcoramilli.com
-//Version: pre alpha
-//Note: Don't even think to use this code in production environment
-//      Everything you read is under developmento monde.
-
+/*Author: Marco Ramilli
+ * website: marcoramilli.com
+ * Version: pre alpha
+ * Note: Don't even think to use this code in production environment
+ * Everything you read is under development monde.
+ */
 //TODO: building crapers !
 //http://www.malwaredomainlist.com/mdl.php
 //http://www.spywareguide.com/product_list_full.php?pageNum_Rs1=4&totalRows_Rs1=2352
@@ -56,14 +56,13 @@ if (cluster.isMaster){
   }
   // Listen for dying workers
   cluster.on('exit', function (worker) {
-    // Replace the dead worker,
-    // we're not sentimental
+    // Replace the dead worker, we're not sentimental
     console.log('Worker ' + worker.id + ' died :(');
       cluster.fork();
       });
-    setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
     } 
-    else {
+    else if (cluster.isWorker){
+      setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
       setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}}, _config.scrapers.phishtank_timer);
       setInterval(function(){ if (!toobusy()) {_urlquery_scraper.goScraper();}}, _config.scrapers.urlquery_timer);
       setInterval(function(){ if (!toobusy()) {_webinspector_scraper.goScraper();}},_config.scrapers.webinspector_timer);
@@ -121,4 +120,4 @@ if (cluster.isMaster){
       http.createServer(app).listen(_config.system.listening_port);
       console.log('[+] HTTP: Listening on port: ' + _config.system.listening_port); 
       //-----------------------------------------------------------------
-    }//Slave
+    };//Worker

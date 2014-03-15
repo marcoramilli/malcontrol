@@ -48,7 +48,6 @@ describe('Routing', function() {
     });//it
   });//describe
 
-
   describe('GET TopCountriethreats', function() {
     it('should return JSON withing the top threat countries', function(done) {
 
@@ -64,7 +63,6 @@ describe('Routing', function() {
     });//end
     });//it
   });//describe
-
 
   describe('GET Total malware', function() {
     it('should return JSON withing the total amount of processed malware', function(done) {
@@ -95,6 +93,4 @@ describe('Routing', function() {
     });//end
     });//it
   });//describe
-
-
 });//Routing Tests

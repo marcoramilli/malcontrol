@@ -61,48 +61,11 @@ exports.goScraper = function(){
             var dsc = content.find("td").eq(3).text();
             console.log("[+] <malwr.net> Desc found: " + dsc);
 
-            //IMPORTANT: GEOLOCALIZATION HAS BEEN MOVED FOR PERFORMANCE PURPOSES
-            //if (undefined != linkToReport && null != linkToReport){
-            ////scraping the report to extract locations
-            //scraper(linkToReport, function(err, jQ){
-            ////if (err) {console.log("[-] Error happening in malwr: " + err);}
-            //var hosts = new Array();
-            //var country = new Array();
-            //var city = new Array();
-            //var region = new Array();
-            //var ll = new Array();
-            //try{
-            //jQ('#hosts tr').each(function(){
-            //var c = jQ(this);
-            //console.log("[+] ("+ c.length + ") Doing the hard job...." + linkToReport );
-            //if (undefined != c && null != c){
-            //var ip = c.find('td').eq(0).text().trim();
-            //if (ip != "IP" && ip != "" && null != ip && undefined != ip){
-            //console.log("[+]ip: "+ ip);
-            //hosts.push(ip);
-            //var geo = geoip.lookup(ip);
-            //console.log("[+] Geolocalized: " + ip );
-            //if (undefined != geo && null != geo){
-            //country.push(geo['country']);
-            //region.push(geo['region']);
-            //city.push(geo['city']);
-            //ll.push(geo['ll']);
-            //}//if geo exists
-            //}//if ip exists
-            //}//if context exists
-            ////console.log("!!!!!!!!!!!"+linkToReport + " " +  timestamp + " " + md5 + " " + name + " " + hosts + " " + city);
-            //return _savemalware.saveMalwareToDB(linkToReport, timestamp, ip.toString(), compositscore, "malwr.com", country.toString(), city.toString(), region.toString(), ll.toString(), dsc, md5, name);
-            //});//eachhosts
-            //} catch(e) {
-            //console.log("[-] No Hosts Found, saving what we have found");
             return _savemalware.saveMalwareToDB(linkToReport, timestamp, null, compositscore, "malwr.com", null, null, null, null, dsc, md5, name); 
-            //}
-            //});//scraping a little of reports
-            //}
           }//not nulls
         });//foreach element in the table of the scraped source
       },{'reqPerSec': 0.2});//scraper
     } catch(ex){console.log("[-] Error in scraping malrw " + ex);}
   });//firsttime
-}//goScraper
+};//goScraper
 

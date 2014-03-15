@@ -51,4 +51,4 @@ exports.goScraper = function(){
         });//foreach element in the table of the scraped source
   });//scraper
   }catch(ex){console.log("[-] Error in scraping virscan: " + ex);}
-}//goScraper
+};//goScraper
