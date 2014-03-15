@@ -3,4 +3,4 @@
 
 /* App */
 
-var malControlApp = angular.module('malControlApp', []);
+var malControlApp = angular.module('malControlApp', ['ui.bootstrap']);
