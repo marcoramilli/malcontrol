@@ -14,7 +14,7 @@ var step = 2;
 //external
 exports.firstTimeRunningMalware = function(callback){
   return malwareMODEL.count({scraped_source: "malwr.com"}, function(err, count){
-    if (count >0) {callback(false);}
+    if (count > 0) {callback(false);}
     else {callback(true);}
   });//count
 };//firsttimerunningmalware
@@ -26,7 +26,7 @@ exports.saveMalwareToDB = function(plinkToReport, ptimestamp, pip, pcompositscor
   var alerts = undefined;
   var ids = undefined;
 
-  if (undefined != pcompositscore && null != pcompositscore){
+  if (undefined !== pcompositscore && null !== pcompositscore){
     var p =pcompositscore.split("/");
     if (p.length > 0){
       alerts = p[0];
@@ -56,7 +56,7 @@ _malware_report_scraper = function(malw){
   var linkToReport = malw.linkToReport;  
   var timestamp = new Date();
   console.log("[+] Trying to geolocalize: " + malw.name);
-  if (undefined != linkToReport && null != linkToReport){
+  if (undefined !== linkToReport && null !== linkToReport){
 
     scraper(linkToReport, function(err, jQ){
       console.log("[+] Scraping: " + linkToReport);
@@ -64,12 +64,12 @@ _malware_report_scraper = function(malw){
       try{
         jQ('#hosts tr td').each(function(){
           var c = jQ(this);
-          if (undefined != c && null != c){
+          if (undefined !== c && null !== c){
             var ip = c.text();
-            if (ip != "IP" && ip != "" && null != ip && undefined != ip){
+            if (ip !== "IP" && ip !== "" && null !== ip && undefined !== ip){
               console.log("[+] Geolocalization is happening on: "+ ip);
               var geo = geoip.lookup(ip);
-              if (undefined != geo && null != geo){
+              if (undefined !== geo && null !== geo){
                 _saveGeoLoc(malw._id, timestamp, ip.toString(), malw.scraped_source, geo['country'], geo['city'], geo['region'], geo['ll']);
               }//if geo exists
             }//if ip exists

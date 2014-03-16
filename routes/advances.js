@@ -39,11 +39,11 @@ exports.GETNumberMalwarePerHour = function(req, res){
     if (err) {
       req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in malwareMODEL.count " + err);}
-    if (undefined != mh && null != mh){
+    if (undefined !== mh && null !== mh){
       var curr = mh/24;
       return systemMODEL.findOne({}, function(err, obj){
         if(err) {return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");}
-        if (undefined != obj && null != obj){
+        if (undefined !== obj && null !== obj){
           var max = obj.maxNumberofMalwareh;
           if (max >= curr) {
             return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+max+"\"}");
@@ -103,11 +103,11 @@ exports.GETNumberThraeatsPerHour = function(req, res){
     if (err) {
       req.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
       return console.log("[-] Error in threatMODEL.count " + err);}
-    if (undefined != th && null != th){
+    if (undefined !== th && null !== th){
       var curr = th/24;
       return systemMODEL.findOne({}, function(err, obj){
         if(err) {return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");}
-        if (undefined != obj && null != obj){
+        if (undefined !== obj && null !== obj){
           var max = obj.maxNumberofThreatsh;
           if (max >= curr) {
             return res.send("{\"status\": \"ok\", \"current\":\"" + curr +"\",\"max\":\""+max+"\"}");

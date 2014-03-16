@@ -29,14 +29,14 @@ exports.goScraper = function(){
             console.log("[+] <urlquery.net> IP found: " + ip);
 
             var geo = geoip.lookup(ip);
-            if (undefined != geo && null != geo){
+            if (undefined !== geo && null !== geo){
               var country = geo['country'];
               var region = geo['region'];
               var city = geo['city'];
               var ll = geo['ll'];
               var desc = geo['desc'];
             }
-            if (undefined != url && null != url){
+            if (undefined !== url && null !== url){
               return _savethreats.saveThreatToDB(undefined, url, timestamp, ip, compositscore, "urlquery", country, city, region, ll, desc);
             }
           });//foreach element in the table of the scraped source

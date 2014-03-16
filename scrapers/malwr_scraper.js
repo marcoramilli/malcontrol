@@ -30,11 +30,11 @@ exports.goScraper = function(){
 
         return jQuery('tr').each(function() {
           var content = jQuery(this);
-          if (undefined != content && null != content){
+          if (undefined !== content && null !== content){
 
             var linkToReport = undefined;
             var link = content.find('a[href*="analysis"]').attr('href');
-            if(undefined != link && null != link){
+            if(undefined !== link && null !== link){
               linkToReport = _baseLink + link; 
               console.log("[+] Link To Report found: " + linkToReport);
               if (_local_cache[link] ){

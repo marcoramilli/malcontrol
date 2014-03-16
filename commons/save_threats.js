@@ -3,12 +3,12 @@ var threatMODEL = _threat.mongoose.model('threat', _threat.Threat);
 
 exports.saveThreatToDB  = function(plinkToReport, purl, ptimestamp, pip, pcompositscore, pscraped_source, pcountry, pcity, pregion, pll, pdesc){
   return threatMODEL.find({url: purl}, function(err, t){
-    if(t.length == 0 || err){
+    if(t.length === 0 || err){
       //no threats 
       var alerts = undefined;
       var ids = undefined;
 
-      if (undefined != pcompositscore && null != pcompositscore){
+      if (undefined !== pcompositscore && null !== pcompositscore){
         var p =pcompositscore.split("/");
         if (p.length > 0){
           alerts = p[0];

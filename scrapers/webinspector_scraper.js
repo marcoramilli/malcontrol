@@ -29,9 +29,9 @@ exports.goScraper = function(){
           var domain = url.split("http://")[1];
           dns.resolve4(domain, function(err,ip){
             console.log("[+] <webinspector> IP found: " + ip);
-            if (undefined != ip && null != ip){
+            if (undefined !== ip && null !== ip){
               var geo = geoip.lookup(ip.toString());
-              if (undefined != geo && null != geo){
+              if (undefined !== geo && null !== geo){
                 var country = geo['country'];
                 var region = geo['region'];
                 var city = geo['city'];

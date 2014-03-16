@@ -26,10 +26,10 @@ exports.goScraper = function(){
 
           var domain = url.split("/")[2];
           dns.resolve4(domain, function(err,ip){
-            if (undefined != ip && null != ip){
+            if (undefined !== ip && null !== ip){
               console.log("[+] <phishtank> IP found: " + ip);
               var geo = geoip.lookup(ip.toString());
-              if (undefined != geo && null != geo){
+              if (undefined !== geo && null !== geo){
                 var country = geo['country'];
                 var region = geo['region'];
                 var city = geo['city'];

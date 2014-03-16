@@ -138,11 +138,11 @@ exports.GETtopCountriesPhishers = function(req, res){
       console.log("[-] Error in topCountries phishtank: " +err);
       return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
     }
-    if (ips.length == 0){
+    if (ips.length === 0){
       return res.send(" ");
     }
     for ( var c1=0; c1 < ips.length; c1++){
-      if (country.indexOf(ips[c1].country) == -1){
+      if (country.indexOf(ips[c1].country) === -1){
         //country not in array
         country.push(ips[c1].country);
       }	
@@ -153,7 +153,7 @@ exports.GETtopCountriesPhishers = function(req, res){
       return threatMODEL.count({"scraped_source":"phishtank", "country": c}, function(err,number){
         scorearray.push({country: c, score:  number});
         sync ++;
-        if (sync == country.length ){
+        if (sync === country.length ){
           var sortedscore = scorearray.sort(function(a,b){
             return b.score - a.score;
           });		
@@ -196,11 +196,11 @@ exports.GETtopCountriesThreats = function(req, res){
       console.log("[-] Error in topCountries threats: " +err);
       return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
     }
-    if (ips.length == 0){
+    if (ips.length === 0){
       return res.send(" ");
     }
     for ( var c1=0; c1 < ips.length; c1++){
-      if (country.indexOf(ips[c1].country) == -1){
+      if (country.indexOf(ips[c1].country) === -1){
         //country not in array
         country.push(ips[c1].country);
       }	
@@ -211,7 +211,7 @@ exports.GETtopCountriesThreats = function(req, res){
       return threatMODEL.count({"country": c}, function(err,number){
         scorearray.push({country: c, score:  number});
         sync ++;
-        if (sync == country.length ){
+        if (sync === country.length ){
           var sortedscore = scorearray.sort(function(a,b){
             return b.score - a.score;
           });		
@@ -255,7 +255,7 @@ exports.GETtopCountriesMalwares = function(req, res){
       console.log("[-] Error in topCountries malware: " +err);
       return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
     }
-    if (ips.length == 0){
+    if (ips.length === 0){
       return res.send(" ");
     }
     //fillingUP countries vector
@@ -265,12 +265,12 @@ exports.GETtopCountriesMalwares = function(req, res){
           //multiple countries
           var mc = ips[c1].country.split(',');
           for (var j=0; j < mc.length; j++){
-            if (country.indexOf(mc[j]) == -1){
+            if (country.indexOf(mc[j]) === -1){
               //country not in array
               country.push(mc[j]);
             }	
           }
-        } else if (country.indexOf(ips[c1].country) == -1){
+        } else if (country.indexOf(ips[c1].country) === -1){
           //country not in array
           country.push(ips[c1].country);
         }	
@@ -282,7 +282,7 @@ exports.GETtopCountriesMalwares = function(req, res){
       return malwareLocationsMODEL.count({"country": c}, function(err,number){
         scorearray.push({country: c, score:  number});
         sync ++;
-        if (sync == country.length ){
+        if (sync === country.length ){
           var sortedscore = scorearray.sort(function(a,b){
             return b.score - a.score;
           });		
