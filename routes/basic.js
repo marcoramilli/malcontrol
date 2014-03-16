@@ -2,6 +2,8 @@ var _threat = require('../schemas/threat');
 var threatMODEL = _threat.mongoose.model('threat', _threat.Threat); 
 var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 
+var _malwareLocations = require('../schemas/malware_locations');
+var malwareLocationsMODEL = _malwareLocations.mongoose.model('malwareLocations', _malwareLocations.MalwareLocations);
 
 /**
  * @api {get} /api/numberofthreats returns the number of threats between specific dates
@@ -248,7 +250,7 @@ exports.GETtopCountriesThreats = function(req, res){
 exports.GETtopCountriesMalwares = function(req, res){
   var country = new Array();
   var scorearray = new Array();
-  return malwareMODEL.find({}, {}, {}, function (err, ips) {
+  return malwareLocationsMODEL.find({}, {}, {}, function (err, ips) {
     if (err){
       console.log("[-] Error in topCountries malware: " +err);
       return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
@@ -277,7 +279,7 @@ exports.GETtopCountriesMalwares = function(req, res){
     var sync = 0;
     country.forEach(function(c){
       //TOFIX: multiple countries in malware
-      return malwareMODEL.count({"country": c}, function(err,number){
+      return malwareLocationsMODEL.count({"country": c}, function(err,number){
         scorearray.push({country: c, score:  number});
         sync ++;
         if (sync == country.length ){

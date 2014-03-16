@@ -1,5 +1,4 @@
 var scraper = require('scraper');
-var geoip = require('geoip-lite');  
 var _savemalware = require('../commons/save_malw');
 
 var _local_cache = {};
@@ -46,7 +45,7 @@ exports.goScraper = function(){
               compositscore = "0 / 42";
             }
             console.log("[+] <viruscan> Score: " + compositscore);
-            return _savemalware.saveMalwareToDB(linkToReport, new Date, null, compositscore, "virscan", null, null, null, null, null, null, name);
+            return _savemalware.saveMalwareToDB(linkToReport, new Date, null, compositscore, "virscan", null, null, name);
           }//not nulls
         });//foreach element in the table of the scraped source
   });//scraper

@@ -60,9 +60,10 @@ if (cluster.isMaster){
     console.log('Worker ' + worker.id + ' died :(');
       cluster.fork();
       });
+
+      setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
     } 
     else if (cluster.isWorker){
-      setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
       setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}}, _config.scrapers.phishtank_timer);
       setInterval(function(){ if (!toobusy()) {_urlquery_scraper.goScraper();}}, _config.scrapers.urlquery_timer);
       setInterval(function(){ if (!toobusy()) {_webinspector_scraper.goScraper();}},_config.scrapers.webinspector_timer);

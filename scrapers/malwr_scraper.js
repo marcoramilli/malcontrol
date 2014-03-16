@@ -1,5 +1,4 @@
 var scraper = require('scraper');
-var geoip = require('geoip-lite');  
 var _savemalware = require('../commons/save_malw');
 var _baseLink = "https://malwr.com";
 var _base_searching_url = "https://malwr.com/analysis/?page=";
@@ -61,7 +60,7 @@ exports.goScraper = function(){
             var dsc = content.find("td").eq(3).text();
             console.log("[+] <malwr.net> Desc found: " + dsc);
 
-            return _savemalware.saveMalwareToDB(linkToReport, timestamp, null, compositscore, "malwr.com", null, null, null, null, dsc, md5, name); 
+            return _savemalware.saveMalwareToDB(linkToReport, timestamp, null, compositscore, "malwr.com", dsc, md5, name); 
           }//not nulls
         });//foreach element in the table of the scraped source
       },{'reqPerSec': 0.2});//scraper
