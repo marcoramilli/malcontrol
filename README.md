@@ -1,4 +1,8 @@
-# 4D 41 4C 57 41 52 45  43 4F 4E 54 52 4F 4C  4D 4F 4E 49 54 4F 52 
+#  /\/\   __ _| | / __\___  _ __ | |_ _ __ ___ | |
+# /    \ / _` | |/ /  / _ \| '_ \| __| '__/ _ \| |
+#/ /\/\ \ (_| | / /__| (_) | | | | |_| | | (_) | |
+#\/    \/\__,_|_\____/\___/|_| |_|\__|_|  \___/|_|
+                                                 
 
 Gathering open data from malware analysis websites is the main target of Malware Control Monitor project.
 Visualize such a data by synthesize statistics highlighting where threats happen and what their impact is, could be useful to identify malware propagations 
