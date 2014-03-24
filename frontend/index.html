@@ -29,38 +29,9 @@
                             <h4>Top Countries</h4>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Malware</div>
-                                        <div class="panel-body">
-                                            <p ng-repeat="c in topcountriesmalware">
-                                                {{ c.score}} - {{ c.country}}
-                                            </p> 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Phishers</div>
-                                        <div class="panel-body">
-                                            <p ng-repeat="c in topcountriesphishers">
-                                                {{ c.score}} - {{ c.country}}
-                                            </p> 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Threats</div>
-                                        <div class="panel-body">
-                                            <p ng-repeat="c in topcountriesthreats">
-                                                {{ c.score}} - {{ c.country}}
-                                            </p> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="malwaresCountries" style="height: 400px;"></div>
+                            <div id="phishersCountries" style="height: 400px;"></div>
+                            <div id="threatsCountries" style="height: 400px;"></div>
                         </div>
                     </div>
                 </div>
@@ -180,6 +151,11 @@
         <script type="text/javascript" src="libs/angular-bootstrap-0.10.0/angular-bootstrap.min.js"></script>
         <!-- Moment -->
         <script type="text/javascript" src="libs/moment-2.5.1/moment-with-langs.min.js"></script>
+        <!-- Javascript Infovis Toolkit -->
+        <!--[if IE]><script language="javascript" type="text/javascript" src="libs/jit-2.0.1/Extras/excanvas.js"></script><![endif]-->
+        <script language="javascript" type="text/javascript" src="libs/jit-2.0.1/jit-yc.js"></script>
+        <!-- Highcharts -->
+        <script type="text/javascript" src="libs/highcharts-3.0.10/js/highcharts.js"></script>
         <!-- MalControl App -->
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/controllers.js"></script>
@@ -188,9 +164,9 @@
         <script type="text/javascript" src="js/services.js"></script>
 
         <script type="text/javascript">
-                                                    $('input[type="date"]').datepicker({
-                                                        dateFormat: 'yy-mm-dd'
-                                                    });
+            $('input[type="date"]').datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
         </script>
     </body>
 </html>
