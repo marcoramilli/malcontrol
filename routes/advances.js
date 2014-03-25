@@ -6,6 +6,116 @@ var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware);
 var _system = require('../schemas/system');
 var systemMODEL = _system.mongoose.model('system', _system.System);
 
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+
+
+/**
+ * @api {get} /api/threatsresourcestats returns the number of threats  per scraped sources 
+ * @apiName Number of Threats per scraped
+ * @apiVersion 0.1.0 
+ * @apiGroup advanceStats
+ *
+ * @apiSuccess {JSON} Array representing json object 
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *  [
+ *    {
+ *     "source": "urlquery",
+ *     "count": 64
+ *     },
+ *     {
+ *      "name": "phishtank",
+ *      "count": 4000
+ *     }
+ *  ]
+ *
+ * @apiError InternalError The Servers had some serious problems contact mramilli@gmail.com
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status" : "error",
+ *       "message": "Internal Error"
+ *     }
+ */
+exports.GETStatesScrapedThreats = function(req, res){
+  return threatMODEL.distinct("scraped_source", function(err, sources){
+    if (err) {
+      req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
+      return console.log("[-] Error in threatMODEL.count " + err);
+    } 
+    if (undefined !== sources && null !== sources){
+      var stats = new Array();
+      sources.forEach(function(sc){
+        threatMODEL.count({"scraped_source": sc}, function(err, number){
+          stats.push({source:sc, count:number});
+          if(stats.length >= sources.length){
+            res.send(stats);
+          }
+        });//malwarefind
+      });//syncro loop
+    }//undefined control
+    else {
+      return res.send("{\"status\": \"error\", \"message\": \"empty db\"}");
+    }
+  });//countr
+};//GETNUMBERMALWAREPERHOUR
+
+/**
+ * @api {get} /api/malwaresourcestats returns the number of malwares per scraped sources 
+ * @apiName Number of Malware per scraped
+ * @apiVersion 0.1.0 
+ * @apiGroup advanceStats
+ *
+ * @apiSuccess {JSON} Array representing json object 
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *  [
+ *    {
+ *     "source": "malwr.com",
+ *     "count": 64
+ *     },
+ *     {
+ *      "name": "malwr.com",
+ *      "count": 4000
+ *     }
+ *  ]
+ *
+ * @apiError InternalError The Servers had some serious problems contact mramilli@gmail.com
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status" : "error",
+ *       "message": "Internal Error"
+ *     }
+ */
+exports.GETStatesScrapedMalware = function(req, res){
+  return malwareMODEL.distinct("scraped_source", function(err, sources){
+    if (err) {
+      req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
+      return console.log("[-] Error in malwareMODEL.count " + err);
+    } 
+    if (undefined !== sources && null !== sources){
+      var stats = new Array();
+      sources.forEach(function(sc){
+        malwareMODEL.count({"scraped_source": sc}, function(err, number){
+          stats.push({source:sc, count:number});
+          if(stats.length >= sources.length){
+            res.send(stats);
+          }
+        });//malwarefind
+      });//syncro loop
+    }//undefined control
+    else {
+      return res.send("{\"status\": \"error\", \"message\": \"empty db\"}");
+    }
+  });//countr
+};//GETNUMBERMALWAREPERHOUR
+
 /**
  * @api {get} /api/malwareh returns the number of malwares per hour 
  * @apiName Malware per H

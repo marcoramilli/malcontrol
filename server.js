@@ -113,7 +113,8 @@ if (cluster.isMaster){
       app.get('/api/malware/:fyear/:fmonth/:fday/:tyear/:tmonth/:tday', basicRoutes.GETMalwareBetweenDates);
       app.get('/api/malwareh', advancedRoutes.GETNumberMalwarePerHour);
       app.get('/api/threatsh', advancedRoutes.GETNumberThraeatsPerHour);
-      //app.get('/api/file/:username/:password/:fromdate', getdata.respondAjaxGetFilesInfo);// fromdate: 2014-01-01 01:40:02 
+      app.get('/api/malwaresourcestats', advancedRoutes.GETStatesScrapedMalware);
+      app.get('/api/threatsourcestats', advancedRoutes.GETStatesScrapedThreats);
       // **
       // **
 

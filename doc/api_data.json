@@ -47,6 +47,98 @@
   },
   {
     "type": "get",
+    "url": "/api/malwaresourcestats",
+    "title": "returns the number of malwares per scraped sources",
+    "name": "Number_of_Malware_per_scraped",
+    "version": "0.1.0",
+    "group": "advanceStats",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JSON",
+            "field": "Array",
+            "optional": false,
+            "description": "representing json object"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n[\n  {\n   \"source\": \"malwr.com\",\n   \"count\": 64\n   },\n   {\n    \"name\": \"malwr.com\",\n    \"count\": 4000\n   }\n]\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Internal Error\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/advances.js"
+  },
+  {
+    "type": "get",
+    "url": "/api/threatsresourcestats",
+    "title": "returns the number of threats  per scraped sources",
+    "name": "Number_of_Threats_per_scraped",
+    "version": "0.1.0",
+    "group": "advanceStats",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JSON",
+            "field": "Array",
+            "optional": false,
+            "description": "representing json object"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n[\n  {\n   \"source\": \"urlquery\",\n   \"count\": 64\n   },\n   {\n    \"name\": \"phishtank\",\n    \"count\": 4000\n   }\n]\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Internal Error\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/advances.js"
+  },
+  {
+    "type": "get",
     "url": "/api/threatsh",
     "title": "returns the number of threats per hour",
     "name": "Threats_per_H",
@@ -380,8 +472,8 @@
   },
   {
     "type": "get",
-    "url": "/api/topcountriesthreats",
-    "title": "Request to obtain the top countries threats list",
+    "url": "/api/topcountriesmalware",
+    "title": "Request to obtain the top malware countries list",
     "name": "TopCountries",
     "version": "0.2.0",
     "group": "basicstats",
@@ -400,7 +492,7 @@
             "type": "Number",
             "field": "Number",
             "optional": false,
-            "description": "of threats"
+            "description": "of malware"
           }
         ]
       },
@@ -433,8 +525,8 @@
   },
   {
     "type": "get",
-    "url": "/api/topcountriesmalware",
-    "title": "Request to obtain the top malware countries list",
+    "url": "/api/topcountriesthreats",
+    "title": "Request to obtain the top countries threats list",
     "name": "TopCountries",
     "version": "0.2.0",
     "group": "basicstats",
@@ -453,7 +545,7 @@
             "type": "Number",
             "field": "Number",
             "optional": false,
-            "description": "of malware"
+            "description": "of threats"
           }
         ]
       },
