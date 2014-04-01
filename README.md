@@ -13,6 +13,7 @@ Visualize such a data by synthesize statistics highlighting where threats happen
 [![Support Lorenzo via Gittip](http://img.shields.io/gittip/zoff.svg)](https://www.gittip.com/zoff/)
 [![GitHub version](https://badge.fury.io/gh/marcoramilli%2Fmalcontrol.png)](http://badge.fury.io/gh/marcoramilli%2Fmalcontrol)
 ![Code ship](https://www.codeship.io/projects/b4cc96a0-8a8c-0131-3e1f-5a175932ae46/status)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 ## Open Data
 We actually scrape the following services:
