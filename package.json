@@ -16,7 +16,13 @@
     "mocha": "^1.17.1",
     "toobusy": "^0.2.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-plato": "^1.0.0",
+    "grunt-conventional-changelog": "^1.1.0"
+  },
   "scripts": {
     "start": "make run",
     "test": "make test"

@@ -88,7 +88,7 @@ if (cluster.isMaster){
         app.use(express.bodyParser());
         app.use(express.methodOverride());
         app.use(app.router);
-        app.use(express.static(path.join(application_root, "frontend")));
+        app.use(express.static(path.join(application_root, _config.system.frontend)));
         app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 
         //** Error Handler must be the last one

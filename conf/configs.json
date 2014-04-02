@@ -1,5 +1,6 @@
 {
   "system": {
+          "frontend": "./frontend",
           "listening_port": "8080",
           "db_address": "127.0.0.1",
           "db_dbname": "malware_collector",
