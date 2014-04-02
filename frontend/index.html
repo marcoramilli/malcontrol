@@ -9,6 +9,9 @@
         <link href="libs/jquery-ui-1.10.4/jquery-ui.css" type="text/css" rel="stylesheet">
         <link href="libs/bootstrap-3.1.1/css/bootstrap.min.css" type="text/css" rel="stylesheet">
         <link href="libs/bootstrap-3.1.1/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+        <link href="libs/mapbox-1.6.2/mapbox.css" type="text/css" rel="stylesheet">
+        <link href="libs/mapbox-1.6.2/MarkerCluster.css" type="text/css" rel="stylesheet">
+        <link href="libs/mapbox-1.6.2/MarkerCluster.Default.css" type="text/css" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="libs/html5shiv-3.7.0/html5shiv.js"></script>
@@ -21,6 +24,35 @@
                 <h1>Welcome to MalControl</h1>
                 <h2>The Ultimate Malware Control Center</h2>
                 <p>More updates coming soon... Stay tuned!</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                                    
+                                    <h4>Threats Map</h4>
+                            
+                                    <label>From</label>
+                                    <div class="input-group date">
+                                        <input type="date" name="from" readonly class="form-control" ng-model="from_date">
+                                        <span class="input-group-addon btn btn-default" ng-click="open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <label>To</label>
+                                    <div class="input-group date">
+                                        <input type="date" name="from" readonly 
+                                               class="form-control" 
+                                               ng-model="to_date">
+                                        <span class="input-group-addon btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
+                                    </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="map" style="height: 600px;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -68,75 +100,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><h4>Interval Analysis</h4></div>
-                        <div class="panel-body">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label>From</label>
-                                            <div class="input-group date">
-                                                <input type="date" name="from" readonly class="form-control" ng-model="from_date">
-                                                <span class="input-group-addon btn btn-default" ng-click="open($event)">
-                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label>To</label>
-                                            <div class="input-group date">
-                                                <input type="date" name="from" readonly 
-                                                       class="form-control" 
-                                                       ng-model="to_date">
-                                                <span class="input-group-addon btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Malwares {{ malwares.length}}</div>
-                                <div class="panel-body">
-                                    <div ng-repeat="malware in malwares">
-                                        <span class="label label-default">{{ malware.name}}</span>
-                                        <span class="label label-default">{{ malware.desc}}</span>
-                                        <span class="label label-default">{{ malware.md5}}</span>
-                                        <span class="label label-default">{{ malware.timestamp}}</span>
-                                        <span class="label label-default">{{ malware.ip}}</span>
-                                        <span class="label label-default">{{ malware.alerts}}</span>
-                                        <span class="label label-default">{{ malware.ids}}</span>
-                                        <span class="label label-default">{{ malware.scraped_source}}</span>
-                                        <span class="label label-default">{{ malware.country}}</span>
-                                        <span class="label label-default">{{ malware.city}}</span>
-                                        <span class="label label-default">{{ malware.region}}</span>
-                                        <span class="label label-default">{{ malware.ll}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Threats {{ threats.length}}</div>
-                                <div class="panel-body">
-                                    <div ng-repeat="threat in threats">
-                                        <span class="label label-default">{{ threat.url}}</span>
-                                        <span class="label label-default">{{ threat.timestamp}}</span>
-                                        <span class="label label-default">{{ threat.ip}}</span>
-                                        <span class="label label-default">{{ threat.alerts}}</span>
-                                        <span class="label label-default">{{ threat.ids}}</span>
-                                        <span class="label label-default">{{ threat.scraped_source}}</span>
-                                        <span class="label label-default">{{ threat.country}}</span>
-                                        <span class="label label-default">{{ threat.city}}</span>
-                                        <span class="label label-default">{{ threat.region}}</span>
-                                        <span class="label label-default">{{ threat.ll}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- jQuery -->
@@ -156,6 +119,9 @@
         <script language="javascript" type="text/javascript" src="libs/jit-2.0.1/jit-yc.js"></script>
         <!-- Highcharts -->
         <script type="text/javascript" src="libs/highcharts-3.0.10/js/highcharts.js"></script>
+        <!-- Mapbox -->
+        <script type="text/javascript" src="libs/mapbox-1.6.2/mapbox.js"></script>
+        <script type="text/javascript" src="libs/mapbox-1.6.2/leaflet.markercluster.js"></script>
         <!-- MalControl App -->
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/controllers.js"></script>
@@ -164,9 +130,9 @@
         <script type="text/javascript" src="js/services.js"></script>
 
         <script type="text/javascript">
-            $('input[type="date"]').datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
+                                            $('input[type="date"]').datepicker({
+                                                dateFormat: 'yy-mm-dd'
+                                            });
         </script>
     </body>
 </html>

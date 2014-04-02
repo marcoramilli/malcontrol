@@ -4,6 +4,12 @@
 /* Controllers */
 
 malControlApp.controller('StatsController', function($scope, $http) {
+    var map = L.mapbox.map('map', 'lzoffoli.hmddapfj')
+            .setView([0,0], 2)
+    ;
+    var markersGroup = new L.MarkerClusterGroup();
+    map.addLayer(markersGroup);
+    
     function updateStats($scope, $http) {
         //Top Countries
         $http.get('api/topcountriesphishers').success(function(data) {
@@ -14,7 +20,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('phishersCountries', 'Phishers', $scope.topcountriesphishers, data, 99) ){
+            if( $scope.updatePie('phishersCountries', 'Phishers', $scope.topcountriesphishers, data, 22) ){
                 $scope.topcountriesphishers = data;
             }
         });
@@ -26,7 +32,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('malwaresCountries', 'Malwares', $scope.topcountriesmalware, data, 99) ){
+            if( $scope.updatePie('malwaresCountries', 'Malwares', $scope.topcountriesmalware, data, 22) ){
                 $scope.topcountriesmalware = data;
             }
         });
@@ -38,7 +44,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('threatsCountries', 'Threats', $scope.topcountriesthreats, data, 99) ){
+            if( $scope.updatePie('threatsCountries', 'Threats', $scope.topcountriesthreats, data, 22) ){
                 $scope.topcountriesthreats = data;
             }
         });
@@ -61,6 +67,29 @@ malControlApp.controller('StatsController', function($scope, $http) {
         });
         $http.get('api/threats/' + interval).success(function(data) {
             $scope.threats = data;
+            
+            for( var d in data){
+                if( data[d].ll ){
+                    var latLng = data[d].ll.split(',');
+                    latLng = new L.LatLng(latLng[0],latLng[1]);
+//                    var markers = markersGroup.getLayers();
+                    var found = false;
+//                    for( var m in markers){
+//                        var m = markers[m].getLatLng();
+//                        if( m.equals(latLng) ){
+//                            found = true;
+//                            break;
+//                        }
+//                    }
+                    if( !found ){
+                        var marker = L.marker(latLng, {
+//                            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+//                            title: title
+                        });
+                        markersGroup.addLayer(marker);
+                    }
+                }
+            }
         });
         $http.get('api/malwareh').success(function(data) {
             data.current = parseFloat(data.current);
@@ -72,6 +101,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
             data.max = parseFloat(data.max);
             $scope.threatsh = data;
         });
+        
     }
 
     $scope.updatePie = function( id, title, oldData, newData, max ){
@@ -139,8 +169,8 @@ malControlApp.controller('StatsController', function($scope, $http) {
     $scope.phishersh = { current: 0, max: 0 };
     $scope.malwares = [];
     $scope.threats = [];
-    $scope.from_date = moment('2014-01-01', 'YYYY-MM-DD').toDate();
-    $scope.to_date = moment('2014-03-01', 'YYYY-MM-DD').toDate();
+    $scope.to_date = moment().toDate();
+    $scope.from_date = moment().subtract(1,'day').toDate();
 
     // Radialize the colors
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
