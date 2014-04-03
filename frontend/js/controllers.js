@@ -9,6 +9,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
     ;
     var markersGroup = new L.MarkerClusterGroup();
     map.addLayer(markersGroup);
+    var markers = {};
     
     function updateStats($scope, $http) {
         //Top Countries
@@ -63,29 +64,52 @@ malControlApp.controller('StatsController', function($scope, $http) {
         var to = moment($scope.to_date).format('YYYY/MM/DD');
         var interval = from + '/' + to;
         $http.get('api/malware/' + interval).success(function(data) {
-            $scope.malwares = data;
-        });
-        $http.get('api/threats/' + interval).success(function(data) {
-            $scope.threats = data;
+//            $scope.malwares = data;
             
             for( var d in data){
-                if( data[d].ll ){
+                if( data[d].ll &&  data[d].ll !== '0,0' ){
+                    console.log(data[d]);
                     var latLng = data[d].ll.split(',');
-                    latLng = new L.LatLng(latLng[0],latLng[1]);
-//                    var markers = markersGroup.getLayers();
-                    var found = false;
-//                    for( var m in markers){
-//                        var m = markers[m].getLatLng();
-//                        if( m.equals(latLng) ){
-//                            found = true;
-//                            break;
-//                        }
-//                    }
-                    if( !found ){
+                    var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
+                    if( !( data[d].ll in markers ) ){
                         var marker = L.marker(latLng, {
 //                            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
-//                            title: title
+                            icon: L.icon({
+                                iconUrl: 'http://files.softicons.com/download/application-icons/oropax-icon-set-by-878952/png/24/McAfee%20Virus%20Scan.png',
+                                iconSize: [20, 20],
+                                iconAnchor: [10, 10],
+                                popupAnchor: [0, -21]
+//                                className: "dot"
+                            }),
+                            title: data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url
                         });
+                        markers[data[d].ll] = marker;
+                        markersGroup.addLayer(marker);
+                    }
+                }
+            }
+        });
+        $http.get('api/threats/' + interval).success(function(data) {
+//            $scope.threats = data;
+            
+            for( var d in data){
+                if( data[d].ll &&  data[d].ll !== '0,0' ){
+                    var latLng = data[d].ll.split(',');
+                    var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
+                    if( !( data[d].ll in markers ) ){
+                        var marker = L.marker(latLng, {
+//                            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+                            icon: L.icon({
+//                                iconUrl: 'http://icons.iconarchive.com/icons/hopstarter/malware/256/Malware-icon.png',
+                                iconUrl: '/images/threat.png',
+                                iconSize: [20, 20],
+                                iconAnchor: [10, 10],
+                                popupAnchor: [0, -21]
+//                                className: "dot"
+                            }),
+                            title: data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url
+                        });
+                        markers[data[d].ll] = marker;
                         markersGroup.addLayer(marker);
                     }
                 }
