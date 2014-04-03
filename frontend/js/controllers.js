@@ -9,7 +9,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
     ;
     var markersGroup = new L.MarkerClusterGroup();
     map.addLayer(markersGroup);
-    var markers = {};
+    $scope.markers = {};
     
     function updateStats($scope, $http) {
         //Top Countries
@@ -64,52 +64,66 @@ malControlApp.controller('StatsController', function($scope, $http) {
         var to = moment($scope.to_date).format('YYYY/MM/DD');
         var interval = from + '/' + to;
         $http.get('api/malware/' + interval).success(function(data) {
-//            $scope.malwares = data;
-            
             for( var d in data){
                 if( data[d].ll &&  data[d].ll !== '0,0' ){
-                    console.log(data[d]);
                     var latLng = data[d].ll.split(',');
                     var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
-                    if( !( data[d].ll in markers ) ){
+                    if( !( data[d].ll in $scope.markers ) ){
+                        var title = data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url;
                         var marker = L.marker(latLng, {
-//                            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
                             icon: L.icon({
-                                iconUrl: 'http://files.softicons.com/download/application-icons/oropax-icon-set-by-878952/png/24/McAfee%20Virus%20Scan.png',
+                                iconUrl: '/images/malware.png',
                                 iconSize: [20, 20],
                                 iconAnchor: [10, 10],
                                 popupAnchor: [0, -21]
-//                                className: "dot"
                             }),
-                            title: data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url
+                            title: title
                         });
-                        markers[data[d].ll] = marker;
+                        var popupContent = $('<div>')
+                                .append('<h1>'+title+'</h1>');
+                        for( var p in data[d] ){
+                            var prop;
+                            if( (data[d][p]+'').match(/^http/) ){
+                                prop = '<a href="'+data[d][p]+'">click here</a>';
+                            } 
+                            popupContent.append('<label style="font-size: 6px;"><span style="font-weight: bold;">'+p+'</span> '+prop+'</label><br>');
+                        }
+                        marker.bindPopup(popupContent.html());
+                        $scope.markers[data[d].ll] = marker;
                         markersGroup.addLayer(marker);
                     }
                 }
             }
         });
         $http.get('api/threats/' + interval).success(function(data) {
-//            $scope.threats = data;
-            
             for( var d in data){
                 if( data[d].ll &&  data[d].ll !== '0,0' ){
                     var latLng = data[d].ll.split(',');
                     var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
-                    if( !( data[d].ll in markers ) ){
+                    if( !( data[d].ll in $scope.markers ) ){
+                        var title = data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url;
                         var marker = L.marker(latLng, {
-//                            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
                             icon: L.icon({
-//                                iconUrl: 'http://icons.iconarchive.com/icons/hopstarter/malware/256/Malware-icon.png',
                                 iconUrl: '/images/threat.png',
                                 iconSize: [20, 20],
                                 iconAnchor: [10, 10],
                                 popupAnchor: [0, -21]
-//                                className: "dot"
                             }),
-                            title: data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url
+                            title: title
                         });
-                        markers[data[d].ll] = marker;
+                        var popupContent = '<div class="malpopup">';
+                        popupContent += '<h1 style="font-weight: bold;">'+data[d].ip+' - '+data[d].city+', '+data[d].country+'</h1>';
+                        popupContent += '<p>Malicious url: <a target="_blank" href="'+(data[d].url.match(/^http/) ? '':'http://') + data[d].url+'">click here</a></p>';
+                        var report = data[d].linkToReport ? '<a target="_blank" href="'+(data[d].linkToReport.match(/^http/) ? '':'http://') + data[d].linkToReport+'">See report</a>' :'';
+                        popupContent += '<p>Source: '+data[d].scraped_source+' '+report+'</p>';
+                        if( data[d].ids ){
+                            popupContent += '<p>Type: '+data[d].ids+'</p>';
+                        }
+                        popupContent += '<p>Time: '+data[d].timestamp+'</p>';
+                        popupContent += '<p>Location: '+data[d].ll+'</p>';
+                        popupContent += '</div>';
+                        marker.bindPopup(popupContent);
+                        $scope.markers[data[d].ll] = marker;
                         markersGroup.addLayer(marker);
                     }
                 }
@@ -128,6 +142,22 @@ malControlApp.controller('StatsController', function($scope, $http) {
         
     }
 
+    $scope.changeFromDate = function(){
+        if( $scope.from_date > $scope.to_date ){
+            $scope.to_date = moment($scope.from_date).add(1,'day').toDate();
+        }
+        $scope.markers = {};
+        markersGroup.clearLayers();
+        updateStats($scope,$http);
+    };
+    $scope.changeToDate = function(){
+        if( $scope.from_date > $scope.to_date ){
+            $scope.from_date = moment($scope.to_date).subtract(1,'day').toDate();
+        }
+        $scope.markers = {};
+        markersGroup.clearLayers();
+        updateStats($scope,$http);
+    };
     $scope.updatePie = function( id, title, oldData, newData, max ){
         max = max || 50;
         var orig = JSON.stringify(oldData,['country','score']);

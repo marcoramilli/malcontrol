@@ -37,7 +37,10 @@
                             
                                     <label>From</label>
                                     <div class="input-group date">
-                                        <input type="date" name="from" readonly class="form-control" ng-model="from_date">
+                                        <input type="date" name="from" readonly 
+                                               class="form-control" 
+                                               ng-change="changeFromDate()"
+                                               ng-model="from_date">
                                         <span class="input-group-addon btn btn-default" ng-click="open($event)">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
@@ -46,6 +49,7 @@
                                     <div class="input-group date">
                                         <input type="date" name="from" readonly 
                                                class="form-control" 
+                                               ng-change="changeToDate()"
                                                ng-model="to_date">
                                         <span class="input-group-addon btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
                                         </span>
@@ -58,7 +62,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Top Countries</h4>
@@ -70,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Statistics</h4>
