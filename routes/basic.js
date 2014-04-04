@@ -130,39 +130,39 @@ exports.GETNumberMalwareBetweenDates = function(req, res){
  *       "message": "Internal Error"
  *     }
  */
-exports.GETtopCountriesPhishers = function(req, res){
-  var country = new Array();
-  var scorearray = new Array();
-  return threatMODEL.find({"scraped_source":"phishtank"}, {}, {}, function (err, ips) {
-    if (err){
-      console.log("[-] Error in topCountries phishtank: " +err);
-      return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
-    }
-    if (ips.length === 0){
-      return res.send(" ");
-    }
-    for ( var c1=0; c1 < ips.length; c1++){
-      if (country.indexOf(ips[c1].country) === -1){
-        //country not in array
-        country.push(ips[c1].country);
-      }	
-    }
+//exports.GETtopCountriesPhishers = function(req, res){
+  //var country = new Array();
+  //var scorearray = new Array();
+  //return threatMODEL.find({"scraped_source":"phishtank"}, {}, {}, function (err, ips) {
+    //if (err){
+      //console.log("[-] Error in topCountries phishtank: " +err);
+      //return res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
+    //}
+    //if (ips.length === 0){
+      //return res.send(" ");
+    //}
+    //for ( var c1=0; c1 < ips.length; c1++){
+      //if (country.indexOf(ips[c1].country) === -1){
+        ////country not in array
+        //country.push(ips[c1].country);
+      //}	
+    //}
 
-    var sync = 0;
-    country.forEach(function(c){
-      return threatMODEL.count({"scraped_source":"phishtank", "country": c}, function(err,number){
-        scorearray.push({country: c, score:  number});
-        sync ++;
-        if (sync === country.length ){
-          var sortedscore = scorearray.sort(function(a,b){
-            return b.score - a.score;
-          });		
-          return res.send(sortedscore);
-        } 
-      });//count
-    });//for malware model
-  });//malwareMODEL getting everything
-};//GETTOPCOUNTRIESMALWARES
+    //var sync = 0;
+    //country.forEach(function(c){
+      //return threatMODEL.count({"scraped_source":"phishtank", "country": c}, function(err,number){
+        //scorearray.push({country: c, score:  number});
+        //sync ++;
+        //if (sync === country.length ){
+          //var sortedscore = scorearray.sort(function(a,b){
+            //return b.score - a.score;
+          //});		
+          //return res.send(sortedscore);
+        //} 
+      //});//count
+    //});//for malware model
+  //});//malwareMODEL getting everything
+//};//GETTOPCOUNTRIESMALWARES
 /**
  * @api {get} /api/topcountriesthreats Request to obtain the top countries threats list 
  * @apiName TopCountries 

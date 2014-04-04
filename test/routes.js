@@ -17,21 +17,21 @@ describe('Routing', function() {
   ////done();
   //});
 
-  describe('GET TopCountriresPhishers', function() {
-    it('should return JSON withing the top phishers countries', function(done) {
+  //describe('GET TopCountriresPhishers', function() {
+    //it('should return JSON withing the top phishers countries', function(done) {
 
-      request(url)
-      .get('/api/topcountriesphishers')
-      .expect('Content-Type', /json/)
-      .expect(200) //Status code(200);
-    .end(function(err,res) {
-      if (err) {
-        throw err;
-      }
-      done();
-    });//end
-    });//it
-  });//describe
+      //request(url)
+      //.get('/api/topcountriesphishers')
+      //.expect('Content-Type', /json/)
+      //.expect(200) //Status code(200);
+    //.end(function(err,res) {
+      //if (err) {
+        //throw err;
+      //}
+      //done();
+    //});//end
+    //});//it
+  //});//describe
 
   describe('GET TopCountriesmalware', function() {
     it('should return JSON withing the top malware countries', function(done) {
