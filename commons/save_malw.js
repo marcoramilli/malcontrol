@@ -23,8 +23,8 @@ exports.firstTimeRunningMalware = function(callback){
 //External
 exports.saveMalwareToDB = function(plinkToReport, ptimestamp, pip, pcompositscore, pscraped_source, pdesc, pmd5, pname){
   //no malware into DB 
-  var alerts = undefined;
-  var ids = undefined;
+  var alerts;
+  var ids;
 
   if (undefined !== pcompositscore && null !== pcompositscore){
     var p =pcompositscore.split("/");
@@ -58,11 +58,12 @@ _malware_report_scraper = function(malw){
   console.log("[+] Trying to geolocalize: " + malw.name);
   if (undefined !== linkToReport && null !== linkToReport){
 
-    scraper(linkToReport, function(err, jQ){
+    return scraper(linkToReport, function(err, jQ){
       console.log("[+] Scraping: " + linkToReport);
       if (err) {return console.log("[-] Error happening in malwr: " + err);}
       try{
-        jQ('#hosts tr td').each(function(){
+        return jQ('#hosts tr td').each(function(){
+          console.log("[+] Analysing internal page");
           var c = jQ(this);
           if (undefined !== c && null !== c){
             var ip = c.text();
@@ -92,7 +93,7 @@ exports.geoLocMalwr = function(){
 
       malwrs.forEach(function(malw){
         if (malw.scraped_source === "malwr.com"){
-          _malware_report_scraper(malw); 
+           _malware_report_scraper(malw); 
         }
       });//forEachMalware
     }//malwrs.length

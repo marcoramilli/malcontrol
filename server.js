@@ -102,8 +102,9 @@ if (cluster.isMaster){
       //Here the interesting part: the ROUTES !
       // **
       // **
-      app.get('/api/topcountriesphishers', basicRoutes.GETtopCountriesPhishers);
+      //app.get('/api/topcountriesphishers', basicRoutes.GETtopCountriesPhishers);
       app.get('/api/topcountriesmalware', basicRoutes.GETtopCountriesMalwares);
+
       app.get('/api/topcountriesthreats', basicRoutes.GETtopCountriesThreats);
       app.get('/api/totalmalware', basicRoutes.GETtotalMalware);
       app.get('/api/totalthreats', basicRoutes.GETtotalThreats);

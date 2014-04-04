@@ -503,6 +503,7 @@ exports.GETThreatsBetweenDates = function(req, res){
  *     }
  */
 exports.GETMalwareBetweenDates = function(req, res){
+  //TODO: restituire solo geolocalizzati e repplicare i malware se sono presenti piu geolocalizzazioni
   var fyear = req.params.fyear;
   var fmonth = req.params.fmonth;
   var fday = req.params.fday;
@@ -510,11 +511,56 @@ exports.GETMalwareBetweenDates = function(req, res){
   var tyear = req.params.tyear;
   var tmonth = req.params.tmonth;
   var tday = req.params.tday;
+  var response = [];
 
   if (fyear && fmonth && fday && tyear && tmonth && tday){
-    return malwareMODEL.find({modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
-      if (err) {return console.log("[-] Error in GETMalwareBetweenDates " + err);}  
-      return res.send( objs);
+    return malwareMODEL.find({geoLoc: true, modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
+      if (err) { console.log("[-] Error in GETMalwareBetweenDates " + err); res.send("{\"status\": \"error\", \"message\": \"GETMalwareBetweenDates\"}");}  
+      console.log(objs);
+      if (objs.length === 0){console.log("no gelocated malware so far.. it takes planty of time"); res.send(response);}
+      var mal_length = 0; 
+      objs.forEach(function(obj){
+        malwareLocationsMODEL.find({malid: obj._id}, function(err, locations){
+          if (err) { console.log("[-] Error in GETMalwareBetweenDates " + err); res.send("{\"status\": \"error\", \"message\": \"GETMalwareBetweenDates\"}");}  
+          if (locations.length === 0){
+            response.push(obj);
+            mal_length++;
+            if (mal_length >= objs.length){
+              console.log(response);
+              res.send(response);
+            }
+          } else {
+
+            var locations_length = 0;
+            console.log(" !!!!!");
+            locations.forEach(function(loc){
+              obj.ll = loc.ll;
+              obj.ip = loc.ip;
+              obj.city = loc.city;
+              obj.scraped_source = loc.scraped_source;
+              obj.country = loc.country; 
+              obj.save(function(err){
+                if (err){console.log("Error: " + err); res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");}
+                response.push(obj);
+                locations_length++;
+                console.log("****************************************");
+                console.log("locations_lenght: "+ locations_length);
+                console.log("malwares_lenght: "+ mal_length);
+                console.log("total_lenght: "+ objs.length);
+                console.log("****************************************");
+                if (locations_length >= locations.length){
+                  mal_length++;
+                }
+                if (mal_length >= objs.length){
+                  console.log(response);
+                  res.send(response);
+                }
+              });//objsave
+            });//locations 
+          }
+        });//malwarelocation 
+      });//foreach
+      //return res.send( objs );
     });//find
   } else {
     res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
