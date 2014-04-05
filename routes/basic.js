@@ -516,7 +516,6 @@ exports.GETMalwareBetweenDates = function(req, res){
   if (fyear && fmonth && fday && tyear && tmonth && tday){
     return malwareMODEL.find({geoLoc: true, modified: {$gte: new Date(fyear+','+fmonth+','+fday), $lt: new Date(tyear+','+tmonth+','+tday)}}, function(err, objs){
       if (err) { console.log("[-] Error in GETMalwareBetweenDates " + err); res.send("{\"status\": \"error\", \"message\": \"GETMalwareBetweenDates\"}");}  
-      console.log(objs);
       if (objs.length === 0){console.log("no gelocated malware so far.. it takes planty of time"); res.send(response);}
       var mal_length = 0; 
       objs.forEach(function(obj){
@@ -526,13 +525,11 @@ exports.GETMalwareBetweenDates = function(req, res){
             response.push(obj);
             mal_length++;
             if (mal_length >= objs.length){
-              console.log(response);
               res.send(response);
             }
           } else {
 
             var locations_length = 0;
-            console.log(" !!!!!");
             locations.forEach(function(loc){
               obj.ll = loc.ll;
               obj.ip = loc.ip;
@@ -543,16 +540,10 @@ exports.GETMalwareBetweenDates = function(req, res){
                 if (err){console.log("Error: " + err); res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");}
                 response.push(obj);
                 locations_length++;
-                console.log("****************************************");
-                console.log("locations_lenght: "+ locations_length);
-                console.log("malwares_lenght: "+ mal_length);
-                console.log("total_lenght: "+ objs.length);
-                console.log("****************************************");
                 if (locations_length >= locations.length){
                   mal_length++;
                 }
                 if (mal_length >= objs.length){
-                  console.log(response);
                   res.send(response);
                 }
               });//objsave
