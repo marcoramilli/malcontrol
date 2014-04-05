@@ -13,18 +13,6 @@ malControlApp.controller('StatsController', function($scope, $http) {
     
     function updateStats($scope, $http) {
         //Top Countries
-        $http.get('api/topcountriesphishers').success(function(data) {
-            if( !$.isArray(data) ) return;
-            data.sort(function(a, b) {
-                if (a.score === b.score) {
-                    return a.country > b.country;
-                }
-                return b.score - a.score;
-            });
-            if( $scope.updatePie('phishersCountries', 'Phishers', $scope.topcountriesphishers, data, 22) ){
-                $scope.topcountriesphishers = data;
-            }
-        });
         $http.get('api/topcountriesmalware').success(function(data) {
             if( !$.isArray(data) ) return;
             data.sort(function(a, b) {
@@ -53,9 +41,6 @@ malControlApp.controller('StatsController', function($scope, $http) {
         $http.get('api/totalmalware').success(function(data) {
             $scope.totalmalware = data.totals;
         });
-        $http.get('api/totalphishers').success(function(data) {
-            $scope.totalphishers = data.totals;
-        });
         $http.get('api/totalthreats').success(function(data) {
             $scope.totalthreats = data.totals;
         });
@@ -64,70 +49,10 @@ malControlApp.controller('StatsController', function($scope, $http) {
         var to = moment($scope.to_date).format('YYYY/MM/DD');
         var interval = from + '/' + to;
         $http.get('api/malware/' + interval).success(function(data) {
-            for( var d in data){
-                if( data[d].ll &&  data[d].ll !== '0,0' ){
-                    var latLng = data[d].ll.split(',');
-                    var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
-                    if( !( data[d].ll in $scope.markers ) ){
-                        var title = data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url;
-                        var marker = L.marker(latLng, {
-                            icon: L.icon({
-                                iconUrl: '/images/malware.png',
-                                iconSize: [20, 20],
-                                iconAnchor: [10, 10],
-                                popupAnchor: [0, -21]
-                            }),
-                            title: title
-                        });
-                        var popupContent = $('<div>')
-                                .append('<h1>'+title+'</h1>');
-                        for( var p in data[d] ){
-                            var prop;
-                            if( (data[d][p]+'').match(/^http/) ){
-                                prop = '<a href="'+data[d][p]+'">click here</a>';
-                            } 
-                            popupContent.append('<label style="font-size: 6px;"><span style="font-weight: bold;">'+p+'</span> '+prop+'</label><br>');
-                        }
-                        marker.bindPopup(popupContent.html());
-                        $scope.markers[data[d].ll] = marker;
-                        markersGroup.addLayer(marker);
-                    }
-                }
-            }
+            $scope.parseData(data);
         });
         $http.get('api/threats/' + interval).success(function(data) {
-            for( var d in data){
-                if( data[d].ll &&  data[d].ll !== '0,0' ){
-                    var latLng = data[d].ll.split(',');
-                    var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
-                    if( !( data[d].ll in $scope.markers ) ){
-                        var title = data[d].ll + '  --  ' + data[d].ip + '  --  ' + data[d].url;
-                        var marker = L.marker(latLng, {
-                            icon: L.icon({
-                                iconUrl: '/images/threat.png',
-                                iconSize: [20, 20],
-                                iconAnchor: [10, 10],
-                                popupAnchor: [0, -21]
-                            }),
-                            title: title
-                        });
-                        var popupContent = '<div class="malpopup">';
-                        popupContent += '<h1 style="font-weight: bold;">'+data[d].ip+' - '+data[d].city+', '+data[d].country+'</h1>';
-                        popupContent += '<p>Malicious url: <a target="_blank" href="'+(data[d].url.match(/^http/) ? '':'http://') + data[d].url+'">click here</a></p>';
-                        var report = data[d].linkToReport ? '<a target="_blank" href="'+(data[d].linkToReport.match(/^http/) ? '':'http://') + data[d].linkToReport+'">See report</a>' :'';
-                        popupContent += '<p>Source: '+data[d].scraped_source+' '+report+'</p>';
-                        if( data[d].ids ){
-                            popupContent += '<p>Type: '+data[d].ids+'</p>';
-                        }
-                        popupContent += '<p>Time: '+data[d].timestamp+'</p>';
-                        popupContent += '<p>Location: '+data[d].ll+'</p>';
-                        popupContent += '</div>';
-                        marker.bindPopup(popupContent);
-                        $scope.markers[data[d].ll] = marker;
-                        markersGroup.addLayer(marker);
-                    }
-                }
-            }
+            $scope.parseData(data);
         });
         $http.get('api/malwareh').success(function(data) {
             data.current = parseFloat(data.current);
@@ -141,7 +66,66 @@ malControlApp.controller('StatsController', function($scope, $http) {
         });
         
     }
-
+    $scope.parseData = function(data){
+        for( var d in data){
+            if( data[d].ll &&  data[d].ll !== '0,0' ){
+                var latLng = data[d].ll.split(',');
+                var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
+                if( !( data[d].ll in $scope.markers ) ){
+                    var marker = $scope.createMarker(data[d]);
+                    $scope.markers[data[d].ll] = marker;
+                    markersGroup.addLayer(marker);
+                }
+            }
+        }
+    };
+    $scope.createMarker = function(data){
+        var title = data.ll + '  --  ' + data.ip + '  --  ' + (data.url||data.desc);
+        var latLng = data.ll.split(',');
+        var marker = L.marker(latLng, {
+            icon: L.icon({
+                iconUrl: $scope.getMarkerIcon(data.scraped_source),
+                iconSize: [32, 32],
+                iconAnchor: [16, 16],
+                popupAnchor: [0, -32]
+            }),
+            title: title
+        });
+        var popupContent = '<div class="malpopup">';
+        popupContent += '<h1 style="font-weight: bold;">'+data.ip+' - '+data.city+', '+data.country+'</h1>';
+        if( data.url ){
+            popupContent += '<p>Malicious url: <a target="_blank" href="'+(data.url.match(/^http/) ? '':'http://') + data.url+'">click here</a></p>';
+        }
+        if( data.desc ){
+            popupContent += '<p>File: '+data.name+'<br>';
+            popupContent += 'MD5: '+data.md5+'<br>';
+            popupContent += ''+data.desc+'</p>';
+        }
+        var report = data.linkToReport ? '<a target="_blank" href="'+(data.linkToReport.match(/^http/) ? '':'http://') + data.linkToReport+'">See report</a>' :'';
+        popupContent += '<p>Source: '+data.scraped_source+' '+report+'</p>';
+        if( data.ids && isNaN(data.ids) ){
+            popupContent += '<p>Type: '+data.ids+'</p>';
+        }
+        popupContent += '<p>Time: '+data.timestamp+'</p>';
+        popupContent += '<p>Location: '+data.ll+'</p>';
+        popupContent += '</div>';
+        marker.bindPopup(popupContent);
+        return marker;
+    };
+    $scope.getMarkerIcon = function(source){
+        switch( source ){
+            case 'malwr.com':
+                return '/images/sources/malwr.png';
+            case 'phishtank':
+            case 'scumware':
+            case 'urlquery':
+            case 'virusscan':
+            case 'webinspector':
+                return '/images/sources/'+source+'.png';
+            default:
+                return '/images/threat.png';
+        }
+    };
     $scope.changeFromDate = function(){
         if( $scope.from_date > $scope.to_date ){
             $scope.to_date = moment($scope.from_date).add(1,'day').toDate();
