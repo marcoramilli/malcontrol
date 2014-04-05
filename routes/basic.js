@@ -470,28 +470,46 @@ exports.GETThreatsBetweenDates = function(req, res){
  *  @apiParam {String} fyear To Month 
  *  @apiParam {String} fyear To Day 
  *
- * @apiSuccess [{JSON}] JSon object representing Malware 
+ * @apiSuccess [{JSON}] JSon Array object representing Malware 
  *
  * @apiSuccessExample Success-Response:
  *
- * {
- *   "_id": "531b3dc48c1d28d5bcb26535",
- *   "alerts": "0 ",
- *   "city": null,
- *   "country": null,
- *   "desc": null,
- *   "ids": " 42",
- *   "ip": null,
- *   "linkToReport": "http://r.virscan.org/7c1ea5cecc69ba1e5caeaa167db85f3c",
- *   "ll": null,
- *   "md5": null,
- *   "name": "fdminst-lite.exe (4067080\n)",
- *   "region": null,
- *   "scraped_source": "virscan",
- *   "timestamp": "Sat Mar 08 2014 17:01:10 GMT+0100 (CET)",
- *   "modified": "2014-03-08T16:01:10.044Z",
- *   "geoLoc": false
+ *[
+ *{
+ *"_id": "533ec33ac7c0c23b6460a497",
+ *"alerts": "37",
+ *"city": "Denver",
+ *"country": "US",
+ *"desc": "PE32 executable (GUI) Intel 80386, for MS Windows",
+ *"ids": "48",
+ *"ip": "174.128.255.229",
+ *"linkToReport": "https://malwr.com/analysis/M2EwODc5YTRlZjQ4NDZjYmI3YjQ4YWQxNTY0NTU5ZTE/",
+ *"ll": "39.7525,-104.9995",
+ *"md5": "8261b051340baf1d3077bd6bdf8b301e",
+ *"name": "WMS.exe",
+ *"scraped_source": "malwr.com",
+ *"timestamp": "April 4, 2014, 8:36 a.m.",
+ *"modified": "2014-04-04T14:57:13.748Z",
+ *"geoLoc": true
+ *},
+ *{
+ *"_id": "533ec33ac7c0c23b6460a497",
+ *"alerts": "37",
+ *"city": "Denver",
+ *"country": "US",
+ *"desc": "PE32 executable (GUI) Intel 80386, for MS Windows",
+ *"ids": "48",
+ *"ip": "174.128.255.229",
+ *"linkToReport": "https://malwr.com/analysis/M2EwODc5YTRlZjQ4NDZjYmI3YjQ4YWQxNTY0NTU5ZTE/",
+ *"ll": "39.7525,-104.9995",
+ *"md5": "8261b051340baf1d3077bd6bdf8b301e",
+ *"name": "WMS.exe",
+ *"scraped_source": "malwr.com",
+ *"timestamp": "April 4, 2014, 8:36 a.m.",
+ *"modified": "2014-04-04T14:57:13.748Z",
+ *"geoLoc": true
  *}
+ *
  *
  * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *

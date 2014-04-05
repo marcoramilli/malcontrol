@@ -210,14 +210,14 @@
             "group": "Success 200",
             "field": "{JSON",
             "optional": true,
-            "description": "}] JSon object representing Malware"
+            "description": "}] JSon Array object representing Malware"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n \"_id\": \"531b3dc48c1d28d5bcb26535\",\n \"alerts\": \"0 \",\n \"city\": null,\n \"country\": null,\n \"desc\": null,\n \"ids\": \" 42\",\n \"ip\": null,\n \"linkToReport\": \"http://r.virscan.org/7c1ea5cecc69ba1e5caeaa167db85f3c\",\n \"ll\": null,\n \"md5\": null,\n \"name\": \"fdminst-lite.exe (4067080\\n)\",\n \"region\": null,\n \"scraped_source\": \"virscan\",\n \"timestamp\": \"Sat Mar 08 2014 17:01:10 GMT+0100 (CET)\",\n \"modified\": \"2014-03-08T16:01:10.044Z\",\n \"geoLoc\": false\n}\n"
+          "content": "[\n{\n\"_id\": \"533ec33ac7c0c23b6460a497\",\n\"alerts\": \"37\",\n\"city\": \"Denver\",\n\"country\": \"US\",\n\"desc\": \"PE32 executable (GUI) Intel 80386, for MS Windows\",\n\"ids\": \"48\",\n\"ip\": \"174.128.255.229\",\n\"linkToReport\": \"https://malwr.com/analysis/M2EwODc5YTRlZjQ4NDZjYmI3YjQ4YWQxNTY0NTU5ZTE/\",\n\"ll\": \"39.7525,-104.9995\",\n\"md5\": \"8261b051340baf1d3077bd6bdf8b301e\",\n\"name\": \"WMS.exe\",\n\"scraped_source\": \"malwr.com\",\n\"timestamp\": \"April 4, 2014, 8:36 a.m.\",\n\"modified\": \"2014-04-04T14:57:13.748Z\",\n\"geoLoc\": true\n},\n{\n\"_id\": \"533ec33ac7c0c23b6460a497\",\n\"alerts\": \"37\",\n\"city\": \"Denver\",\n\"country\": \"US\",\n\"desc\": \"PE32 executable (GUI) Intel 80386, for MS Windows\",\n\"ids\": \"48\",\n\"ip\": \"174.128.255.229\",\n\"linkToReport\": \"https://malwr.com/analysis/M2EwODc5YTRlZjQ4NDZjYmI3YjQ4YWQxNTY0NTU5ZTE/\",\n\"ll\": \"39.7525,-104.9995\",\n\"md5\": \"8261b051340baf1d3077bd6bdf8b301e\",\n\"name\": \"WMS.exe\",\n\"scraped_source\": \"malwr.com\",\n\"timestamp\": \"April 4, 2014, 8:36 a.m.\",\n\"modified\": \"2014-04-04T14:57:13.748Z\",\n\"geoLoc\": true\n}\n"
         }
       ]
     },

@@ -46,6 +46,13 @@ module.exports = function(grunt) {
       options: {
         // Task-specific options go here.
       }
+    },
+
+    apidoc: {
+      myapp: {
+          src: "routes/",
+          dest: "doc/"
+       }
     }
 
   });
@@ -55,9 +62,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-plato');
   grunt.loadNpmTasks('grunt-conventional-changelog');
+  grunt.loadNpmTasks('grunt-apidoc');
 
 
   // Default task(s).
-  grunt.registerTask('default', ['plato', 'copy', 'uglify', 'changelog']);
+  grunt.registerTask('default', ['plato', 'copy', 'uglify', 'apidoc',  'changelog']);
 
 };//Wrapping Function
