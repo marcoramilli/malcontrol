@@ -49,21 +49,21 @@ describe('Routing', function() {
     });//it
   });//describe
 
-  describe('GET TopCountriethreats', function() {
-    it('should return JSON withing the top threat countries', function(done) {
+  //describe('GET TopCountriethreats', function() {
+    //it('should return JSON withing the top threat countries', function(done) {
 
-      request(url)
-      .get('/api/topcountriesthreats')
-      .expect('Content-Type', /json/)
-      .expect(200) //Status code(200);
-    .end(function(err,res) {
-      if (err) {
-        throw err;
-      }
-      done();
-    });//end
-    });//it
-  });//describe
+      //request(url)
+      //.get('/api/topcountriesthreats')
+      //.expect('Content-Type', /json/)
+      //.expect(200) //Status code(200);
+    //.end(function(err,res) {
+      //if (err) {
+        //throw err;
+      //}
+      //done();
+    //});//end
+    //});//it
+  //});//describe
 
   describe('GET Total malware', function() {
     it('should return JSON withing the total amount of processed malware', function(done) {
