@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
 var mongoose = require('mongoose');
-var scraper = require('scraper');
+var scraper = require('../scrapers/scraper');
 var geoip = require('geoip-lite');  
 var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 

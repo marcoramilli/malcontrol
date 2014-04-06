@@ -1,8 +1,3 @@
- /    \ / _` | |/ /  / _ \| '_ \| __| '__/ _ \| |
-/ /\/\ \ (_| | / /__| (_) | | | | |_| | | (_) | |
-\/    \/\__,_|_\____/\___/|_| |_|\__|_|  \___/|_|
-                                                 
-
 Gathering open data from malware analysis websites is the main target of Malware Control Monitor project.
 Visualize such a data by synthesize statistics highlighting where threats happen and what their impact is, could be useful to identify malware propagations 
 

@@ -1,4 +1,4 @@
-var scraper = require('scraper');
+var scraper = require('./scraper');
 var geoip = require('geoip-lite');  
 var _savethreats = require('../commons/save_threats');
 var _base_report_url = "http://www.scumware.org/report/";

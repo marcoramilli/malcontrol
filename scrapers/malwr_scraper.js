@@ -1,4 +1,4 @@
-var scraper = require('scraper');
+var scraper = require('./scraper');
 var _savemalware = require('../commons/save_malw');
 var _baseLink = "https://malwr.com";
 var _base_searching_url = "https://malwr.com/analysis/?page=";
