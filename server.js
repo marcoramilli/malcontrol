@@ -64,13 +64,13 @@ if (cluster.isMaster){
       setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
     } 
     else if (cluster.isWorker){
-      setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}}, _config.scrapers.phishtank_timer);
-      setInterval(function(){ if (!toobusy()) {_urlquery_scraper.goScraper();}}, _config.scrapers.urlquery_timer);
-      setInterval(function(){ if (!toobusy()) {_webinspector_scraper.goScraper();}},_config.scrapers.webinspector_timer);
-      setInterval(function(){ if (!toobusy()) {_virusscan_scraper.goScraper();}}, _config.scrapers.virusscanner_timer);
+      setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}},parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
+      setInterval(function(){ if (!toobusy()) {_urlquery_scraper.goScraper();}}, parseInt(Math.random()*100000)); //_config.scrapers.urlquery_timer);
+      setInterval(function(){ if (!toobusy()) {_webinspector_scraper.goScraper();}},parseInt(Math.random(2)*100000));//_config.scrapers.webinspector_timer);
+      setInterval(function(){ if (!toobusy()) {_virusscan_scraper.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.virusscanner_timer);
       //TOFIX: fix the following scraper !
       ////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
-      setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, _config.scrapers.malwr_timer);
+      setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
 
       process.on('uncaughtException', function globalErrorCatch(error, p){
         console.error(error);
