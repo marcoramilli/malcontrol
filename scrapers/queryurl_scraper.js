@@ -7,7 +7,7 @@ var _linkToReport = "http://urlquery.net/";
 exports.goScraper = function(){
   try{
     return scraper('http://urlquery.net/', function(err, jQuery) {
-        if (err) {console.log("[-] Error happening in urlquery:" + err);}
+        if (err) {return console.log("[-] Error happening in urlquery:" + err);}
         console.log("[+] Querying urlquery");
         try{
           jQuery('.test tr').each(function() {
@@ -42,5 +42,5 @@ exports.goScraper = function(){
           });//foreach element in the table of the scraped source
         }catch(e){return console.log("[-] Errors in urlquery");}
   });//scraper
-  }catch(ex){console.log("[-] Error in scraping urlquery: " + ex);}
+  }catch(ex){return console.log("[-] Error in scraping urlquery: " + ex);}
 };//goScraper

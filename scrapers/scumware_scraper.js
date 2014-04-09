@@ -8,7 +8,7 @@ var _base_report_url = "http://www.scumware.org/report/";
 //URLQUERY
 exports.goScraper = function(){
   return scraper('http://www.scumware.org', function(err, jQuery) {
-      if (err) {console.log("[-] Error happening in scumware: " + err);}
+      if (err) {return console.log("[-] Error happening in scumware: " + err);}
       console.log("[+] Querying scumware");
 
       console.log(jQuery);

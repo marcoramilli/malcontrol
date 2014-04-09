@@ -25,7 +25,7 @@ exports.goScraper = function(){
     }
     try{
       return scraper(uris, function(err, jQuery) {
-        if (err) {console.log("[-] Error happening in malwr: " + err);}
+        if (err) {return console.log("[-] Error happening in malwr: " + err);}
         console.log("[+] Querying malwr");
 
         return jQuery('tr').each(function() {
@@ -64,7 +64,7 @@ exports.goScraper = function(){
           }//not nulls
         });//foreach element in the table of the scraped source
       },{'reqPerSec': 0.2});//scraper
-    } catch(ex){console.log("[-] Error in scraping malrw " + ex);}
+    } catch(ex){return console.log("[-] Error in scraping malrw " + ex);}
   });//firsttime
 };//goScraper
 

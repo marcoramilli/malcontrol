@@ -6,7 +6,7 @@ var _local_cache = {};
 exports.goScraper = function(){
   try{
     return scraper('http://www.virscan.org/reportlist.php', function(err, jQuery) {
-        if (err) {console.log("[-] Error happening in malwr: " + err);}
+        if (err) {return console.log("[-] Error happening in malwr: " + err);}
         console.log("[+] Querying viruscan");
 
         return jQuery('#lastScanTable tr').each(function() {
@@ -47,5 +47,5 @@ exports.goScraper = function(){
           }//not nulls
         });//foreach element in the table of the scraped source
   });//scraper
-  }catch(ex){console.log("[-] Error in scraping virscan: " + ex);}
+  }catch(ex){return console.log("[-] Error in scraping virscan: " + ex);}
 };//goScraper

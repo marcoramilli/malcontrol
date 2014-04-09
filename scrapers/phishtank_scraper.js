@@ -8,7 +8,7 @@ exports.goScraper = function(){
   console.log("[+] Scraping PhishTank !"); 
   try{
     return scraper('http://www.phishtank.com/phish_archive.php', function(err, jQuery) {
-        if (err) {console.log("[-] Error happening in phishtank: " + err);}
+        if (err) {return console.log("[-] Error happening in phishtank: " + err);}
 
         return jQuery('.data tr').each(function() {
           var content = jQuery(this);
@@ -41,5 +41,5 @@ exports.goScraper = function(){
           });//dnsresolve
         });//foreach element in the table of the scraped source
   });//scraper
-  }catch(ex){console.log("[-] Error in scraping phishtank: " + ex);}
+  }catch(ex){return console.log("[-] Error in scraping phishtank: " + ex);}
 };//goScraper

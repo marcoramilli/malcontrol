@@ -9,7 +9,7 @@ exports.goScraper = function(){
   console.log("[+] Scraping WebInspector!"); 
   try {
     return scraper('http://app.webinspector.com/recent_detections', function(err, jQuery) {
-        if (err) {console.log("[-] Error happening in webinspector: " + err);}
+        if (err) {return console.log("[-] Error happening in webinspector: " + err);}
 
         return jQuery('.sites-list tr').each(function() {
           var content = jQuery(this);
@@ -43,5 +43,5 @@ exports.goScraper = function(){
           });//dnsresolve
         });//foreach element in the table of the scraped source
   });//scraper
-  }catch(ex){console.log("[-] Error in scraping webinspector: " + ex);}
+  }catch(ex){return console.log("[-] Error in scraping webinspector: " + ex);}
 };//goScraper
