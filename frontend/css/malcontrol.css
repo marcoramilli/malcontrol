@@ -1,19 +1,5 @@
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-#map-panel {
-    position: absolute;
-    top: 5px;
-    margin-left: 50px;
-}
-#map-panel .date {
-    margin-left: 1em;
-    margin-top: 0.5em;
-    width: 15em;
-}
-#map-panel .input-group .form-control {
-    width: 15em;
-}
-
 html, body, #map {
     height: 100%;
     margin: 0px;

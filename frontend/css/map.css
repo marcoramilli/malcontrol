@@ -1,0 +1,29 @@
+#map-panel {
+    position: absolute;
+    top: 5px;
+    margin-left: 50px;
+}
+#map-panel .date {
+    margin-left: 1em;
+    margin-top: 0.5em;
+    width: 15em;
+}
+#map-panel .input-group .form-control {
+    width: 15em;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    font-size: 1.5em;
+    text-align: center;
+    text-indent: 0px;
+}
+
+#chart-btn {
+    margin: 7px;
+    padding: 5px 10px 5px 10px;
+}
+
+#charts-modal .modal-dialog{
+  width: 90%;
+}
