@@ -4,8 +4,13 @@
 /* Controllers */
 
 malControlApp.controller('StatsController', function($scope, $http) {
-    var map = L.mapbox.map('map', 'lzoffoli.hmddapfj')
-            .setView([0,0], 2)
+    var map = L.mapbox.map('map', 'lzoffoli.hmddapfj',{
+        tileLayer: {
+            continuousWorld: false,
+            noWrap: true
+        }
+    })
+    .setView([20,0],3)
     ;
     var markersGroup = new L.MarkerClusterGroup();
     map.addLayer(markersGroup);
@@ -359,6 +364,9 @@ malControlApp.controller('StatsController', function($scope, $http) {
         updateStats($scope, $http);
     }, 5000);
 
+    $('input[type="date"]').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 });
 
 var input =
