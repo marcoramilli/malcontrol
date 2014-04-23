@@ -5,13 +5,13 @@
 
 malControlApp.controller('StatsController', function($scope, $http) {
     var map = L.mapbox.map('map', 'lzoffoli.hmddapfj',{
+        center: [20,0],
+        zoom: 3,
         tileLayer: {
             continuousWorld: false,
             noWrap: true
         }
-    })
-    .setView([20,0],3)
-    ;
+    });
     var markersGroup = new L.MarkerClusterGroup();
     map.addLayer(markersGroup);
     $scope.markers = {};

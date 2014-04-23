@@ -1,3 +1,7 @@
+#map {
+    background-color: #02233b;
+}
+
 #map-panel {
     position: absolute;
     top: 1em;
