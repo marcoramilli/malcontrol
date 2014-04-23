@@ -19,6 +19,11 @@ html, body, #map {
     right: 1em;
 }
 
+#charts .row > div {
+    margin: 0px;
+    padding: 0px;
+}
+
 #charts .chart {
     opacity: 0.1;
 }
@@ -31,6 +36,7 @@ html, body, #map {
 }
 
 .chart {
+    margin: 0.3em;
     width: 12em;
     height: 12em;
 }

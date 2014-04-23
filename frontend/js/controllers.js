@@ -26,8 +26,10 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('malwaresCountries', 'Malwares', $scope.topcountriesmalware, data, 22) ){
-                $scope.topcountriesmalware = data;
+            var vdata = $scope.parseTopCountriesData($scope.topcountriesmalware, data, 22);
+            if( vdata !== false ){
+                $scope.topcountriesmalware = vdata;
+                $scope.updatePie('malwares-countries', 'Malwares', vdata );
             }
         });
         $http.get('api/topcountriesthreats').success(function(data) {
@@ -38,8 +40,27 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('threatsCountries', 'Threats', $scope.topcountriesthreats, data, 22) ){
-                $scope.topcountriesthreats = data;
+            var vdata = $scope.parseTopCountriesData($scope.topcountriesthreats, data, 22);
+            if( vdata !== false ){
+                $scope.topcountriesmalware = vdata;
+                $scope.updatePie('threats-countries', 'Threats', vdata );
+            }
+        });
+        //Sources stats
+        $http.get('api/malwaresourcestats').success(function(data) {
+            if( !$.isArray(data) ) return;
+            var vdata = $scope.parseTopCountriesData($scope.malwaressources, data);
+            if( vdata !== false ){
+                $scope.malwaressources = vdata;
+                $scope.updatePie('malwares-sources-stats', 'Malwares Sources', vdata );
+            }
+        });
+        $http.get('api/threatsourcestats').success(function(data) {
+            if( !$.isArray(data) ) return;
+            var vdata = $scope.parseTopCountriesData($scope.threatssources, data);
+            if( vdata !== false ){
+                $scope.threatssources = vdata;
+                $scope.updatePie('threats-sources-stats', 'Threats Sources', vdata );
             }
         });
         //Totals
@@ -147,15 +168,14 @@ malControlApp.controller('StatsController', function($scope, $http) {
         markersGroup.clearLayers();
         updateStats($scope,$http);
     };
-    $scope.updatePie = function( id, title, oldData, newData, max ){
-        max = max || 50;
+    $scope.parseTopCountriesData = function( oldData, newData, max ){
+        var MAX = max || 50;
         var orig = JSON.stringify(oldData,['country','score']);
         var newd = JSON.stringify(newData,['country','score']);
         if( newd === orig ){
             return false;
         }
         var vdata = [];
-        var MAX = max;
         for( var d in newData){
             if( vdata.length < MAX ){
                 vdata.push([ newData[d].country, newData[d].score ]);
@@ -167,6 +187,29 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
             }
         }
+        return vdata;
+    };
+    $scope.parseSourcesStatsData = function( oldData, newData, max ){
+        var MAX = max || 50;
+        var orig = JSON.stringify(oldData,['source','count']);
+        var newd = JSON.stringify(newData,['source','count']);
+        var vdata = [];
+        if( newd !== orig ){
+            for( var d in newData){
+                if( vdata.length < MAX ){
+                    vdata.push([ newData[d].source, newData[d].count ]);
+                }else{
+                    if( vdata[MAX] ){
+                        vdata[MAX][1] += newData[d].count;
+                    }else{
+                        vdata[MAX] = [ 'Others', newData[d].count ];
+                    }
+                }
+            }
+        }
+        return vdata;
+    };
+    $scope.updatePie = function( id, title, vdata ){
         $('#'+id).highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -355,10 +398,12 @@ malControlApp.controller('StatsController', function($scope, $http) {
             ]
         };
     });
+    $scope.updatePie('malwares-countries','Malwares Top Countries',[]);
+    $scope.updatePie('threats-countries','Threats Top Countries',[]);
     $scope.setupGauge('#malwares-gauge','Malwares per hour');
     $scope.setupGauge('#threats-gauge','Threats per hour');
-    $scope.updatePie('malwaresCountries','Malwares Top Countries',[],[''],100);
-    $scope.updatePie('threatsCountries','Threats Top Countries',[],[''],100);
+    $scope.updatePie('malwares-sources-stats','Malwares Sources',[]);
+    $scope.updatePie('threats-sources-stats','Threats Sources',[]);
     updateStats($scope, $http);
     setInterval(function() {
         updateStats($scope, $http);
