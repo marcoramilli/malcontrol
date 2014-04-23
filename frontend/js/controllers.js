@@ -178,14 +178,15 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>: ' + this.y + ' ('+ this.percentage.toFixed(2) +' %)';
-                        }
-                    }
+                    dataLabels: { enabled: false }
+//                    dataLabels: {
+//                        enabled: true,
+//                        color: '#000000',
+//                        connectorColor: '#000000',
+//                        formatter: function() {
+//                            return '<b>'+ this.point.name +'</b>: ' + this.y + ' ('+ this.percentage.toFixed(2) +' %)';
+//                        }
+//                    }
                 }
             },
             series: [{
@@ -195,6 +196,135 @@ malControlApp.controller('StatsController', function($scope, $http) {
             }]
         });
         return true;
+    };
+    $scope.updateGauge = function(id,current,max){
+        max = max<10 ? 10 : max;
+        var chart = $scope['gauge_'+id];
+        var level1 = max/3;
+        var level2 = max*2/3;
+        var level3 = max;
+        chart.yAxis[0].update({
+                min: 0,
+                max: max,
+                plotBands: [{
+                    from: 0,
+                    to: level1,
+                    color: '#55BF3B' // green
+                }, {
+                    from: level1,
+                    to: level2,
+                    color: '#DDDF0D' // yellow
+                }, {
+                    from: level2,
+                    to: level3,
+                    color: '#DF5353' // red
+                }]  
+         });
+         chart.series[0].points[0].update(current);
+    };
+    $scope.setupGauge = function(id, title){
+        var $gauge = $(id);
+        $gauge.css({
+            width: $gauge.outerWidth(),
+            height: $gauge.outerHeight()
+        });
+        $gauge.highcharts({
+             chart: {
+                 type: 'gauge',
+                 plotBackgroundColor: null,
+                 plotBackgroundImage: null,
+                 plotBorderWidth: 0,
+                 plotShadow: false
+             },
+
+             title: {
+                 text: title
+             },
+
+             pane: {
+                 startAngle: -150,
+                 endAngle: 150,
+                 background: [{
+                     backgroundColor: {
+                         linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                         stops: [
+                             [0, '#FFF'],
+                             [1, '#333']
+                         ]
+                     },
+                     borderWidth: 0,
+                     outerRadius: '109%'
+                 }, {
+                     backgroundColor: {
+                         linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                         stops: [
+                             [0, '#333'],
+                             [1, '#FFF']
+                         ]
+                     },
+                     borderWidth: 1,
+                     outerRadius: '107%'
+                 }, {
+                     // default background
+                 }, {
+                     backgroundColor: '#DDD',
+                     borderWidth: 0,
+                     outerRadius: '105%',
+                     innerRadius: '103%'
+                 }]
+             },
+
+             // the value axis
+             yAxis: {
+                 min: 0,
+                 max: 10,
+
+                 minorTickInterval: 'auto',
+                 minorTickWidth: 1,
+                 minorTickLength: 10,
+                 minorTickPosition: 'inside',
+                 minorTickColor: '#666',
+
+                 tickPixelInterval: 30,
+                 tickWidth: 2,
+                 tickPosition: 'inside',
+                 tickLength: 10,
+                 tickColor: '#666',
+                 labels: {
+                     step: 2,
+                     rotation: 'auto'
+                 },
+                 title: {
+                     text: 'unit/h'
+                 },
+                 plotBands: [{
+                     from: 0,
+                     to: 3,
+                     color: '#55BF3B' // green
+                 }, {
+                     from: 3,
+                     to: 7,
+                     color: '#DDDF0D' // yellow
+                 }, {
+                     from: 7,
+                     to: 10,
+                     color: '#DF5353' // red
+                 }]        
+             },
+
+             series: [{
+                 name: 'Detected',
+                 data: [0],
+                 tooltip: {
+                     valueSuffix: ' unit/h'
+                 }
+             }],
+         },
+         function (chart) {
+              if (!chart.renderer.forExport) {
+                  $scope['gauge_'+id] = chart;
+              }
+         });
     };
     $scope.update = function() {
         updateStats($scope, $http);
@@ -220,9 +350,36 @@ malControlApp.controller('StatsController', function($scope, $http) {
             ]
         };
     });
+    $scope.setupGauge('#malwares-gauge','Malwares per hour');
+    $scope.setupGauge('#threats-gauge','Threats per hour');
+    $scope.updatePie('malwaresCountries','Malwares Top Countries',[],[''],100);
+    $scope.updatePie('threatsCountries','Threats Top Countries',[],[''],100);
     updateStats($scope, $http);
     setInterval(function() {
         updateStats($scope, $http);
     }, 5000);
 
 });
+
+var input =
+   {
+      keyDown : function(event)
+      {
+         window.addEventListener('keydown', event, false);
+      },
+      keyUp : function(event)
+      {
+         window.addEventListener('keyup', event, false);
+      },
+      mouse: {
+        isMove: function(event)
+        {
+           game.addEventListener('mousemove', event, false);
+        },
+        isClick: function(event)
+        {
+           game.addEventListener('click', event, false);
+        }
+      }
+      
+   };
