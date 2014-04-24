@@ -6,3 +6,68 @@ html, body, #map {
     padding: 0px;
     position: relative;
 }
+
+
+#chart-btn {
+    margin: 7px;
+    padding: 5px 10px 5px 10px;
+}
+
+#charts {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+}
+
+#charts .row > div {
+    margin: 0px;
+    padding: 0px;
+}
+
+#charts .chart {
+    opacity: 0.1;
+}
+#charts .chart:hover {
+    opacity: 0.9;
+    -webkit-animation: fade-in 1s 1;
+    -moz-animation:    fade-in 1s 1;
+    -o-animation:      fade-in 1s 1;
+    animation:         fade-in 1s 1;
+}
+
+.chart {
+    margin: 0.3em;
+    width: 12em;
+    height: 12em;
+}
+
+@-webkit-keyframes fade-in {
+  0%   { opacity: 0.1; }
+  100% { opacity: 0.9; }
+}
+@-moz-keyframes fade-in {
+  0%   { opacity: 0.1; }
+  100% { opacity: 0.9; }
+}
+@-o-keyframes fade-in {
+  0%   { opacity: 0.1; }
+  100% { opacity: 0.9; }
+}
+@keyframes fade-in {
+  0%   { opacity: 0.1; }
+  100% { opacity: 0.9; }
+}
+
+
+#charts .chart .highcharts-title {
+    font-size: 0.8em!important;
+    fill: white!important;
+}
+#charts .chart text {
+    fill: #02233b!important;
+}
+#charts .chart .highcharts-background {
+    fill: #02233b;
+    stroke: white;
+    /*fill-opacity: 0;*/
+}

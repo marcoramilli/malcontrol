@@ -9,9 +9,11 @@
         <link href="libs/jquery-ui-1.10.4/jquery-ui.css" type="text/css" rel="stylesheet">
         <link href="libs/bootstrap-3.1.1/css/bootstrap.min.css" type="text/css" rel="stylesheet">
         <link href="libs/bootstrap-3.1.1/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+        <!-- MapBox -->
         <link href="libs/mapbox-1.6.2/mapbox.css" type="text/css" rel="stylesheet">
         <link href="libs/mapbox-1.6.2/MarkerCluster.css" type="text/css" rel="stylesheet">
         <link href="libs/mapbox-1.6.2/MarkerCluster.Default.css" type="text/css" rel="stylesheet">
+        <!-- Font Awesome -->
         <link href="libs/font-awesome-4.0.3/css/font-awesome.min.css" type="text/css" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -48,67 +50,34 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
                 </div>
-                <span id="chart-btn" class="btn btn-xs btn-info" data-toggle="modal" data-target="#charts-modal" title="Show MalControl Statistics and Charts">
-                    <i class="fa fa-bar-chart-o"></i> Statistics
-                </span>
             </div>
         </div>
-        <div id="charts-modal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">MalControl Statistics</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4>Top Countries</h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div id="malwaresCountries"></div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div id="threatsCountries"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4>Statistics</h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Malwares</div>
-                                            <div class="panel-body">
-                                                <p>Total: {{totalmalware}}</p>
-                                                <p>Collected in last hour: {{malwaresh.current.toFixed(4)}}</p>
-                                                <p>Maximum per hour: {{malwaresh.max.toFixed(4)}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Threats</div>
-                                            <div class="panel-body">
-                                                <p>Total: {{totalthreats}}</p>
-                                                <p>Collected in last hour: {{threatsh.current.toFixed(4)}}</p>
-                                                <p>Maximum per hour: {{threatsh.max.toFixed(4)}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        <div id="charts">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div id="malwares-countries" class="chart pie"></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div id="threats-countries" class="chart pie"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div id="malwares-gauge" class="chart gauge"></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div id="threats-gauge" class="chart gauge"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div id="malwares-sources-stats" class="chart pie"></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div id="threats-sources-stats" class="chart pie"></div>
+                </div>
+            </div>
+        </div><!-- #charts -->
 
         <!-- jQuery -->
         <script type="text/javascript" src="libs/jquery-2.1.0/jquery.min.js"></script>
@@ -127,6 +96,7 @@
         <script language="javascript" type="text/javascript" src="libs/jit-2.0.1/jit-yc.js"></script>
         <!-- Highcharts -->
         <script type="text/javascript" src="libs/highcharts-3.0.10/js/highcharts.js"></script>
+        <script type="text/javascript" src="libs/highcharts-3.0.10/js/highcharts-more.js"></script>
         <!-- Mapbox -->
         <script type="text/javascript" src="libs/mapbox-1.6.2/mapbox.js"></script>
         <script type="text/javascript" src="libs/mapbox-1.6.2/leaflet.markercluster.js"></script>
@@ -136,11 +106,5 @@
         <script type="text/javascript" src="js/directives.js"></script>
         <script type="text/javascript" src="js/filters.js"></script>
         <script type="text/javascript" src="js/services.js"></script>
-
-        <script type="text/javascript">
-                                                            $('input[type="date"]').datepicker({
-                                                                dateFormat: 'yy-mm-dd'
-                                                            });
-        </script>
     </body>
 </html>

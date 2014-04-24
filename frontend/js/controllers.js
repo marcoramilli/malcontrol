@@ -4,9 +4,14 @@
 /* Controllers */
 
 malControlApp.controller('StatsController', function($scope, $http) {
-    var map = L.mapbox.map('map', 'lzoffoli.hmddapfj')
-            .setView([0,0], 2)
-    ;
+    var map = L.mapbox.map('map', 'lzoffoli.hmddapfj',{
+        center: [20,0],
+        zoom: 3,
+        tileLayer: {
+            continuousWorld: false,
+            noWrap: true
+        }
+    });
     var markersGroup = new L.MarkerClusterGroup();
     map.addLayer(markersGroup);
     $scope.markers = {};
@@ -21,8 +26,10 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('malwaresCountries', 'Malwares', $scope.topcountriesmalware, data, 22) ){
-                $scope.topcountriesmalware = data;
+            var vdata = $scope.parseTopCountriesData($scope.topcountriesmalware, data, 22);
+            if( vdata !== false ){
+                $scope.topcountriesmalware = vdata;
+                $scope.updatePie('malwares-countries', 'Malwares', vdata );
             }
         });
         $http.get('api/topcountriesthreats').success(function(data) {
@@ -33,8 +40,27 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
                 return b.score - a.score;
             });
-            if( $scope.updatePie('threatsCountries', 'Threats', $scope.topcountriesthreats, data, 22) ){
-                $scope.topcountriesthreats = data;
+            var vdata = $scope.parseTopCountriesData($scope.topcountriesthreats, data, 22);
+            if( vdata !== false ){
+                $scope.topcountriesmalware = vdata;
+                $scope.updatePie('threats-countries', 'Threats', vdata );
+            }
+        });
+        //Sources stats
+        $http.get('api/malwaresourcestats').success(function(data) {
+            if( !$.isArray(data) ) return;
+            var vdata = $scope.parseTopCountriesData($scope.malwaressources, data);
+            if( vdata !== false ){
+                $scope.malwaressources = vdata;
+                $scope.updatePie('malwares-sources-stats', 'Malwares Sources', vdata );
+            }
+        });
+        $http.get('api/threatsourcestats').success(function(data) {
+            if( !$.isArray(data) ) return;
+            var vdata = $scope.parseTopCountriesData($scope.threatssources, data);
+            if( vdata !== false ){
+                $scope.threatssources = vdata;
+                $scope.updatePie('threats-sources-stats', 'Threats Sources', vdata );
             }
         });
         //Totals
@@ -142,15 +168,14 @@ malControlApp.controller('StatsController', function($scope, $http) {
         markersGroup.clearLayers();
         updateStats($scope,$http);
     };
-    $scope.updatePie = function( id, title, oldData, newData, max ){
-        max = max || 50;
+    $scope.parseTopCountriesData = function( oldData, newData, max ){
+        var MAX = max || 50;
         var orig = JSON.stringify(oldData,['country','score']);
         var newd = JSON.stringify(newData,['country','score']);
         if( newd === orig ){
             return false;
         }
         var vdata = [];
-        var MAX = max;
         for( var d in newData){
             if( vdata.length < MAX ){
                 vdata.push([ newData[d].country, newData[d].score ]);
@@ -162,6 +187,29 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 }
             }
         }
+        return vdata;
+    };
+    $scope.parseSourcesStatsData = function( oldData, newData, max ){
+        var MAX = max || 50;
+        var orig = JSON.stringify(oldData,['source','count']);
+        var newd = JSON.stringify(newData,['source','count']);
+        var vdata = [];
+        if( newd !== orig ){
+            for( var d in newData){
+                if( vdata.length < MAX ){
+                    vdata.push([ newData[d].source, newData[d].count ]);
+                }else{
+                    if( vdata[MAX] ){
+                        vdata[MAX][1] += newData[d].count;
+                    }else{
+                        vdata[MAX] = [ 'Others', newData[d].count ];
+                    }
+                }
+            }
+        }
+        return vdata;
+    };
+    $scope.updatePie = function( id, title, vdata ){
         $('#'+id).highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -178,14 +226,15 @@ malControlApp.controller('StatsController', function($scope, $http) {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>: ' + this.y + ' ('+ this.percentage.toFixed(2) +' %)';
-                        }
-                    }
+                    dataLabels: { enabled: false }
+//                    dataLabels: {
+//                        enabled: true,
+//                        color: '#000000',
+//                        connectorColor: '#000000',
+//                        formatter: function() {
+//                            return '<b>'+ this.point.name +'</b>: ' + this.y + ' ('+ this.percentage.toFixed(2) +' %)';
+//                        }
+//                    }
                 }
             },
             series: [{
@@ -195,6 +244,135 @@ malControlApp.controller('StatsController', function($scope, $http) {
             }]
         });
         return true;
+    };
+    $scope.updateGauge = function(id,current,max){
+        max = max<10 ? 10 : max;
+        var chart = $scope['gauge_'+id];
+        var level1 = max/3;
+        var level2 = max*2/3;
+        var level3 = max;
+        chart.yAxis[0].update({
+                min: 0,
+                max: max,
+                plotBands: [{
+                    from: 0,
+                    to: level1,
+                    color: '#55BF3B' // green
+                }, {
+                    from: level1,
+                    to: level2,
+                    color: '#DDDF0D' // yellow
+                }, {
+                    from: level2,
+                    to: level3,
+                    color: '#DF5353' // red
+                }]  
+         });
+         chart.series[0].points[0].update(current);
+    };
+    $scope.setupGauge = function(id, title){
+        var $gauge = $(id);
+        $gauge.css({
+            width: $gauge.outerWidth(),
+            height: $gauge.outerHeight()
+        });
+        $gauge.highcharts({
+             chart: {
+                 type: 'gauge',
+                 plotBackgroundColor: null,
+                 plotBackgroundImage: null,
+                 plotBorderWidth: 0,
+                 plotShadow: false
+             },
+
+             title: {
+                 text: title
+             },
+
+             pane: {
+                 startAngle: -150,
+                 endAngle: 150,
+                 background: [{
+                     backgroundColor: {
+                         linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                         stops: [
+                             [0, '#FFF'],
+                             [1, '#333']
+                         ]
+                     },
+                     borderWidth: 0,
+                     outerRadius: '109%'
+                 }, {
+                     backgroundColor: {
+                         linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                         stops: [
+                             [0, '#333'],
+                             [1, '#FFF']
+                         ]
+                     },
+                     borderWidth: 1,
+                     outerRadius: '107%'
+                 }, {
+                     // default background
+                 }, {
+                     backgroundColor: '#DDD',
+                     borderWidth: 0,
+                     outerRadius: '105%',
+                     innerRadius: '103%'
+                 }]
+             },
+
+             // the value axis
+             yAxis: {
+                 min: 0,
+                 max: 10,
+
+                 minorTickInterval: 'auto',
+                 minorTickWidth: 1,
+                 minorTickLength: 10,
+                 minorTickPosition: 'inside',
+                 minorTickColor: '#666',
+
+                 tickPixelInterval: 30,
+                 tickWidth: 2,
+                 tickPosition: 'inside',
+                 tickLength: 10,
+                 tickColor: '#666',
+                 labels: {
+                     step: 2,
+                     rotation: 'auto'
+                 },
+                 title: {
+                     text: 'unit/h'
+                 },
+                 plotBands: [{
+                     from: 0,
+                     to: 3,
+                     color: '#55BF3B' // green
+                 }, {
+                     from: 3,
+                     to: 7,
+                     color: '#DDDF0D' // yellow
+                 }, {
+                     from: 7,
+                     to: 10,
+                     color: '#DF5353' // red
+                 }]        
+             },
+
+             series: [{
+                 name: 'Detected',
+                 data: [0],
+                 tooltip: {
+                     valueSuffix: ' unit/h'
+                 }
+             }],
+         },
+         function (chart) {
+              if (!chart.renderer.forExport) {
+                  $scope['gauge_'+id] = chart;
+              }
+         });
     };
     $scope.update = function() {
         updateStats($scope, $http);
@@ -220,9 +398,41 @@ malControlApp.controller('StatsController', function($scope, $http) {
             ]
         };
     });
+    $scope.updatePie('malwares-countries','Malwares Top Countries',[]);
+    $scope.updatePie('threats-countries','Threats Top Countries',[]);
+    $scope.setupGauge('#malwares-gauge','Malwares per hour');
+    $scope.setupGauge('#threats-gauge','Threats per hour');
+    $scope.updatePie('malwares-sources-stats','Malwares Sources',[]);
+    $scope.updatePie('threats-sources-stats','Threats Sources',[]);
     updateStats($scope, $http);
     setInterval(function() {
         updateStats($scope, $http);
     }, 5000);
 
+    $('input[type="date"]').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 });
+
+var input =
+   {
+      keyDown : function(event)
+      {
+         window.addEventListener('keydown', event, false);
+      },
+      keyUp : function(event)
+      {
+         window.addEventListener('keyup', event, false);
+      },
+      mouse: {
+        isMove: function(event)
+        {
+           game.addEventListener('mousemove', event, false);
+        },
+        isClick: function(event)
+        {
+           game.addEventListener('click', event, false);
+        }
+      }
+      
+   };
