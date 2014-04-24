@@ -51,7 +51,7 @@ exports.GETNumberThreatsBetweenDates = function(req, res){
       return res.send("{ \"numberofthreats\":\"" +  objs + "\"}");
     });//find
   } else {
-    res.send("{\"status\":\"error\", \"message\": \"missing parameters\"}");
+    return res.send("{\"status\":\"error\", \"message\": \"missing parameters\"}");
   }
 };//numberofthreats
 
@@ -101,7 +101,7 @@ exports.GETNumberMalwareBetweenDates = function(req, res){
       return res.send("{ \"numberofmalware\":\"" +  objs + "\"}");
     });//find
   } else {
-    res.send("{\"status\": \"error\", \"message\":\"missing parameters\"}");
+    return res.send("{\"status\": \"error\", \"message\":\"missing parameters\"}");
   }
 };//numberofMalwarebetweendates
 
@@ -163,6 +163,8 @@ exports.GETNumberMalwareBetweenDates = function(req, res){
     //});//for malware model
   //});//malwareMODEL getting everything
 //};//GETTOPCOUNTRIESMALWARES
+
+
 /**
  * @api {get} /api/topcountriesthreats Request to obtain the top countries threats list 
  * @apiName TopCountries 
@@ -452,7 +454,7 @@ exports.GETThreatsBetweenDates = function(req, res){
       return res.send( objs );
     });//find
   } else {
-    res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
+    return res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
   }
 };//Threat
 
@@ -543,7 +545,7 @@ exports.GETMalwareBetweenDates = function(req, res){
             response.push(obj);
             mal_length++;
             if (mal_length >= objs.length){
-              res.send(response);
+              return res.send(response);
             }
           } else {
 
@@ -562,7 +564,7 @@ exports.GETMalwareBetweenDates = function(req, res){
                   mal_length++;
                 }
                 if (mal_length >= objs.length){
-                  res.send(response);
+                  return res.send(response);
                 }
               });//objsave
             });//locations 
@@ -572,6 +574,6 @@ exports.GETMalwareBetweenDates = function(req, res){
       //return res.send( objs );
     });//find
   } else {
-    res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
+    return res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");
   }
 };//Malwarebetweendates

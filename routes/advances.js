@@ -52,7 +52,7 @@ exports.GETStatesScrapedThreats = function(req, res){
         threatMODEL.count({"scraped_source": sc}, function(err, number){
           stats.push({source:sc, count:number});
           if(stats.length >= sources.length){
-            res.send(stats);
+            return res.send(stats);
           }
         });//malwarefind
       });//syncro loop
@@ -105,7 +105,7 @@ exports.GETStatesScrapedMalware = function(req, res){
         malwareMODEL.count({"scraped_source": sc}, function(err, number){
           stats.push({source:sc, count:number});
           if(stats.length >= sources.length){
-            res.send(stats);
+            return res.send(stats);
           }
         });//malwarefind
       });//syncro loop
