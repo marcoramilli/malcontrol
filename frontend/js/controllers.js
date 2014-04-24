@@ -28,7 +28,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
             });
             var vdata = $scope.parseTopCountriesData($scope.topcountriesmalware, data, 22);
             if( vdata !== false ){
-                $scope.topcountriesmalware = vdata;
+                $scope.topcountriesmalware = data;
                 $scope.updatePie('malwares-countries', 'Malwares', vdata );
             }
         });
@@ -42,24 +42,24 @@ malControlApp.controller('StatsController', function($scope, $http) {
             });
             var vdata = $scope.parseTopCountriesData($scope.topcountriesthreats, data, 22);
             if( vdata !== false ){
-                $scope.topcountriesmalware = vdata;
+                $scope.topcountriesmalware = data;
                 $scope.updatePie('threats-countries', 'Threats', vdata );
             }
         });
         //Sources stats
         $http.get('api/malwaresourcestats').success(function(data) {
             if( !$.isArray(data) ) return;
-            var vdata = $scope.parseTopCountriesData($scope.malwaressources, data);
+            var vdata = $scope.parseSourcesStatsData($scope.malwaressources, data);
             if( vdata !== false ){
-                $scope.malwaressources = vdata;
+                $scope.malwaressources = data;
                 $scope.updatePie('malwares-sources-stats', 'Malwares Sources', vdata );
             }
         });
         $http.get('api/threatsourcestats').success(function(data) {
             if( !$.isArray(data) ) return;
-            var vdata = $scope.parseTopCountriesData($scope.threatssources, data);
+            var vdata = $scope.parseSourcesStatsData($scope.threatssources, data);
             if( vdata !== false ){
-                $scope.threatssources = vdata;
+                $scope.threatssources = data;
                 $scope.updatePie('threats-sources-stats', 'Threats Sources', vdata );
             }
         });
@@ -83,12 +83,20 @@ malControlApp.controller('StatsController', function($scope, $http) {
         $http.get('api/malwareh').success(function(data) {
             data.current = parseFloat(data.current);
             data.max = parseFloat(data.max);
-            $scope.malwaresh = data;
+            if( $scope.malwaresh.current !== data.current
+                    && $scope.malwaresh.max !== data.max){
+                $scope.malwaresh = data;
+                $scope.updateGauge('malwares-gauge',data.current,data.max);
+            }
         });
         $http.get('api/threatsh').success(function(data) {
             data.current = parseFloat(data.current);
             data.max = parseFloat(data.max);
-            $scope.threatsh = data;
+            if( $scope.threatsh.current !== data.current
+                    && $scope.threatsh.max !== data.max){
+                $scope.threatsh = data;
+                $scope.updateGauge('threats-gauge',data.current,data.max);
+            }
         });
         
     }
@@ -193,17 +201,18 @@ malControlApp.controller('StatsController', function($scope, $http) {
         var MAX = max || 50;
         var orig = JSON.stringify(oldData,['source','count']);
         var newd = JSON.stringify(newData,['source','count']);
+        if( newd === orig ){
+            return false;
+        }
         var vdata = [];
-        if( newd !== orig ){
-            for( var d in newData){
-                if( vdata.length < MAX ){
-                    vdata.push([ newData[d].source, newData[d].count ]);
+        for( var d in newData){
+            if( vdata.length < MAX ){
+                vdata.push([ newData[d].source, newData[d].count ]);
+            }else{
+                if( vdata[MAX] ){
+                    vdata[MAX][1] += newData[d].count;
                 }else{
-                    if( vdata[MAX] ){
-                        vdata[MAX][1] += newData[d].count;
-                    }else{
-                        vdata[MAX] = [ 'Others', newData[d].count ];
-                    }
+                    vdata[MAX] = [ 'Others', newData[d].count ];
                 }
             }
         }
@@ -251,27 +260,39 @@ malControlApp.controller('StatsController', function($scope, $http) {
         var level1 = max/3;
         var level2 = max*2/3;
         var level3 = max;
-        chart.yAxis[0].update({
-                min: 0,
-                max: max,
-                plotBands: [{
+        var gpb = {
+                    id: 'green-plot-band',
                     from: 0,
                     to: level1,
                     color: '#55BF3B' // green
-                }, {
+                };
+        var ypb = {
+                    id: 'yellow-plot-band',
                     from: level1,
                     to: level2,
                     color: '#DDDF0D' // yellow
-                }, {
+                };
+        var rpb = {
+                    id: 'red-plot-band',
                     from: level2,
                     to: level3,
                     color: '#DF5353' // red
-                }]  
+                };
+        chart.yAxis[0].update({
+                min: 0,
+                max: max
          });
+         chart.yAxis[0].removePlotBand('green-plot-band');
+         chart.yAxis[0].addPlotBand(gpb);
+         chart.yAxis[0].removePlotBand('yellow-plot-band');
+         chart.yAxis[0].addPlotBand(ypb);
+         chart.yAxis[0].removePlotBand('red-plot-band');
+         chart.yAxis[0].addPlotBand(rpb);
+         
          chart.series[0].points[0].update(current);
     };
     $scope.setupGauge = function(id, title){
-        var $gauge = $(id);
+        var $gauge = $('#'+id);
         $gauge.css({
             width: $gauge.outerWidth(),
             height: $gauge.outerHeight()
@@ -325,7 +346,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
              // the value axis
              yAxis: {
                  min: 0,
-                 max: 10,
+                 max: 1,
 
                  minorTickInterval: 'auto',
                  minorTickWidth: 1,
@@ -342,22 +363,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
                      step: 2,
                      rotation: 'auto'
                  },
-                 title: {
-                     text: 'unit/h'
-                 },
-                 plotBands: [{
-                     from: 0,
-                     to: 3,
-                     color: '#55BF3B' // green
-                 }, {
-                     from: 3,
-                     to: 7,
-                     color: '#DDDF0D' // yellow
-                 }, {
-                     from: 7,
-                     to: 10,
-                     color: '#DF5353' // red
-                 }]        
+                 plotBands: []        
              },
 
              series: [{
@@ -366,7 +372,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
                  tooltip: {
                      valueSuffix: ' unit/h'
                  }
-             }],
+             }]
          },
          function (chart) {
               if (!chart.renderer.forExport) {
@@ -400,8 +406,8 @@ malControlApp.controller('StatsController', function($scope, $http) {
     });
     $scope.updatePie('malwares-countries','Malwares Top Countries',[]);
     $scope.updatePie('threats-countries','Threats Top Countries',[]);
-    $scope.setupGauge('#malwares-gauge','Malwares per hour');
-    $scope.setupGauge('#threats-gauge','Threats per hour');
+    $scope.setupGauge('malwares-gauge','Malwares per hour');
+    $scope.setupGauge('threats-gauge','Threats per hour');
     $scope.updatePie('malwares-sources-stats','Malwares Sources',[]);
     $scope.updatePie('threats-sources-stats','Threats Sources',[]);
     updateStats($scope, $http);
