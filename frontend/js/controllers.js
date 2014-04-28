@@ -42,7 +42,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
             });
             var vdata = $scope.parseTopCountriesData($scope.topcountriesthreats, data, 22);
             if( vdata !== false ){
-                $scope.topcountriesmalware = data;
+                $scope.topcountriesthreats = data;
                 $scope.updatePie('threats-countries', 'Threats', vdata );
             }
         });
@@ -256,6 +256,7 @@ malControlApp.controller('StatsController', function($scope, $http) {
     };
     $scope.updateGauge = function(id,current,max){
         max = max<10 ? 10 : max;
+        current = parseFloat(current.toFixed(2));
         var chart = $scope['gauge_'+id];
         var level1 = max/3;
         var level2 = max*2/3;
@@ -419,26 +420,3 @@ malControlApp.controller('StatsController', function($scope, $http) {
         dateFormat: 'yy-mm-dd'
     });
 });
-
-var input =
-   {
-      keyDown : function(event)
-      {
-         window.addEventListener('keydown', event, false);
-      },
-      keyUp : function(event)
-      {
-         window.addEventListener('keyup', event, false);
-      },
-      mouse: {
-        isMove: function(event)
-        {
-           game.addEventListener('mousemove', event, false);
-        },
-        isClick: function(event)
-        {
-           game.addEventListener('click', event, false);
-        }
-      }
-      
-   };
