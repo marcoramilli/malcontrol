@@ -46,8 +46,11 @@ exports.GETStatesScrapedThreats = function(req, res){
       req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in threatMODEL.count " + err);
     } 
-    if (undefined !== sources && null !== sources){
-      var stats = new Array();
+    if (sources.length === 0){
+      req.send("{\"status\": \"warning\", \"message\": \"no sources so far\"}");
+      return console.log("[-] No sources so far");
+    } else if (sources.length > 0 && undefined !== sources && null !== sources){
+      var stats = [];
       sources.forEach(function(sc){
         threatMODEL.count({"scraped_source": sc}, function(err, number){
           stats.push({source:sc, count:number});
@@ -99,8 +102,11 @@ exports.GETStatesScrapedMalware = function(req, res){
       req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in malwareMODEL.count " + err);
     } 
-    if (undefined !== sources && null !== sources){
-      var stats = new Array();
+    if (sources.length === 0){
+      req.send("{\"status\": \"warning\", \"message\": \"no sources so far\"}");
+      return console.log("[-] No sources so far");
+    } else if (sources.length > 0 && undefined !== sources && null !== sources){
+      var stats = [];
       sources.forEach(function(sc){
         malwareMODEL.count({"scraped_source": sc}, function(err, number){
           stats.push({source:sc, count:number});
