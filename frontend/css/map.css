@@ -7,13 +7,24 @@
     top: 1em;
     margin-left: 50px;
 }
-#map-panel .date {
+
+#map-panel .date,
+#map-panel .alert {
     margin-left: 1em;
     margin-top: 0.5em;
+}
+#map-panel .date input {
+    font-size: 1em;
+    text-align: center;
+}
+#map-panel .date {
     width: 15em;
 }
-#map-panel .input-group .form-control {
-    width: 15em;
+#map-panel .alert {
+    padding:  4px;
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
 }
 
 .leaflet-control-zoom-in,

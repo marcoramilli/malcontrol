@@ -22,12 +22,6 @@ malControlApp.controller('StatsController', [
             //Top Countries
             $http.get('api/topcountriesmalware').success(function(data) {
                 if( !$.isArray(data) ) return;
-                data.sort(function(a, b) {
-                    if (a.score === b.score) {
-                        return a.country > b.country;
-                    }
-                    return b.score - a.score;
-                });
                 var vdata = $scope.parseTopCountriesData($scope.topcountriesmalware, data, 22);
                 if( vdata !== false ){
                     $scope.topcountriesmalware = data;
@@ -36,12 +30,6 @@ malControlApp.controller('StatsController', [
             });
             $http.get('api/topcountriesthreats').success(function(data) {
                 if( !$.isArray(data) ) return;
-                data.sort(function(a, b) {
-                    if (a.score === b.score) {
-                        return a.country > b.country;
-                    }
-                    return b.score - a.score;
-                });
                 var vdata = $scope.parseTopCountriesData($scope.topcountriesthreats, data, 22);
                 if( vdata !== false ){
                     $scope.topcountriesthreats = data;
@@ -81,6 +69,13 @@ malControlApp.controller('StatsController', [
             });
             $http.get('api/threats/' + interval).success(function(data) {
                 $scope.parseData(data);
+            });
+            //Current
+            $http.get('api/numberofmalware/'+interval).success(function(data) {
+                $scope.currentmalware = data.numberofmalware;
+            });
+            $http.get('api/numberofthreats/'+interval).success(function(data) {
+                $scope.currentthreats = data.numberofthreats;
             });
             $http.get('api/malwareh').success(function(data) {
                 data.current = parseFloat(data.current);
@@ -180,6 +175,12 @@ malControlApp.controller('StatsController', [
         };
         $scope.parseTopCountriesData = function( oldData, newData, max ){
             var MAX = max || 50;
+            newData.sort(function(a, b) {
+                if (a.score === b.score) {
+                    return a.country > b.country;
+                }
+                return b.score - a.score;
+            });
             var orig = JSON.stringify(oldData,['country','score']);
             var newd = JSON.stringify(newData,['country','score']);
             if( newd === orig ){
@@ -201,6 +202,12 @@ malControlApp.controller('StatsController', [
         };
         $scope.parseSourcesStatsData = function( oldData, newData, max ){
             var MAX = max || 50;
+            newData.sort(function(a, b) {
+                if (a.count === b.count) {
+                    return a.source > b.source;
+                }
+                return b.count - a.count;
+            });
             var orig = JSON.stringify(oldData,['source','count']);
             var newd = JSON.stringify(newData,['source','count']);
             if( newd === orig ){
