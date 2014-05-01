@@ -5,12 +5,13 @@
 
 var malcontrolServices = angular.module('malcontrolServices', ['ngResource']);
 
-malcontrolServices.factory('Phone', 
+malcontrolServices.factory('TopCountry', 
 [
     '$resource',
     function($resource) {
-        return $resource('phones/:phoneId.json', {}, {
-            query: {method: 'GET', params: {phoneId: 'phones'}, isArray: true}
+        return $resource('/api/topcountries:category', {}, {
+            queryMalwares: {method: 'GET', params: { category: 'malware' }, isArray: true},
+            queryThreats: {method: 'GET', params: { category: 'threats' }, isArray: true}
         });
     }
 ]);
