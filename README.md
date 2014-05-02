@@ -28,7 +28,7 @@ A backround node scrapes websites to grab malware informations and fills up a mo
 
 ## Visualization
 
-A short description on visualization layer can be found here.
+A world map displays, through the use of markers, the locations of all geolocalized malwares and threats detected by the scrapers. Every single marker has the shape of the logo of the scraped source of origin. Markers can be grouped, zoom map to see detailed information. Some useful charts are displayed on the right side showing all the information supplyed by backend's API.
 
 ## Screenshots
 Screenshots talk laudly :) The following image shows how MalControl geolocalize malware and threts by grouping them by country. On the rigth side of the screen graphs with transparent gradient shows trends and totals of the analized sources. The top two charts show the "top countries" spreading malware/threats.
