@@ -31,10 +31,20 @@ A backround node scrapes websites to grab malware informations and fills up a mo
 A short description on visualization layer can be found here.
 
 ## Screenshots
-Screenshots talk laudly :)
+Screenshots talk laudly :) The following image shows how MalControl geolocalize malware and threts by grouping them by country. On the rigth side of the screen graphs with transparent gradient shows trends and totals of the analized sources. The top two charts show the "top countries" spreading malware/threats.
+
+![Map 1](http://2.bp.blogspot.com/-G-AOWg_JYTs/U2NdF0UVGGI/AAAAAAAALsQ/WTgPVHdqekI/s1600/Screen+Shot+2014-05-02+at+10.49.21.png)
+
+The second top two charts shows how many malware/threats per hour Malcontrol is able to capture. This feature gives an instant view on how the "malware world" is progressing. The last two charts show the totals of malware/threats coming from the scraped sources. If you are interested on adding a source (by writing a scraper) please make a pull request or contact us.
+  
+![Map 2](http://3.bp.blogspot.com/-s3An4fzk_dk/U2NdJYFQbuI/AAAAAAAALsY/GgiZ4FybDTA/s1600/Screen+Shot+2014-05-02+at+10.49.49.png)
+
+By drilling down into a specific malware/threat you will see the icons of the scraped sources. By clicking on such icons a tooltip pops-up within detailed informations on the selected malware/threat. The imformations are source specific and might be different from source to source. The following image shows you detailed information on a PhishTank which provides Malicius URL and Report specific Report.
+
+![Map 3](http://1.bp.blogspot.com/-iQEai9Q_iaI/U2NdDKsjp5I/AAAAAAAALsI/trctiyi3HVg/s1600/Screen+Shot+2014-04-29+at+17.14.19.png)  
+
 
 ## Open API 
 Please refer to doc section for a fully documented Public API
 
-![under construction](http://www.dmcc.it/chris/matchable/data/images/under_construction.jpeg)
-
+## Project Still under development 
