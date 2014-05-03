@@ -22,6 +22,25 @@ We actually scrape the following services:
 If **you are a malware scan provider and you would like to actively  partecipate to the project by giving some of your data, please contact us, we'll be glad to add your service to our project**.
 Each visualized threat comes with the original and 'clickable' URL pointing to the original report. The original report owns all the specific information to the threat.
 
+## How to Install Malcontrol
+In order to run MalControl on your own, you need to install:
+
+* NodeJS: [nodejs web sote](http://nodejs.org/)
+* Mongo DB: [installing mongodb](http://docs.mongodb.org/manual/installation/)
+* git: [installing GIT](http://git-scm.com/book/en/Getting-Started-Installing-Git)
+
+Once you've installed the required software, it's time to clone that repository and to install dependencies:
+
+1. `git clone git@github.com:marcoramilli/malcontrol.git`
+2. `cd malcontrol.git`
+3. `npm install`
+
+Now it's time to launch it !
+
+1. `grunt`
+2. `node server` (if run in automated way: `npm start`)
+3.  go to http://localhost:8080
+
 ## Backend Structure
 
 A backround node scrapes websites to grab malware informations and fills up a mongod database. An API node serves API useful to frontend layer. Public API are available, please read doc/index.html for a full list of API. If you are interested on developing a website scraper take as example one of the scrapers available into the scrapers folder. Each scraper must be a function 'goScraper' ending-up saving scraped data to db using the functionsaveMalwareToDB respecting the db schema placed into schemas/ 
