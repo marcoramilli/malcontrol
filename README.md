@@ -39,7 +39,7 @@ Now it's time to launch it !
 
 1. `grunt`
 2. `node server` (if run in automated way: `npm start`)
-3.  go to http://localhost:8080
+3.  go to [localhost:8080](http://localhost:8080)
 
 ## Backend Structure
 
