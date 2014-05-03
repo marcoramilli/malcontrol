@@ -25,7 +25,7 @@ Each visualized threat comes with the original and 'clickable' URL pointing to t
 ## How to Install Malcontrol
 In order to run MalControl on your own, you need to install:
 
-* NodeJS: [nodejs web sote](http://nodejs.org/)
+* NodeJS: [nodejs web site](http://nodejs.org/)
 * Mongo DB: [installing mongodb](http://docs.mongodb.org/manual/installation/)
 * git: [installing GIT](http://git-scm.com/book/en/Getting-Started-Installing-Git)
 
