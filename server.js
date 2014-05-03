@@ -11,8 +11,7 @@
  * Note: Don't even think to use this code in production environment
  * Everything you read is under development monde.
  */
-//TODO: building crapers !
-//http://www.malwaredomainlist.com/mdl.php
+//TODO: building scrapers !
 //http://www.spywareguide.com/product_list_full.php?pageNum_Rs1=4&totalRows_Rs1=2352
 //http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
 //http://about-threats.trendmicro.com/us/search.aspx?p=Crypted.exe
@@ -36,6 +35,7 @@ var _scumware_scraper = require('./scrapers/scumware_scraper');
 var _malwr_scraper = require('./scrapers/malwr_scraper');
 var _virusscan_scraper = require('./scrapers/virusscan_scraper');
 var _commonGeoMalw = require('./commons/save_malw');
+var _malware_domain_list = require('./scrapers/malware_domain_list');
 //-----------------------------------------------------------------
 
 //DB Connections
@@ -69,8 +69,8 @@ if (cluster.isMaster){
       setInterval(function(){ if (!toobusy()) {_webinspector_scraper.goScraper();}},parseInt(Math.random(2)*100000));//_config.scrapers.webinspector_timer);
       setInterval(function(){ if (!toobusy()) {_virusscan_scraper.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.virusscanner_timer);
       //TOFIX: fix the following scraper !
-      ////setInterval(function(){_scumware_scraper.goScraper()}, _config.;
       setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
+      setInterval(function(){ if (!toobusy()) {_malware_domain_list.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
 
       process.on('uncaughtException', function globalErrorCatch(error, p){
         console.error(error);

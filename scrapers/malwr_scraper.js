@@ -8,9 +8,9 @@ var _local_cache = {};
 //URLQUERY
 exports.goScraper = function(){
 
-  _savemalware.firstTimeRunningMalware(function(firstime){
+  _savemalware.firstTimeRunningMalware("malwr.com",function(firstime){
 
-    var uris = new Array();
+    var uris = [];
     if (firstime){
       for(var i=1; i<500; i++){
         uris[i-1] = _base_searching_url + i;

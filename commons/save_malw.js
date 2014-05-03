@@ -12,8 +12,8 @@ var globalStatusGEO = 0;
 var step = 2;
 
 //external
-exports.firstTimeRunningMalware = function(callback){
-  return malwareMODEL.count({scraped_source: "malwr.com"}, function(err, count){
+exports.firstTimeRunningMalware = function(source, callback){
+  return malwareMODEL.count({scraped_source: source}, function(err, count){
     if (count > 0) {callback(false);}
     else {callback(true);}
   });//count
@@ -25,7 +25,6 @@ exports.saveMalwareToDB = function(plinkToReport, ptimestamp, pip, pcompositscor
   //no malware into DB 
   var alerts;
   var ids;
-
   if (undefined !== pcompositscore && null !== pcompositscore){
     var p =pcompositscore.split("/");
     if (p.length > 0){
@@ -45,14 +44,21 @@ exports.saveMalwareToDB = function(plinkToReport, ptimestamp, pip, pcompositscor
       name: pname,
       modified: new Date() 
   });//tm
-  return malwareMODEL.findOneAndUpdate({linkToReport: plinkToReport},tm.toObject(),{upsert: true},function(err){
-    if(err) console.log("[-] Error in saving on DB: " + err);
-  });
+  if ( null === plinkToReport){
+    tm._id = new _malware.mongoose.Types.ObjectId; 
+    tm.save(function(err){ if(err) console.log("[-] Error in saving on DB: " + err);});
+
+  } else{ 
+    return malwareMODEL.findOneAndUpdate({linkToReport: plinkToReport},tm.toObject(),{upsert: true},function(err){
+      if(err) console.log("[-] Error in saving on DB: " + err);
+    });
+  }
 };//savemalwaretodb
 
-//internal
+
+//getting reports from malwr.com and dig into it to find ips
 //TODO: move it into scraper folder
-_malware_report_scraper = function(malw){
+_malware_report_scraper_malwr = function(malw){
   var linkToReport = malw.linkToReport;  
   var timestamp = new Date();
   console.log("[+] Trying to geolocalize: " + malw.name);
@@ -82,7 +88,19 @@ _malware_report_scraper = function(malw){
       }
     });//scraping a little of reports
   }
-};
+};//_malware_report_scraper_malwr
+
+//in this specific website just get ip and geolocalize it!
+_malware_report_scraper_malwaredomains = function(malw){
+  var ip = malw.ip;
+  if (ip !== "IP" && ip !== "" && null !== ip && undefined !== ip){
+    console.log("[+] Geolocalization is happening on: "+ ip);
+    var geo = geoip.lookup(ip);
+    if (undefined !== geo && null !== geo){
+      _saveGeoLoc(malw._id, timestamp, ip.toString(), malw.scraped_source, geo['country'], geo['city'], geo['region'], geo['ll']);
+    }//if geo exists
+  }//if ip exists
+};//_malware_report_scraper_malwaredomains
 
 //external
 exports.geoLocMalwr = function(){
@@ -93,7 +111,10 @@ exports.geoLocMalwr = function(){
 
       malwrs.forEach(function(malw){
         if (malw.scraped_source === "malwr.com"){
-           _malware_report_scraper(malw); 
+           _malware_report_scraper_malwr(malw); 
+        }
+        if (malw.scraped_source === "malwaredomainlist.com"){
+          _malware_report_scraper_malwaredomains(malw);
         }
       });//forEachMalware
     }//malwrs.length
