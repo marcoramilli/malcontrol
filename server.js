@@ -58,9 +58,8 @@ if (cluster.isMaster){
   cluster.on('exit', function (worker) {
     // Replace the dead worker, we're not sentimental
     console.log('Worker ' + worker.id + ' died :(');
-      cluster.fork();
+      //cluster.fork();
       });
-
       setInterval(function(){ if (!toobusy()) {_commonGeoMalw.geoLocMalwr();}}, _config.system.background_geoloc_service);
     } 
     else if (cluster.isWorker){
