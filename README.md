@@ -18,6 +18,8 @@ We actually scrape the following services:
 3. [urlquery](http://urlquery.net/)
 4. [virscan](http://www.virscan.org/)
 5. [webinspector](http://app.webinspector.com/recent_detections)
+6. [domainlist](http://www.malwaredomainlist.com/)
+7. [malc0de](http://malc0de.com/)
 
 If **you are a malware scan provider and you would like to actively  partecipate to the project by giving some of your data, please contact us, we'll be glad to add your service to our project**.
 Each visualized threat comes with the original and 'clickable' URL pointing to the original report. The original report owns all the specific information to the threat.
