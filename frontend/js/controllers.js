@@ -146,7 +146,9 @@ malControlApp.controller('StatsController', [
         $scope.getMarkerIcon = function(source){
             switch( source ){
                 case 'malwr.com':
-                    return '/images/sources/malwr.png';
+                case 'malc0de.com':
+                case 'malwaredomainlist.com':
+                    return '/images/sources/'+source.replace('.com','')+'.png';
                 case 'phishtank':
                 case 'scumware':
                 case 'urlquery':
