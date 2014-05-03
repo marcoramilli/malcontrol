@@ -16,6 +16,7 @@
 //http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
 //http://about-threats.trendmicro.com/us/search.aspx?p=Crypted.exe
 //http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
+//http://malc0de.com/database/?&page=2
 
 //General Imports
 var mongoose = require('mongoose');
@@ -36,6 +37,7 @@ var _malwr_scraper = require('./scrapers/malwr_scraper');
 var _virusscan_scraper = require('./scrapers/virusscan_scraper');
 var _commonGeoMalw = require('./commons/save_malw');
 var _malware_domain_list = require('./scrapers/malware_domain_list');
+var _malware_malc0de_scraper = require('./scrapers/malware_malc0de');
 //-----------------------------------------------------------------
 
 //DB Connections
@@ -70,6 +72,7 @@ if (cluster.isMaster){
       //TOFIX: fix the following scraper !
       setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
       setInterval(function(){ if (!toobusy()) {_malware_domain_list.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
+      setInterval(function(){ if (!toobusy()) {_malware_malc0de_scraper.goScraper();}},parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
 
       process.on('uncaughtException', function globalErrorCatch(error, p){
         console.error(error);
