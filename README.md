@@ -69,3 +69,6 @@ By drilling down into a specific malware/threat you will see the icons of the sc
 Please refer to doc section for a fully documented Public API
 
 ## Project Still under development 
+
+## License
+GNU GPL v3
