@@ -24,6 +24,19 @@ We actually scrape the following services:
 If **you are a malware scan provider and you would like to actively  partecipate to the project by giving some of your data, please contact us, we'll be glad to add your service to our project**.
 Each visualized threat comes with the original and 'clickable' URL pointing to the original report. The original report owns all the specific information to the threat.
 
+## Helping the Project !
+It would be great having the opportunity to publish a live version of MalControl Center.
+
+To accomplish this task we need one of the following:
+1. Money Donation (GitTip, preferred channel [see badget Mania for our current income in GitTip]]) in order to buy domain and hosting 
+2. Hosting Donation.
+
+It would be great having the opportunity to spend more time in developing this project in order to build an amazing Open Source platform able to grab most of the freely available infos on Malware and Threats showing them to the entire world with no fee or charges.
+To accomplish this task we need one of the following:
+1. Little money donations (GitTip, preferred channel)
+2. Helping us in developing MalControl. Please contact me !
+
+
 ## How to Install Malcontrol
 In order to run MalControl on your own, you need to install:
 
