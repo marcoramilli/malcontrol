@@ -79,6 +79,10 @@ By drilling down into a specific malware/threat you will see the icons of the sc
 
 ![Map 3](http://1.bp.blogspot.com/-iQEai9Q_iaI/U2NdDKsjp5I/AAAAAAAALsI/trctiyi3HVg/s1600/Screen+Shot+2014-04-29+at+17.14.19.png)  
 
+The following video shows how malcontrol is supposed to work. Please note the frontend might change overtime and the video might be outdated
+
+[![Simple Working Video](http://2.bp.blogspot.com/-rery0x-AyHs/U3ZRxBETLTI/AAAAAAAALt0/1Mdwjcvb7vI/s1600/Screen+Shot+2014-05-16+at+19.57.48.png)](http://screencast.com/t/GGMH8q77F9a)
+
 
 ## Open API 
 Please refer to doc section for a fully documented Public API
