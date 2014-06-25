@@ -243,6 +243,52 @@
   },
   {
     "type": "get",
+    "url": "/api/getmaplic",
+    "title": "returns the license key for map",
+    "name": "Maps",
+    "version": "0.0.1",
+    "group": "basicstats",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "field": "License",
+            "optional": false,
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n   {\n     \"license\": \"asda123-we-1658jkgjf5\"\n   }\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Missing Parameters\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/basic.js"
+  },
+  {
+    "type": "get",
     "url": "/api/numberofmalware",
     "title": "returns the number of malwares between specific dates",
     "name": "NumberOfMalware",
@@ -419,8 +465,8 @@
   },
   {
     "type": "get",
-    "url": "/api/topcountriesphishers",
-    "title": "Request to obtain the top countries phishers list",
+    "url": "/api/topcountriesthreats",
+    "title": "Request to obtain the top countries threats list",
     "name": "TopCountries",
     "version": "0.2.0",
     "group": "basicstats",
@@ -525,8 +571,8 @@
   },
   {
     "type": "get",
-    "url": "/api/topcountriesthreats",
-    "title": "Request to obtain the top countries threats list",
+    "url": "/api/topcountriesphishers",
+    "title": "Request to obtain the top countries phishers list",
     "name": "TopCountries",
     "version": "0.2.0",
     "group": "basicstats",

@@ -108,6 +108,7 @@ if (cluster.isMaster){
       // **
       //app.get('/api/topcountriesphishers', basicRoutes.GETtopCountriesPhishers);
       app.get('/api/topcountriesmalware', basicRoutes.GETtopCountriesMalwares);
+      app.get('/api/getmaplic', basicRoutes.GETMapLicKey);
 
       app.get('/api/topcountriesthreats', basicRoutes.GETtopCountriesThreats);
       app.get('/api/totalmalware', basicRoutes.GETtotalMalware);

@@ -4,6 +4,34 @@ var _malware = require('../schemas/malware');
 var malwareMODEL = _malware.mongoose.model('malware', _malware.Malware); 
 var _malwareLocations = require('../schemas/malware_locations');
 var malwareLocationsMODEL = _malwareLocations.mongoose.model('malwareLocations', _malwareLocations.MalwareLocations);
+var _config = require('../conf/configs');
+
+/**
+ * @api {get} /api/getmaplic returns the license key for map
+ * @apiName Maps 
+ * @apiVersion 0.0.1
+ * @apiGroup basicstats
+ *
+ * @apiSuccess {Number} License 
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "license": "asda123-we-1658jkgjf5"
+ *     }
+ *
+ * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status" : "error",
+ *       "message": "Missing Parameters"
+ *     }
+ */
+exports.GETMapLicKey = function(req, res){
+  return res.json({license: _config.map.license});
+};//GETMAPLICKEY
 
 /**
  * @api {get} /api/numberofthreats returns the number of threats between specific dates

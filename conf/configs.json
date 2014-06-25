@@ -7,6 +7,10 @@
           "background_geoloc_service" : 3000
   },
 
+  "map": {
+    "license": "test-lic"
+  },
+
   "scrapers":{
           "phishtank_timer" : 30000,
           "urlquery_timer": 60000,
