@@ -38,6 +38,7 @@ var _virusscan_scraper = require('./scrapers/virusscan_scraper');
 var _commonGeoMalw = require('./commons/save_malw');
 var _malware_domain_list = require('./scrapers/malware_domain_list');
 var _malware_malc0de_scraper = require('./scrapers/malware_malc0de');
+var _malware_vxvault_scraper  = require('./scrapers/malware_vxvault');
 //-----------------------------------------------------------------
 
 //DB Connections
@@ -73,6 +74,7 @@ if (cluster.isMaster){
       setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
       setInterval(function(){ if (!toobusy()) {_malware_domain_list.goScraper();}}, parseInt(Math.random(2)*100000)); //_config.scrapers.malwr_timer);
       setInterval(function(){ if (!toobusy()) {_malware_malc0de_scraper.goScraper();}},parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
+      setInterval(function(){ if (!toobusy()) {_malware_vxvault_scraper.goScraper();}},parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
 
       process.on('uncaughtException', function globalErrorCatch(error, p){
         console.error(error);
