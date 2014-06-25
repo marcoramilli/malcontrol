@@ -20,6 +20,7 @@ We actually scrape the following services:
 5. [webinspector](http://app.webinspector.com/recent_detections)
 6. [domainlist](http://www.malwaredomainlist.com/)
 7. [malc0de](http://malc0de.com/)
+8. [vxvault](http://vxvault.siri-urz.net/)
 
 If **you are a malware scan provider and you would like to actively  partecipate to the project by giving some of your data, please contact us, we'll be glad to add your service to our project**.
 Each visualized threat comes with the original and 'clickable' URL pointing to the original report. The original report owns all the specific information to the threat.
@@ -51,6 +52,8 @@ Once you've installed the required software, it's time to clone that repository 
 1. `git clone git@github.com:marcoramilli/malcontrol.git`
 2. `cd malcontrol.git`
 3. `npm install`
+
+You need to configure the conf/configs.json file at your will
 
 Now it's time to launch it !
 
