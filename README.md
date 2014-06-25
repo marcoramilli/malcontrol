@@ -53,7 +53,9 @@ Once you've installed the required software, it's time to clone that repository 
 2. `cd malcontrol.git`
 3. `npm install`
 
-You need to configure the conf/configs.json file at your will
+You need to configure the conf/configs.json file at your will. For example you need to add your own mapbox key.
+MapBox Key are free (under specific conditions) please take a look to https://www.mapbox.com
+
 
 Now it's time to launch it !
 
