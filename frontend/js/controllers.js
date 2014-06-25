@@ -4,19 +4,8 @@
 /* Controllers */
 
 malControlApp.controller('StatsController', [
-    '$scope', '$http', 'TopCountry',
-    function($scope, $http, TopCountry) {
-        var map = L.mapbox.map('map', 'lzoffoli.hmddapfj',{
-            center: [20,0],
-            zoom: 3,
-            tileLayer: {
-                continuousWorld: false,
-                noWrap: true
-            }
-        });
-        var markersGroup = new L.MarkerClusterGroup();
-        map.addLayer(markersGroup);
-        $scope.markers = {};
+    '$scope', '$http', 'TopCountry', 'HighchartsHelper',
+    function($scope, $http, TopCountry, HighchartsHelper) {
         
         function updateStats($scope, $http) {
             //Top Countries
@@ -97,6 +86,8 @@ malControlApp.controller('StatsController', [
             });
 
         }
+        
+        $scope.markers = {};
         $scope.parseData = function(data){
             for( var d in data){
                 if( data[d].ll &&  data[d].ll !== '0,0' ){
@@ -105,7 +96,7 @@ malControlApp.controller('StatsController', [
                     if( !( data[d].ll in $scope.markers ) ){
                         var marker = $scope.createMarker(data[d]);
                         $scope.markers[data[d].ll] = marker;
-                        markersGroup.addLayer(marker);
+                        $scope.markersGroup.addLayer(marker);
                     }
                 }
             }
@@ -149,6 +140,8 @@ malControlApp.controller('StatsController', [
                 case 'malc0de.com':
                 case 'malwaredomainlist.com':
                     return '/images/sources/'+source.replace('.com','')+'.png';
+                case 'vxvault.siri-urz.net':
+                    return '/images/vxvault.png';
                 case 'phishtank':
                 case 'scumware':
                 case 'urlquery':
@@ -164,7 +157,7 @@ malControlApp.controller('StatsController', [
                 $scope.to_date = moment($scope.from_date).add(1,'day').toDate();
             }
             $scope.markers = {};
-            markersGroup.clearLayers();
+            $scope.markersGroup.clearLayers();
             updateStats($scope,$http);
         };
         $scope.changeToDate = function(){
@@ -230,39 +223,7 @@ malControlApp.controller('StatsController', [
             return vdata;
         };
         $scope.updatePie = function( id, title, vdata ){
-            $('#'+id).highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-                },
-                title: {
-                    text: title
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y} ({point.percentage:.1f}%)</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: { enabled: false }
-    //                    dataLabels: {
-    //                        enabled: true,
-    //                        color: '#000000',
-    //                        connectorColor: '#000000',
-    //                        formatter: function() {
-    //                            return '<b>'+ this.point.name +'</b>: ' + this.y + ' ('+ this.percentage.toFixed(2) +' %)';
-    //                        }
-    //                    }
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Total',
-                    data: vdata
-                }]
-            });
+            $('#'+id).highcharts(HighchartsHelper.getDefaultPieOptions(title,vdata));
             return true;
         };
         $scope.updateGauge = function(id,current,max){
@@ -309,83 +270,7 @@ malControlApp.controller('StatsController', [
                 width: $gauge.outerWidth(),
                 height: $gauge.outerHeight()
             });
-            $gauge.highcharts({
-                 chart: {
-                     type: 'gauge',
-                     plotBackgroundColor: null,
-                     plotBackgroundImage: null,
-                     plotBorderWidth: 0,
-                     plotShadow: false
-                 },
-
-                 title: {
-                     text: title
-                 },
-
-                 pane: {
-                     startAngle: -150,
-                     endAngle: 150,
-                     background: [{
-                         backgroundColor: {
-                             linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                             stops: [
-                                 [0, '#FFF'],
-                                 [1, '#333']
-                             ]
-                         },
-                         borderWidth: 0,
-                         outerRadius: '109%'
-                     }, {
-                         backgroundColor: {
-                             linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                             stops: [
-                                 [0, '#333'],
-                                 [1, '#FFF']
-                             ]
-                         },
-                         borderWidth: 1,
-                         outerRadius: '107%'
-                     }, {
-                         // default background
-                     }, {
-                         backgroundColor: '#DDD',
-                         borderWidth: 0,
-                         outerRadius: '105%',
-                         innerRadius: '103%'
-                     }]
-                 },
-
-                 // the value axis
-                 yAxis: {
-                     min: 0,
-                     max: 1,
-
-                     minorTickInterval: 'auto',
-                     minorTickWidth: 1,
-                     minorTickLength: 10,
-                     minorTickPosition: 'inside',
-                     minorTickColor: '#666',
-
-                     tickPixelInterval: 30,
-                     tickWidth: 2,
-                     tickPosition: 'inside',
-                     tickLength: 10,
-                     tickColor: '#666',
-                     labels: {
-                         step: 2,
-                         rotation: 'auto'
-                     },
-                     plotBands: []        
-                 },
-
-                 series: [{
-                     name: 'Detected',
-                     data: [0],
-                     tooltip: {
-                         valueSuffix: ' unit/h'
-                     }
-                 }]
-             },
+            $gauge.highcharts( HighchartsHelper.getDefaultGaugeOptions(title),
              function (chart) {
                   if (!chart.renderer.forExport) {
                       $scope['gauge_'+id] = chart;
@@ -422,13 +307,31 @@ malControlApp.controller('StatsController', [
         $scope.setupGauge('threats-gauge','Threats per hour');
         $scope.updatePie('malwares-sources-stats','Malwares Sources',[]);
         $scope.updatePie('threats-sources-stats','Threats Sources',[]);
-        updateStats($scope, $http);
-        setInterval(function() {
-            updateStats($scope, $http);
-        }, 5000);
-
+        
+        
         $('input[type="date"]').datepicker({
             dateFormat: 'yy-mm-dd'
+        });
+        $http.get('/api/getmaplic').success(function(key){
+            if(!key.license || key.license === 'test-lic'){
+                alert('YOU NEED TO SET MAP LICENCE IN PROJECT CONFIGURATION FILE (/conf/configs.json) TO USE MALCONTROL!');
+                return;
+            }
+            var map = L.mapbox.map('map', key.license,{
+                center: [20,0],
+                zoom: 3,
+                tileLayer: {
+                    continuousWorld: false,
+                    noWrap: true
+                }
+            });
+            $scope.markersGroup = new L.MarkerClusterGroup();
+            map.addLayer($scope.markersGroup);
+            updateStats($scope, $http);
+            setInterval(function() {
+                updateStats($scope, $http);
+            }, 15000);
+
         });
     }
 ]);
