@@ -1,6 +1,8 @@
 
-## News
+## Info and questions
 If you ha e questions and/or you need more infos on the project, pelaste contatto marcoramilli.com (marcoramilli@blogspot.com).
+
+## Background
 
 Gathering open data from malware analysis websites is the main target of Malware Control Monitor project.
 Visualize such a data by synthesize statistics highlighting where threats happen and what their impact is, could be useful to identify malware propagations 
