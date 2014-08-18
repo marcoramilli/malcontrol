@@ -119,6 +119,12 @@ exports.geoLocMalwr = function(){
         if (malw.scraped_source === "malc0de.com"){
           _malware_report_scraper_ip(malw);
         }
+        if (malw.scraped_source === "vxvault.siri-urz.net"){
+          _malware_report_scraper_ip(malw);
+        }
+        if (malw.scraped_source === ""){
+          _malware_report_scraper_ip(malw);
+        }
       });//forEachMalware
 
     }//malwrs.length
