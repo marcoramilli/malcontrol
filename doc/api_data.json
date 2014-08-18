@@ -1,6 +1,98 @@
 [
   {
     "type": "get",
+    "url": "/api/getmaplic",
+    "title": "returns the license key for map",
+    "name": "Additionals",
+    "version": "0.0.1",
+    "group": "additionals",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "field": "License",
+            "optional": false,
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n{\n  \"article_number\": 0,\n  \"article_title\": \"Insert Coin To Continue: GameOver ZeuS Zombie Mutates, Shuffles Back To Its Feet\",\n  \"article_link\": \"http://packetstormsecurity.com/news/view/24446/Insert-Coin-To-Continue-GameOver-ZeuS-Zombie-Mutates-Shuffles-Back-To-Its-Feet.html\",\n  \"article_feed\": {\n  \"source\": \"http://rss.packetstormsecurity.com/news/tags/malware/\",\n  \"link\": \"http://packetstormsecurity.com/\",\n  \"name\": \"Malware News ≈ Packet Storm\"\n},\n  \"article_content\": \"\"\n},\n{\n  \"article_number\": 1,\n  \"article_title\": \"Google Safe Browsing To Expand Warnings\",\n  \"article_link\": \"http://packetstormsecurity.com/news/view/24445/Google-Safe-Browsing-To-Expand-Warnings.html\",\n  \"article_feed\": {\n  \"source\": \"http://rss.packetstormsecurity.com/news/tags/malware/\",\n  \"link\": \"http://packetstormsecurity.com/\",\n  \"name\": \"Malware News ≈ Packet Storm\"\n},\n  \"article_content\": \"\"\n}\n]\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Missing Parameters\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/additionals.js"
+  },
+  {
+    "type": "get",
+    "url": "/api/malwarenews",
+    "title": "returns the malware news",
+    "name": "Additionals",
+    "version": "0.0.1",
+    "group": "additionals",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JSON",
+            "field": "News",
+            "optional": false,
+            "description": "Object"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n   {\n     \"license\": \"asda123-we-1658jkgjf5\"\n   }\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Missing Parameters\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/additionals.js"
+  },
+  {
+    "type": "get",
     "url": "/api/malwareh",
     "title": "returns the number of malwares per hour",
     "name": "Malware_per_H",
@@ -465,6 +557,59 @@
   },
   {
     "type": "get",
+    "url": "/api/topcountriesphishers",
+    "title": "Request to obtain the top countries phishers list",
+    "name": "TopCountries",
+    "version": "0.2.0",
+    "group": "basicstats",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "Country",
+            "optional": false,
+            "description": "in top country"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "field": "Number",
+            "optional": false,
+            "description": "of threats"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n   {\n     \"country\": \"EN\",\n     \"score\": \"20\"\n   }\n"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "field": "InternalError",
+            "optional": false,
+            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Internal Error\"\n   }\n"
+        }
+      ]
+    },
+    "filename": "routes/basic.js"
+  },
+  {
+    "type": "get",
     "url": "/api/topcountriesthreats",
     "title": "Request to obtain the top countries threats list",
     "name": "TopCountries",
@@ -539,59 +684,6 @@
             "field": "Number",
             "optional": false,
             "description": "of malware"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "   HTTP/1.1 200 OK\n   {\n     \"country\": \"EN\",\n     \"score\": \"20\"\n   }\n"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "field": "InternalError",
-            "optional": false,
-            "description": "The Servers had some serious problems, contact mramilli@gmail.com"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "   HTTP/1.1 404 Not Found\n   {\n     \"status\" : \"error\",\n     \"message\": \"Internal Error\"\n   }\n"
-        }
-      ]
-    },
-    "filename": "routes/basic.js"
-  },
-  {
-    "type": "get",
-    "url": "/api/topcountriesphishers",
-    "title": "Request to obtain the top countries phishers list",
-    "name": "TopCountries",
-    "version": "0.2.0",
-    "group": "basicstats",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "field": "Country",
-            "optional": false,
-            "description": "in top country"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "field": "Number",
-            "optional": false,
-            "description": "of threats"
           }
         ]
       },

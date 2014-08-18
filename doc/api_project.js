@@ -4,7 +4,7 @@ define({
   "description": "Malware Contron Monitor, scrapes and visualize statistics on open data malware",
   "apidoc": "",
   "generator": {
-    "version": "0.4.2",
-    "time": "2014-06-25T09:26:51.948Z"
+    "version": "0.4.4",
+    "time": "2014-08-18T18:52:43.146Z"
   }
 });

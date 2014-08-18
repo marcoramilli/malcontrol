@@ -13,10 +13,33 @@ var feed    = require("feed-read");
  * @apiSuccess {Number} License 
  *
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "license": "asda123-we-1658jkgjf5"
- *     }
+ *
+ *[
+ *  {
+ *    "article_number": 0,
+ *    "article_title": "Insert Coin To Continue: GameOver ZeuS Zombie Mutates, Shuffles Back To Its Feet",
+ *    "article_link": "http://packetstormsecurity.com/news/view/24446/Insert-Coin-To-Continue-GameOver-ZeuS-Zombie-Mutates-Shuffles-Back-To-Its-Feet.html",
+ *    "article_feed": {
+ *    "source": "http://rss.packetstormsecurity.com/news/tags/malware/",
+ *    "link": "http://packetstormsecurity.com/",
+ *    "name": "Malware News ≈ Packet Storm"
+ *  },
+ *    "article_content": ""
+ *  },
+ *  {
+ *    "article_number": 1,
+ *    "article_title": "Google Safe Browsing To Expand Warnings",
+ *    "article_link": "http://packetstormsecurity.com/news/view/24445/Google-Safe-Browsing-To-Expand-Warnings.html",
+ *    "article_feed": {
+ *    "source": "http://rss.packetstormsecurity.com/news/tags/malware/",
+ *    "link": "http://packetstormsecurity.com/",
+ *    "name": "Malware News ≈ Packet Storm"
+ *  },
+ *    "article_content": ""
+ *  }
+ * ]
+ *
+ *
  *
  * @apiError InternalError The Servers had some serious problems, contact mramilli@gmail.com 
  *
