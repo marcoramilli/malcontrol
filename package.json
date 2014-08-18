@@ -16,7 +16,8 @@
     "toobusy": "^0.2.4",
     "jsdom": "^0.10.5",
     "request": "^2.34.0",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "feed-read": "0.0.1"
   },
   "devDependencies": {
     "grunt": "^0.4.4",

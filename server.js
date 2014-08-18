@@ -19,26 +19,26 @@
 //http://malc0de.com/database/?&page=2
 
 //General Imports
-var mongoose = require('mongoose');
-var _config = require('./conf/configs');
-var cluster = require('cluster');
-var application_root = __dirname;
-var http = require('http');
-var path = require('path');
-var toobusy = require('toobusy'); //thank you guys, you saved me the day !
+var mongoose                 = require('mongoose');
+var _config                  = require('./conf/configs');
+var cluster                  = require('cluster');
+var application_root         = __dirname;
+var http                     = require('http');
+var path                     = require('path');
+var toobusy                  = require('toobusy'); //thank you guys, you saved me the day !
 //-----------------------------------------------------------------
 
 //Parser Imports
-var _urlquery_scraper = require('./scrapers/queryurl_scraper');
-var _phishtank_scraper = require('./scrapers/phishtank_scraper');
-var _webinspector_scraper = require('./scrapers/webinspector_scraper');
-var _scumware_scraper = require('./scrapers/scumware_scraper');
-var _malwr_scraper = require('./scrapers/malwr_scraper');
-var _virusscan_scraper = require('./scrapers/virusscan_scraper');
-var _commonGeoMalw = require('./commons/save_malw');
-var _malware_domain_list = require('./scrapers/malware_domain_list');
+var _urlquery_scraper        = require('./scrapers/queryurl_scraper');
+var _phishtank_scraper       = require('./scrapers/phishtank_scraper');
+var _webinspector_scraper    = require('./scrapers/webinspector_scraper');
+var _scumware_scraper        = require('./scrapers/scumware_scraper');
+var _malwr_scraper           = require('./scrapers/malwr_scraper');
+var _virusscan_scraper       = require('./scrapers/virusscan_scraper');
+var _commonGeoMalw           = require('./commons/save_malw');
+var _malware_domain_list     = require('./scrapers/malware_domain_list');
 var _malware_malc0de_scraper = require('./scrapers/malware_malc0de');
-var _malware_vxvault_scraper  = require('./scrapers/malware_vxvault');
+var _malware_vxvault_scraper = require('./scrapers/malware_vxvault');
 //-----------------------------------------------------------------
 
 //DB Connections
@@ -81,10 +81,11 @@ if (cluster.isMaster){
         console.error(error.stack);
       });
 
-      var express = require('express');
-      var basicRoutes = require('./routes/basic');
-      var advancedRoutes = require('./routes/advances');
-      var app = express();
+      var express           = require('express');
+      var basicRoutes       = require('./routes/basic');
+      var advancedRoutes    = require('./routes/advances');
+      var additionals       = require('./routes/additionals');
+      var app               = express();
 
       //-----------------------------------------------------------------
       app.configure(function () {
@@ -108,7 +109,8 @@ if (cluster.isMaster){
       // **
       //app.get('/api/topcountriesphishers', basicRoutes.GETtopCountriesPhishers);
       app.get('/api/topcountriesmalware', basicRoutes.GETtopCountriesMalwares);
-      app.get('/api/getmaplic', basicRoutes.GETMapLicKey);
+      app.get('/api/getmaplic', additionals.GETMapLicKey);
+      app.get('/api/malwarenews', additionals.GETMalwareNews);
 
       app.get('/api/topcountriesthreats', basicRoutes.GETtopCountriesThreats);
       app.get('/api/totalmalware', basicRoutes.GETtotalMalware);

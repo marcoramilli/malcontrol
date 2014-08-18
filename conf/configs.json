@@ -4,6 +4,7 @@
           "listening_port": "8080",
           "db_address": "127.0.0.1",
           "db_dbname": "malware_collector",
+          "malware_news_feed":"http://rss.packetstormsecurity.com/news/tags/malware/",
           "background_geoloc_service" : 3000
   },
 
