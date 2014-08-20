@@ -93,9 +93,9 @@ malControlApp.controller('StatsController', [
                 if( data[d].ll &&  data[d].ll !== '0,0' ){
                     var latLng = data[d].ll.split(',');
                     var marker = L.marker( new L.LatLng(latLng[0],latLng[1]) );
-                    if( !( data[d]._id in $scope.markers ) ){
+                    if( !( data[d].ll_id in $scope.markers ) ){
                         var marker = $scope.createMarker(data[d]);
-                        $scope.markers[data[d]._id] = marker;
+                        $scope.markers[data[d].ll_id] = marker;
                         $scope.markersGroup.addLayer(marker);
                     }
                 }
