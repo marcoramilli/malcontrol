@@ -29,7 +29,7 @@
     "v8-profiler": "~4.0.1"
   },
   "scripts": {
-    "start": "make run",
+    "start": "sudo node server.js && node scrapers_service.js ",
     "test": "make test"
   },
   "repository": {
