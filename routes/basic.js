@@ -579,14 +579,17 @@ exports.GETMalwareBetweenDates = function(req, res){
 
             var locations_length = 0;
             locations.forEach(function(loc){
-              obj.ll = loc.ll;
-              obj.ip = loc.ip;
-              obj.city = loc.city;
-              obj.scraped_source = loc.scraped_source;
-              obj.country = loc.country; 
-              obj.save(function(err){
-                if (err){console.log("Error: " + err); res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");}
-                response.push(obj);
+              var obj2           = obj.toObject();
+              obj2.ll_id          = loc._id;
+              obj2.ll             = loc.ll;
+              obj2.ip             = loc.ip;
+              obj2.city           = loc.city;
+              obj2.scraped_source = loc.scraped_source;
+              obj2.country        = loc.country; 
+
+              //obj.save(function(err){
+                //if (err){console.log("Error: " + err); res.send("{\"status\": \"error\", \"message\": \"missing parameters\"}");}
+                response.push(obj2);
                 locations_length++;
                 if (locations_length >= locations.length){
                   mal_length++;
@@ -594,7 +597,7 @@ exports.GETMalwareBetweenDates = function(req, res){
                 if (mal_length >= objs.length){
                   return res.send(response);
                 }
-              });//objsave
+              //});//objsave
             });//locations 
           }
         });//malwarelocation 
