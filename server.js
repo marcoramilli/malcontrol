@@ -7,7 +7,7 @@
 
 /*Author: Marco Ramilli
  * website: marcoramilli.com
- * Version: pre alpha
+ * Version: alpha
  * Note: Don't even think to use this code in production environment
  * Everything you read is under development monde.
  */
@@ -16,7 +16,6 @@
 //http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
 //http://about-threats.trendmicro.com/us/search.aspx?p=Crypted.exe
 //http://www.bitdefender.com/resourcecenter/virus-encyclopedia/
-//http://malc0de.com/database/?&page=2
 
 //General Imports
 var mongoose                 = require('mongoose');
@@ -67,17 +66,9 @@ if (cluster.isMaster){
     } 
     else if (cluster.isWorker){
 
+      //****************
       //FOR STARTING THE SCRAPERS RUN: node scraper_service.js
-
-      //setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
-      //setInterval(function(){ if (!toobusy()) {_urlquery_scraper.goScraper();}}, _config.scrapers.urlquery_timer + parseInt(Math.random()*100000)); //_config.scrapers.urlquery_timer);
-      //setInterval(function(){ if (!toobusy()) {_webinspector_scraper.goScraper();}},_config.scrapers.webinspector_timer + parseInt(Math.random()*100000));//_config.scrapers.webinspector_timer);
-      //setInterval(function(){ if (!toobusy()) {_virusscan_scraper.goScraper();}},_config.scrapers.virusscanner_timer + parseInt(Math.random()*100000)); //_config.scrapers.virusscanner_timer);
-      ////TOFIX: fix the following scraper !
-      //setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, _config.scrapers.malwr_timer + parseInt(Math.random()*100000)); //_config.scrapers.malwr_timer);
-      //setInterval(function(){ if (!toobusy()) {_malware_domain_list.goScraper();}}, _config.scrapers.malwr_timer + parseInt(Math.random()*100000)); //_config.scrapers.malwr_timer);
-      //setInterval(function(){ if (!toobusy()) {_malware_malc0de_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
-      //setInterval(function(){ if (!toobusy()) {_malware_vxvault_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
+      //****************
 
       //process.on('uncaughtException', function globalErrorCatch(error, p){
         //console.error(error);
