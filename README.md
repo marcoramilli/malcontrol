@@ -66,7 +66,7 @@ MapBox Key are free (under specific conditions) please take a look to https://ww
 Now it's time to launch it !
 
 1. `grunt`
-2. `node server` (if run in automated way: `npm start`)
+2. `npm start` 
 3.  go to [localhost:8080](http://localhost:8080)
 
 ## Backend Structure
