@@ -26,6 +26,7 @@ var application_root         = __dirname;
 var http                     = require('http');
 var path                     = require('path');
 var toobusy                  = require('toobusy'); //thank you guys, you saved me the day !
+var favicon                  = require('serve-favicon');
 //-----------------------------------------------------------------
 
 //Parser Imports
@@ -95,6 +96,7 @@ if (cluster.isMaster){
         app.use(app.router);
         app.use(express.static(path.join(application_root, _config.system.frontend)));
         app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+        app.use(favicon(_config.system.frontend + '/images/favicon.ico'));
 
         //** Error Handler must be the last one
         app.use(function(req, res, next){
