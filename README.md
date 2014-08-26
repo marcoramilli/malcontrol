@@ -13,7 +13,6 @@ Visualize such a data by synthesize statistics highlighting where threats happen
 [![Support Marco via Gittip](http://img.shields.io/gittip/marco.svg)](https://www.gittip.com/marco/)
 [![Support Lorenzo via Gittip](http://img.shields.io/gittip/zoff.svg)](https://www.gittip.com/zoff/)
 [![GitHub version](https://badge.fury.io/gh/marcoramilli%2Fmalcontrol.png)](http://badge.fury.io/gh/marcoramilli%2Fmalcontrol)
-![Code ship](https://www.codeship.io/projects/b4cc96a0-8a8c-0131-3e1f-5a175932ae46/status)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 ## Open Data
@@ -66,7 +65,7 @@ MapBox Key are free (under specific conditions) please take a look to https://ww
 Now it's time to launch it !
 
 1. `grunt`
-2. `node server` (if run in automated way: `npm start`)
+2. `npm start` 
 3.  go to [localhost:8080](http://localhost:8080)
 
 ## Backend Structure

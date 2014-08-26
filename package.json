@@ -1,6 +1,6 @@
 {
   "name": "malwareControlCenter",
-  "version": "0.0.2",
+  "version": "0.1.2",
   "description": "Malware Contron Monitor, scrapes and visualize statistics on open data malware",
   "main": "server.js",
   "dependencies": {
@@ -29,7 +29,7 @@
     "v8-profiler": "~4.0.1"
   },
   "scripts": {
-    "start": "make run",
+    "start": "sudo node server.js && node scrapers_service.js ",
     "test": "make test"
   },
   "repository": {
