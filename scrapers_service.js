@@ -19,6 +19,16 @@ var _commonGeoMalw           = require('./commons/save_malw');
 var _malware_domain_list     = require('./scrapers/malware_domain_list');
 var _malware_malc0de_scraper = require('./scrapers/malware_malc0de');
 var _malware_vxvault_scraper = require('./scrapers/malware_vxvault');
+var _autoshum_org_scraper    = require('./scrapers/autoshun.org');
+//-----------------------------------------------------------------
+//
+//DB Connections
+mongoose.connect("mongodb://"+_config.system.db_address+"/"+_config.system.db_dbname, function(err){                          
+  if(err){
+    console.log("[-] DB Connection FAILED !" + err);
+    process.exit(0);
+  }
+});
 //-----------------------------------------------------------------
 
 setInterval(function(){ if (!toobusy()) {_phishtank_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
@@ -30,6 +40,8 @@ setInterval(function(){ if (!toobusy()) {_malwr_scraper.goScraper();}}, _config.
 setInterval(function(){ if (!toobusy()) {_malware_domain_list.goScraper();}}, _config.scrapers.malwr_timer + parseInt(Math.random()*100000)); //_config.scrapers.malwr_timer);
 setInterval(function(){ if (!toobusy()) {_malware_malc0de_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
 setInterval(function(){ if (!toobusy()) {_malware_vxvault_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
+setInterval(function(){ if (!toobusy()) {_autoshum_org_scraper.goScraper();}},_config.scrapers.autoshun_org_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
+
 
 process.on('uncaughtException', function globalErrorCatch(error, p){
   console.error(error);
