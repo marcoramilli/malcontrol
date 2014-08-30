@@ -4,7 +4,7 @@ var _base_searching_url = "http://www.autoshun.org/files/shunlist.csv#sthash.GlM
 
 var _local_cache = {};
 
-//URLQUERY
+//autoshum.org
 exports.goScraper = function(){
   try{
     request(_base_searching_url, function (error, response, body) {

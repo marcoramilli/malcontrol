@@ -19,6 +19,7 @@ var _commonGeoMalw           = require('./commons/save_malw');
 var _malware_domain_list     = require('./scrapers/malware_domain_list');
 var _malware_malc0de_scraper = require('./scrapers/malware_malc0de');
 var _malware_vxvault_scraper = require('./scrapers/malware_vxvault');
+var _malwareblacklist_scraper= require('./scrapers/malwareblacklist');
 var _autoshum_org_scraper    = require('./scrapers/autoshun.org');
 //-----------------------------------------------------------------
 //
@@ -41,6 +42,7 @@ setInterval(function(){ if (!toobusy()) {_malware_domain_list.goScraper();}}, _c
 setInterval(function(){ if (!toobusy()) {_malware_malc0de_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
 setInterval(function(){ if (!toobusy()) {_malware_vxvault_scraper.goScraper();}},_config.scrapers.phishtank_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
 setInterval(function(){ if (!toobusy()) {_autoshum_org_scraper.goScraper();}},_config.scrapers.autoshun_org_timer + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
+setInterval(function(){ if (!toobusy()) {_malwareblacklist_scraper.goScraper();}},_config.scrapers.malwareblacklist + parseInt(Math.random()*100000)); // _config.scrapers.phishtank_timer);
 
 
 process.on('uncaughtException', function globalErrorCatch(error, p){

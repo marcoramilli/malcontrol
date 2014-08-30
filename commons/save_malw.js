@@ -32,6 +32,7 @@ exports.saveMalwareToDB = function(plinkToReport, ptimestamp, pip, pcompositscor
       ids = p[1];
     }
   }
+  
   var tm = new malwareMODEL({
       timestamp: ptimestamp,
       ip: pip,
@@ -120,6 +121,9 @@ exports.geoLocMalwr = function(){
           _malware_report_scraper_ip(malw);
         }
         if (malw.scraped_source === "vxvault.siri-urz.net"){
+          _malware_report_scraper_ip(malw);
+        }
+        if (malw.scraped_source === "malwareblacklist.com"){
           _malware_report_scraper_ip(malw);
         }
         if (malw.scraped_source === ""){

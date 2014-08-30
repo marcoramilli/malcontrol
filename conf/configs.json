@@ -18,6 +18,7 @@
           "webinspector_timer": 45000,
           "virusscanner_timer": 20000,
           "autoshun_org_timer": 60000,
+          "malwareblacklist"  : 60000,
           "malwr_timer"       : 60000          
   }
 }

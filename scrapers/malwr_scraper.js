@@ -12,7 +12,7 @@ exports.goScraper = function(){
 
     var uris = [];
     if (firstime){
-      for(var i=1; i<500; i++){
+      for(var i=1; i<5000; i++){
         uris[i-1] = _base_searching_url + i;
       }
       console.log("[+] First time you are scraping malwr.com");
