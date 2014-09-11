@@ -1,5 +1,5 @@
 var request             = require('request');
-var _save_badass        = require('../commons/save_badass');
+var _save_badass        = require('../../commons/save_badass');
 var _base_searching_url = "http://www.autoshun.org/files/shunlist.csv#sthash.GlMFGqI5.dpuf";
 
 var _local_cache = {};

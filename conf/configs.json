@@ -13,12 +13,12 @@
   },
 
   "scrapers":{
-          "phishtank_timer"   : 30000,
-          "urlquery_timer"    : 60000,
-          "webinspector_timer": 45000,
-          "virusscanner_timer": 20000,
-          "autoshun_org_timer": 60000,
-          "malwareblacklist"  : 60000,
-          "malwr_timer"       : 60000          
+          "phishtank_timer"   : 300,
+          "urlquery_timer"    : 600,
+          "webinspector_timer": 4500,
+          "virusscanner_timer": 200,
+          "autoshun_org_timer": 600,
+          "malwareblacklist"  : 600,
+          "malwr_timer"       : 600          
   }
 }

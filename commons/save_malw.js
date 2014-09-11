@@ -12,6 +12,8 @@ var globalStatusGEO = 0;
 var step = 10;
 
 //external
+exports.Malware = malwareMODEL;
+
 exports.firstTimeRunningMalware = function(source, callback){
   return malwareMODEL.count({scraped_source: source}, function(err, count){
     if (count > 0) {callback(false);}

@@ -1,20 +1,21 @@
-var scraper = require('./scraper');
+var scraper = require('./../scraper');
 var geoip = require('geoip-lite');  
-var _savethreats = require('../commons/save_threats');
+var _savethreats = require('../../commons/save_threats');
 var _base_report_url = "http://www.scumware.org/report/";
 
 
 //TODO Adding report links
+// TODO: bypass anti-bot filters
 //URLQUERY
 exports.goScraper = function(){
+  console.log('here');
   return scraper('http://www.scumware.org', function(err, jQuery) {
       if (err) {return console.log("[-] Error happening in scumware: " + err);}
       console.log("[+] Querying scumware");
 
-      console.log(jQuery);
       return jQuery('tr').each(function() {
         var content = jQuery(this);
-        console.log(content);
+        // console.log(content.html());
 
         //var timestamp  = content.find("td").eq(0).text();
         //console.log("[+] <scumware> Time Stamp found: " + timestamp);

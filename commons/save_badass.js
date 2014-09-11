@@ -6,6 +6,15 @@ var badassMODEL      = badass.mongoose.model('badass', badass.Badass);
 //-----------------------------------------------------------------
 //
 
+//external
+exports.Badass = badassMODEL;
+
+exports.firstTimeRunning = function(source, callback){
+  return badassMODEL.count({scraped_source: source}, function(err, count){
+    if (count > 0) {callback(false);}
+    else {callback(true);}
+  });//count
+};//firsttimerunning
 
 exports.saveBadAssToDB = function (ip, scraped, date, note, run){
       var geo = geoip.lookup(ip);

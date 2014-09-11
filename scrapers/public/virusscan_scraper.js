@@ -1,12 +1,20 @@
-var scraper = require('./scraper');
-var _savemalware = require('../commons/save_malw');
+var scraper = require('./../scraper');
+var _savemalware = require('../../commons/save_malw');
 var _local_cache = {};
 
 //URLQUERY
 exports.goScraper = function(){
   try{
-    return scraper('http://www.virscan.org/reportlist.php', function(err, jQuery) {
-        if (err) {return console.log("[-] Error happening in malwr: " + err);}
+    var page = 'http://www.virscan.org/reportlist/';
+    var uris = [];
+    for (var i = 1; i <= 10; i++) {
+      uris.push(page + i);
+    }
+    return scraper(uris, function(err, jQuery) {
+        if (err) {
+          console.log("[-] Error happening in malwr: " + err);
+          return true; // Don't stop
+        }
         console.log("[+] Querying viruscan");
 
         return jQuery('#lastScanTable tr').each(function() {
@@ -19,7 +27,7 @@ exports.goScraper = function(){
             var linkToReport = undefined;
             var link = content.find('a[href*="virscan.org"]').attr('href');
             if(undefined !== link && null !== link){
-              linkToReport = link; 
+              linkToReport = link;
               console.log("[+] Link To Report found: " + linkToReport);
               if (_local_cache[link] ){
                 console.log("[-] Already Analyed !");
@@ -30,17 +38,16 @@ exports.goScraper = function(){
             }
             var cs = content.find("td").eq(1).text();
             var compositscore;
-            if ("Found nothing" !== cs.trim()){
-              if (cs.indexOf("(") !== -1){
-                var c1 = cs.split("(")[1];
-                if (c1.indexOf(")") !== -1){
-                  var c2 = c1.split(")")[0];
-                  compositscore = c2 + "/ 42"; 
-                }
-              }
+            if (/Found nothing/.test(cs)) {
+              compositscore = '0 / 100';
             } else {
-
-              compositscore = "0 / 42";
+              var res = /Found (.+) \((\d+)%\)/.exec(cs);
+              if (res === null) {
+                console.error('Percentage not found in:', cs);
+                compositscore = '0 / 100';
+              } else {
+                compositscore = res[2] + ' / 100';
+              }
             }
             console.log("[+] <viruscan> Score: " + compositscore);
             return _savemalware.saveMalwareToDB(linkToReport, new Date, null, compositscore, "virscan", null, null, name);

@@ -1,10 +1,11 @@
-var scraper = require('./scraper');
-var _savemalware = require('../commons/save_malw');
+var scraper = require('./../scraper');
+var _savemalware = require('../../commons/save_malw');
 var _baseLink = "https://malwr.com";
 var _base_searching_url = "https://malwr.com/analysis/?page=";
 
 var _local_cache = {};
 
+// NOTE: malwr has closed submissions.
 //URLQUERY
 exports.goScraper = function(){
 
@@ -46,6 +47,29 @@ exports.goScraper = function(){
             }
 
             var timestamp  = content.find("td").eq(0).text();
+
+            var rs = /\s*([a-z]+)\D*(\d{1,2})\D*(\d{4})\D*(\d+)(:\d+)?\s*([ap].*m)?/i.exec(timestamp);
+            if (rs !== null) {
+              try {
+                var dp = rs[2] + ' ' + rs[1] + ' ' + rs[3] + ' ' + rs[4];
+                if (rs[5] !== undefined) {
+                  dp += rs[5];
+                } else {
+                  dp += ':00';
+                }
+                if (rs[6] !== undefined) {
+                  if (rs[6][0] === 'a' || rs[6][0] === 'A')
+                    dp += ' AM UTC';
+                  else
+                    dp += ' PM UTC';
+                } else {
+                  dp += ' AM UTC';
+                }
+                timestamp = new Date(dp).toISOString();
+              } catch (e) {
+                console.error("[+] <malwr.net> Cannot parse timestamp: " + timestamp);
+              }
+            }
             console.log("[+] <malwr.net> Time Stamp found: " + timestamp);
 
             var md5 = content.find("td").eq(1).text();

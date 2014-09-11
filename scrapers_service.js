@@ -9,18 +9,18 @@ var toobusy                  = require('toobusy'); //thank you guys, you saved m
 //-----------------------------------------------------------------
 
 //Parser Imports
-var _urlquery_scraper        = require('./scrapers/queryurl_scraper');
-var _phishtank_scraper       = require('./scrapers/phishtank_scraper');
-var _webinspector_scraper    = require('./scrapers/webinspector_scraper');
-var _scumware_scraper        = require('./scrapers/scumware_scraper');
-var _malwr_scraper           = require('./scrapers/malwr_scraper');
-var _virusscan_scraper       = require('./scrapers/virusscan_scraper');
+var _urlquery_scraper        = require('./scrapers/public/queryurl_scraper');
+var _phishtank_scraper       = require('./scrapers/public/phishtank_scraper');
+var _webinspector_scraper    = require('./scrapers/public/webinspector_scraper');
+var _scumware_scraper        = require('./scrapers/public/scumware_scraper');
+var _malwr_scraper           = require('./scrapers/public/malwr_scraper');
+var _virusscan_scraper       = require('./scrapers/public/virusscan_scraper');
 var _commonGeoMalw           = require('./commons/save_malw');
-var _malware_domain_list     = require('./scrapers/malware_domain_list');
-var _malware_malc0de_scraper = require('./scrapers/malware_malc0de');
-var _malware_vxvault_scraper = require('./scrapers/malware_vxvault');
-var _malwareblacklist_scraper= require('./scrapers/malwareblacklist');
-var _autoshum_org_scraper    = require('./scrapers/autoshun.org');
+var _malware_domain_list     = require('./scrapers/public/malware_domain_list');
+var _malware_malc0de_scraper = require('./scrapers/public/malware_malc0de');
+var _malware_vxvault_scraper = require('./scrapers/public/malware_vxvault');
+var _malwareblacklist_scraper= require('./scrapers/public/malwareblacklist');
+var _autoshum_org_scraper    = require('./scrapers/public/autoshun.org');
 //-----------------------------------------------------------------
 //
 //DB Connections

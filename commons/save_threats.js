@@ -1,6 +1,16 @@
 var _threat = require('../schemas/threat');
 var threatMODEL = _threat.mongoose.model('threat', _threat.Threat); 
 
+//external
+exports.Threat = threatMODEL;
+
+exports.firstTimeRunning = function(source, callback){
+  return threatMODEL.count({scraped_source: source}, function(err, count){
+    if (count > 0) {callback(false);}
+    else {callback(true);}
+  });//count
+};//firsttimerunning
+
 exports.saveThreatToDB  = function(plinkToReport, purl, ptimestamp, pip, pcompositscore, pscraped_source, pcountry, pcity, pregion, pll, pdesc){
   return threatMODEL.find({url: purl}, function(err, t){
     if(t.length === 0 || err){
