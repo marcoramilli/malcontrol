@@ -1,7 +1,7 @@
 
 
 ## Info and questions
-If you ha e questions and/or you need more infos on the project, pelaste contatto marcoramilli.com (marcoramilli@gmail.com).
+If you ha e questions and/or you need more infos on the project, pelaste contatto marcoramilli.com (marcoramilli.blogspot.com).
 
 ## Background
 
