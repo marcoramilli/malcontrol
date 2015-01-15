@@ -2,6 +2,7 @@
 
 ## Info and questions
 If you ha e questions and/or you need more infos on the project, pelaste contatto marcoramilli.com (marcoramilli.blogspot.com).
+From 01/01/2015 the project is part of broader YORI srl Project [YOROI](http://www.yoroi.company/images/logo.svg =50x50)
 
 ## Background
 
@@ -98,7 +99,5 @@ The following video shows how malcontrol is supposed to work. Please note the fr
 ## Open API 
 Please refer to doc section for a fully documented Public API
 
-## Project Still under development 
-
-## License
-GNU GPL v3
+## The project has been "acquired" by Yoroi srl
+![YOROI](http://www.yoroi.company/images/logo.svg)
