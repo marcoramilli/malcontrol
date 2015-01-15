@@ -5,7 +5,7 @@ If you ha e questions and/or you need more infos on the project, pelaste contact
 
 
 From 01/01/2015 the project is part of broader YORI srl Project !
-<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" width="50" height="50"/>
+<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" width="50" height="50" aligh="center"/>
 
 
 ## Background
@@ -103,5 +103,5 @@ The following video shows how malcontrol is supposed to work. Please note the fr
 ## Open API 
 Please refer to doc section for a fully documented Public API
 
-## The project has been "acquired" by Yoroi srl
-<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" style="width: 20px; height: 20px;"/>
+## The project has been "acquired" by [Yoroi srl] (http://www.yoroi.company) <img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" width="50" height="50"/>
+
