@@ -4,9 +4,9 @@
 If you ha e questions and/or you need more infos on the project, pelaste contact info@yoroi.company.
 
 
-From 01/01/2015 the project is part of broader YORI srl Project !
-<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" width="50" height="50" aligh="center"/>
-
+*From 01/01/2015 the project is part of broader YORI srl Project !
+<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" width="50" height="50" aligh="center" vertical-align:"middle"/>
+*
 
 ## Background
 
