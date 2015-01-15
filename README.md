@@ -3,7 +3,8 @@
 ## Info and questions
 If you ha e questions and/or you need more infos on the project, pelaste contatto marcoramilli.com (marcoramilli.blogspot.com).
 From 01/01/2015 the project is part of broader YORI srl Project !
-[YOROI](http://www.yoroi.company/images/logo.svg =50x50)
+<img src="http://www.yoroi.company/images/logo.svg" alt="Drawing" style="width: 50px;"/>
+
 
 ## Background
 
