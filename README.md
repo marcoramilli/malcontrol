@@ -1,9 +1,11 @@
 
 
 ## Info and questions
-If you ha e questions and/or you need more infos on the project, pelaste contatto marcoramilli.com (marcoramilli.blogspot.com).
+If you ha e questions and/or you need more infos on the project, pelaste contact info@yoroi.company.
+
+
 From 01/01/2015 the project is part of broader YORI srl Project !
-<img src="http://www.yoroi.company/images/logo.svg" alt="Drawing" style="width: 50px;"/>
+<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" style="width: 20px; height: 20px;"/>
 
 
 ## Background
@@ -102,4 +104,4 @@ The following video shows how malcontrol is supposed to work. Please note the fr
 Please refer to doc section for a fully documented Public API
 
 ## The project has been "acquired" by Yoroi srl
-![YOROI](http://www.yoroi.company/images/logo.svg =100x100)
+<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" style="width: 20px; height: 20px;"/>
