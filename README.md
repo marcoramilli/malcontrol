@@ -5,7 +5,7 @@ If you ha e questions and/or you need more infos on the project, pelaste contact
 
 
 From 01/01/2015 the project is part of broader YORI srl Project !
-<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" style="width: 20px; height: 20px;"/>
+<img src="http://www.yoroi.company/images/logo.svg" alt="Yoroi" width="50" height="50"/>
 
 
 ## Background
