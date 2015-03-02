@@ -43,11 +43,11 @@ var eventEmitter = new events.EventEmitter();
 exports.GETStatesScrapedThreats = function(req, res){
   return threatMODEL.distinct("scraped_source", function(err, sources){
     if (err) {
-      req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
+      res.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in threatMODEL.count " + err);
     } 
     if (sources.length === 0){
-      req.send("{\"status\": \"warning\", \"message\": \"no sources so far\"}");
+      res.send("{\"status\": \"warning\", \"message\": \"no sources so far\"}");
       return console.log("[-] No sources so far");
     } else if (sources.length > 0 && undefined !== sources && null !== sources){
       var stats = [];
@@ -99,11 +99,11 @@ exports.GETStatesScrapedThreats = function(req, res){
 exports.GETStatesScrapedMalware = function(req, res){
   return malwareMODEL.distinct("scraped_source", function(err, sources){
     if (err) {
-      req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
+      res.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in malwareMODEL.count " + err);
     } 
     if (sources.length === 0){
-      req.send("{\"status\": \"warning\", \"message\": \"no sources so far\"}");
+      res.send("{\"status\": \"warning\", \"message\": \"no sources so far\"}");
       return console.log("[-] No sources so far");
     } else if (sources.length > 0 && undefined !== sources && null !== sources){
       var stats = [];
@@ -153,7 +153,7 @@ exports.GETNumberMalwarePerHour = function(req, res){
 
   return malwareMODEL.count({modified: {$gte: oneHbefore.format("YYYY-MM-DD HH:mm Z"), $lt: now.format("YYYY-MM-DD HH:mm Z")}}, function(err, mh){
     if (err) {
-      req.send("{\"status\": \"error\", \"message\": \"internal error\"}");
+      res.send("{\"status\": \"error\", \"message\": \"internal error\"}");
       return console.log("[-] Error in malwareMODEL.count " + err);}
     if (undefined !== mh && null !== mh){
       var curr = mh/24;
@@ -217,7 +217,7 @@ exports.GETNumberThraeatsPerHour = function(req, res){
 
   return threatMODEL.count({modified: {$gte: oneHbefore.format("YYYY-MM-DD HH:mm Z"), $lt: now.format("YYYY-MM-DD HH:mm Z")}}, function(err, th){
     if (err) {
-      req.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
+      res.send("{\"status\": \"error\", \"message\": \"Internal Error\"}");
       return console.log("[-] Error in threatMODEL.count " + err);}
     if (undefined !== th && null !== th){
       var curr = th/24;
